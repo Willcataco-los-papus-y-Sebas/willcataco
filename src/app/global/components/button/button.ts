@@ -3,11 +3,9 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-button',
   templateUrl: './button.html',
-  styleUrls: ['./button.css'],
-  standalone: false
+  styleUrls: ['./button.css']
 })
 export class ButtonComponent { 
-  @Input() label: string = 'Button';
   @Input() variant: 'primary' | 'secondary' | 'warning' = 'primary';
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
   @Input() loading: boolean = false;
