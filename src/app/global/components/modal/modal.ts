@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-modal',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css']
+  templateUrl: './modal.html',
+  styleUrls: ['./modal.css']
 })
 export class ModalComponent {
   @Input() isOpen: boolean = false;

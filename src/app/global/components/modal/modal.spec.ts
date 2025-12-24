@@ -1,23 +1,37 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ModalComponent } from './modal';
+import { vi } from 'vitest'; 
 
-import { Modal } from './modal';
-
-describe('Modal', () => {
-  let component: Modal;
-  let fixture: ComponentFixture<Modal>;
+describe('ModalComponent', () => {
+  let component: ModalComponent;
+  let fixture: ComponentFixture<ModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Modal]
+      imports: [ModalComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Modal);
+    fixture = TestBed.createComponent(ModalComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit close event when closeModal is called', () => {
+    
+    const spy = vi.spyOn(component.close, 'emit');
+    component.closeModal();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should not show the modal if isOpen is false', () => {
+    component.isOpen = false;
+    fixture.detectChanges();
+    const modalContainer = fixture.nativeElement.querySelector('.fixed');
+    expect(modalContainer).toBeNull();
   });
 });
