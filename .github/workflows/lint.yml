@@ -1,17 +1,17 @@
 name: Lint
 
-on: 
-    push:
-        branches:
-            - main
-            - dev
-    pull_request:
-        branches:
-            - main
-            - dev
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
 
 permissions:
-    contents: read
+  contents: read
 
 jobs:
   lint:
@@ -32,4 +32,3 @@ jobs:
 
       - name: Run Lint
         run: npm run lint
-

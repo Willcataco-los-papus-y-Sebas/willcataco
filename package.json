@@ -7,19 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
-  },
-  "prettier": {
-    "printWidth": 100,
-    "singleQuote": true,
-    "overrides": [
-      {
-        "files": "*.html",
-        "options": {
-          "parser": "angular"
-        }
-      }
-    ]
+    "lint": "ng lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "private": true,
   "packageManager": "npm@11.6.2",
@@ -40,6 +30,7 @@
     "@tailwindcss/postcss": "^4.1.12",
     "angular-eslint": "21.1.0",
     "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
     "jsdom": "^27.1.0",
     "postcss": "^8.5.3",
     "prettier": "^3.7.4",
