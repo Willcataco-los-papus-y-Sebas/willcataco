@@ -11,8 +11,8 @@ import { CommonModule } from '@angular/common';
 export class ButtonComponent { 
   @Input() variant: 'primary' | 'secondary' | 'warning' = 'primary';
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
-  @Input() loading: boolean = false;
-  @Input() disabled: boolean = false;
+  @Input() loading = false;
+  @Input() disabled = false;
 
   get buttonClasses(): string {
      const base = 'rounded-full font-semibold transition-colors duration-200 flex items-center justify-center focus:outline-none';
