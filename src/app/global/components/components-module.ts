@@ -4,7 +4,7 @@ import { ButtonComponent } from './button/button';
 import { ModalComponent } from './modal/modal';
 
 @NgModule({
-  declarations: [], 
+  declarations: [],
   imports: [
     CommonModule,
     ButtonComponent,
@@ -13,7 +13,6 @@ import { ModalComponent } from './modal/modal';
   exports: [
     ButtonComponent,
     ModalComponent
-    
   ]
 })
-export class ComponentsModule { }
+export class ComponentsModule {}
