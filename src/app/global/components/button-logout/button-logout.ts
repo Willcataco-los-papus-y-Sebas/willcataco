@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './button-logout.html',
   styleUrl: './button-logout.css',
 })
-export class ButtonLogout {
-
-}
+export class ButtonLogout {}
