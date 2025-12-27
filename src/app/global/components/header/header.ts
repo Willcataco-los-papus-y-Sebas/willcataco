@@ -11,6 +11,6 @@ import { ButtonLogout } from '../button-logout/button-logout';
   styleUrl: './header.css',
 })
 export class HeaderComponent {
-  @Input() for_log: boolean= false;
-  @Input() header_text: string = '';
+  @Input() for_log = false;
+  @Input() header_text = '';
 }
