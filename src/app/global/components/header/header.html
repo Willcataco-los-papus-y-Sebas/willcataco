@@ -1,18 +1,13 @@
-<header class="bg-[#581056] h-[130px] w-full fixed lg:max-w-none lg:w-full sm:w-full mx-auto" >
-    
-    <ng-container *ngIf="for_log">
-        <div class="pt-[12px] flex justify-between items-center h-full px-6">
-            <app-button-menu class="lg:hidden"></app-button-menu>
-            <div class="flex-1 text-center max-w-[250px] flex justify-center items-center lg:max-w-none">
-                <p class="text-white text-[20px] font-sans break-words lg:text-[28px]">{{header_text}}</p>
-            </div>
-            <app-button-logout></app-button-logout>
-        </div>
-    </ng-container>
-
-    <ng-container *ngIf="!for_log">
-        <svg>
-            //futuro logo
-        </svg>
-    </ng-container>
+<header class="bg-[#581056] h-[130px] w-full fixed lg:max-w-none lg:w-full sm:w-full mx-auto">
+  @if(for_log){
+  <div class="pt-[12px] flex justify-between items-center h-full px-6">
+    <app-button-menu class="lg:hidden"></app-button-menu>
+    <div class="flex-1 text-center max-w-[250px] flex justify-center items-center lg:max-w-none">
+      <p class="text-white text-[20px] font-sans break-words lg:text-[28px]">{{header_text}}</p>
+    </div>
+    <app-button-logout></app-button-logout>
+  </div>
+  }@else{
+  <svg>//futuro logo</svg>
+  }
 </header>
