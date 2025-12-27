@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './button-menu.html',
   styleUrl: './button-menu.css',
 })
-export class ButtonMenu {
-
-}
+export class ButtonMenu {}
