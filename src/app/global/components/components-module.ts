@@ -5,14 +5,7 @@ import { ModalComponent } from './modal/modal';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    ButtonComponent,
-    ModalComponent
-  ],
-  exports: [
-    ButtonComponent,
-    ModalComponent
-  ]
+  imports: [CommonModule, ButtonComponent, ModalComponent],
+  exports: [ButtonComponent, ModalComponent],
 })
 export class ComponentsModule {}

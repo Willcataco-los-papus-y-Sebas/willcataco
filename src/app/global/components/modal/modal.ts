@@ -6,14 +6,14 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './modal.html',
-  styleUrls: ['./modal.css']
+  styleUrls: ['./modal.css'],
 })
 export class ModalComponent {
-  @Input() isOpen: boolean = false;
-  @Input() title: string = '';
-  @Output() close = new EventEmitter<void>();
+  @Input() isOpen = false;
+  @Input() title = '';
+  @Output() modalClose = new EventEmitter<void>();
 
   closeModal() {
-    this.close.emit();
+    this.modalClose.emit();
   }
 }

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ModalComponent } from './modal';
-import { vi } from 'vitest'; 
+import { vi } from 'vitest';
 
 describe('ModalComponent', () => {
   let component: ModalComponent;
@@ -8,9 +8,8 @@ describe('ModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModalComponent]
-    })
-    .compileComponents();
+      imports: [ModalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ModalComponent);
     component = fixture.componentInstance;
@@ -21,9 +20,8 @@ describe('ModalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit close event when closeModal is called', () => {
-    
-    const spy = vi.spyOn(component.close, 'emit');
+  it('should emit closed event when closeModal is called', () => {
+    const spy = vi.spyOn(component.modalClose, 'emit');
     component.closeModal();
     expect(spy).toHaveBeenCalled();
   });
