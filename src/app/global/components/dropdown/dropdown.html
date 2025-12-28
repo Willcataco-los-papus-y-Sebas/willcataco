@@ -1,1 +1,11 @@
-<p>dropdown works!</p>
+<div class="dropdown">
+  <header class="dropdown-header" (click)="toggle()">
+    <h1>{{drop_title}}</h1>
+    <span>icon</span>
+  </header>
+  
+  @if(is_active) {
+    <div class="dropdown-body">
+    </div>
+  }
+</div>
