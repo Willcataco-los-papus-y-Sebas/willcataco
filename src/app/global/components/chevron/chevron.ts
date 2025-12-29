@@ -8,5 +8,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './chevron.css',
 })
 export class Chevron {
-  @Input() is_up: boolean = true;
+  @Input() isUp: boolean = true;
 }
