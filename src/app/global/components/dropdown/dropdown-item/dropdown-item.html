@@ -1,15 +1,13 @@
 <div class="relative flex items-center w-full py-[16px] px-[12px]">
-  
   @if (isSelected && !isDisabled) {
-    <div class="absolute left-0 top-0 h-full w-[8px] bg-[#581056]"></div>
+  <div class="absolute left-0 top-0 h-full w-[8px] bg-[#581056]"></div>
   }
 
-  <span 
+  <span
     class="text-[16px] leading-tight"
     [class.text-[#C62828]]="isDisabled"
     [class.text-[#581056]]="isSelected && !isDisabled"
-    [class.text-black]="!isSelected && !isDisabled"
-  >
+    [class.text-black]="!isSelected && !isDisabled">
     {{label}}
   </span>
 </div>

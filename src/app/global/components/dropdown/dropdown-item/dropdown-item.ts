@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './dropdown-item.html',
 })
 export class DropdownItem {
-  @Input() label: string = 'Opcion';
-  @Input() isSelected: boolean = false;
-  @Input() isDisabled: boolean = false;
+  @Input() label = 'Opcion';
+  @Input() isSelected = false;
+  @Input() isDisabled = false;
 }

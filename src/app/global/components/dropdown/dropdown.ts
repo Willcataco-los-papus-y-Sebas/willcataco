@@ -5,19 +5,19 @@ import { DropdownItem } from './dropdown-item/dropdown-item';
 
 @Component({
   selector: 'app-dropdown',
-  standalone : true,
+  standalone: true,
   imports: [CommonModule, Chevron, DropdownItem],
   templateUrl: './dropdown.html',
   styleUrl: './dropdown.css',
 })
 export class Dropdown {
-  @Input() isActive: boolean = false;
-  @Input() dropTitle: string = "Titulo";
+  @Input() isActive = false;
+  @Input() dropTitle = 'Titulo';
   @Input() items: DropdownItem[] = [];
-  
+
   selectedIndex: number | null = null;
 
-  toggle(){
+  toggle() {
     this.isActive = !this.isActive;
   }
 

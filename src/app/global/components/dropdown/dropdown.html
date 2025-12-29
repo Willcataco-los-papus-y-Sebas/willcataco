@@ -1,24 +1,32 @@
 <div class="dropdown">
   @if(isActive) {
 
-  <header class="flex justify-between items-center bg-[#370936] text-white p-3 rounded-t-xl" 
-  (click)="toggle()">
+  <header
+    class="flex justify-between items-center bg-[#370936] text-white p-3 rounded-t-xl cursor-pointer"
+    role="button"
+    tabindex="0"
+    (click)="toggle()"
+    (keydown.enter)="toggle()">
     <h1>{{dropTitle}}</h1>
     <app-chevron [isUp]="isActive"></app-chevron>
   </header>
+
   <div class="bg-white border-x border-b border-[#370936] rounded-b-xl overflow-hidden shadow-lg">
-      @for (item of items; track $index; let i = $index) {
-        <app-dropdown-item 
-          [label]="item.label"
-          [isSelected]="i === selectedIndex" 
-          [isDisabled]="item.isDisabled"
-          (click)="selectItem(i, item)">
-        </app-dropdown-item>
-      }
-    </div>
-  }@else {
-  <header class="flex justify-between items-center bg-[#581056] text-white p-3 rounded-t-xl" 
-  (click)="toggle()">
+    @for (item of items; track $index; let i = $index) {
+    <app-dropdown-item
+      [label]="item.label"
+      [isSelected]="i === selectedIndex"
+      [isDisabled]="item.isDisabled"
+      (click)="selectItem(i, item)"></app-dropdown-item>
+    }
+  </div>
+  } @else {
+  <header
+    class="flex justify-between items-center bg-[#581056] text-white p-3 rounded-t-xl cursor-pointer"
+    role="button"
+    tabindex="0"
+    (click)="toggle()"
+    (keydown.enter)="toggle()">
     <h1>{{dropTitle}}</h1>
     <app-chevron [isUp]="isActive"></app-chevron>
   </header>
