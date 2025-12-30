@@ -1,16 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonMenu } from '../button-menu/button-menu';
-import { ButtonLogout } from '../button-logout/button-logout';
+import { ButtonHeader } from '../button-header/button-header';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, ButtonMenu, ButtonLogout],
+  imports: [CommonModule, ButtonHeader],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class HeaderComponent {
-  @Input() for_log = false;
+  @Input() is_logo = true;
   @Input() header_text = '';
+  @Input() buttons_on = true;
+  @Input() size: 'normal' | 'big' = 'normal';
 }
