@@ -7,7 +7,7 @@ import { HeaderComponent } from './header/header';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, ButtonComponent, ModalComponent, DropdownComponent],
-  exports: [ButtonComponent, ModalComponent, DropdownComponent],
+  imports: [CommonModule, ButtonComponent, ModalComponent, DropdownComponent, HeaderComponent],
+  exports: [ButtonComponent, ModalComponent, DropdownComponent, HeaderComponent],
 })
 export class ComponentsModule {}
