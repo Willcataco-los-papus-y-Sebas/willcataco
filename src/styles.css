@@ -1,3 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+@config "../tailwind.config.js"; /* 👈 Esto le dice a Tailwind dónde están tus colores */
+
+@layer base {
+  html {
+    /* Aplicamos la fuente del config */
+    font-family: 'Roboto', sans-serif;
+
+    /* Usamos clases que siempre existen para evitar el error 'unknown utility' */
+    /* El modo oscuro y claro se heredarán de aquí */
+    @apply bg-white text-black dark:bg-black dark:text-white;
+  }
+}
