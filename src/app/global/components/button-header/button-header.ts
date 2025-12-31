@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './button-header.css',
 })
 export class ButtonHeader {
-  @Input() icon: 'menu' | 'log_out' = 'menu';
+  @Input() icon = "menu";
 }
