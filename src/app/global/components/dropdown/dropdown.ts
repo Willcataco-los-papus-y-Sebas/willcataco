@@ -1,15 +1,19 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DropdownItem } from './dropdown-item/dropdown-item';
+
+export interface DropdownItem {
+  label: string;
+  isDisabled?: boolean;
+}
 
 @Component({
   selector: 'app-dropdown',
   standalone: true,
-  imports: [CommonModule, DropdownItem],
+  imports: [CommonModule],
   templateUrl: './dropdown.html',
   styleUrl: './dropdown.css',
 })
-export class Dropdown {
+export class DropdownComponent {
   @Input() isActive = false;
   @Input() dropTitle = 'Titulo';
   @Input() items: DropdownItem[] = [];
@@ -26,5 +30,9 @@ export class Dropdown {
       this.dropTitle = item.label;
       this.isActive = false;
     }
+  }
+
+  isItemSelected(index: number) {
+    return index === this.selectedIndex;
   }
 }
