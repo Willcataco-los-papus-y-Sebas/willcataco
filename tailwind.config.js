@@ -1,63 +1,32 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  // Dark mode controlado por clase (system lo maneja Angular)
-  darkMode: 'class',
-
-  // Archivos donde Tailwind buscará clases
+module.exports = {
+  // 1. Modo oscuro por defecto del sistema
+  darkMode: 'media', 
   content: [
-    './src/**/*.{html,ts,css}',
+    "./src/**/*.{html,ts}",
   ],
-
   theme: {
     extend: {
-      /*
-       * 🎨 COLORS — Design Tokens
-       * Semánticos, mobile-first, dark mode compatible
-       */
+      // 2. Paleta de colores única
       colors: {
-        primary: '#581056',
-        'primary-dark': '#370936',
-
-        background: {
-          DEFAULT: '#FFFFFF',
-          dark: '#0F0F0F',
+        primary: {
+          DEFAULT: '#581056',
+          dark: '#370936',
         },
-
-        foreground: {
-          DEFAULT: '#000000',
-          dark: '#FFFFFF',
-        },
-
-        muted: {
-          DEFAULT: '#6B7280',
-          dark: '#9CA3AF',
-        },
-
-        border: {
-          DEFAULT: '#E5E7EB',
-          dark: '#374151',
-        },
+        secondary: '#000000',
+        background: '#FFFFFF',
       },
-
-      /*
-       * 🔤 TYPOGRAPHY
-       * Mobile-first
-       */
+      // 3. Tipografía única
       fontFamily: {
-        sans: ['Roboto', 'system-ui', 'sans-serif'],
+        sans: ['Roboto', 'sans-serif'],
       },
-
-      /*
-       * 🔲 BORDERS
-       * Mobile friendly
-       */
-      borderRadius: {
-        md: '0.375rem',
-        lg: '0.5rem',
-        xl: '0.75rem',
+      // 4. Tamaños de texto únicos
+      fontSize: {
+        'title': ['20px', { lineHeight: '28px', fontWeight: '700' }],
+        'subtitle': ['18px', { lineHeight: '24px', fontWeight: '500' }],
+        'body': ['14px', { lineHeight: '20px', fontWeight: '400' }],
       },
     },
   },
-
   plugins: [],
-};
+}
