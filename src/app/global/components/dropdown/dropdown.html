@@ -8,7 +8,12 @@
     (click)="toggle()"
     (keydown.enter)="toggle()">
     <h1>{{dropTitle}}</h1>
-    <app-chevron [isUp]="isActive"></app-chevron>
+    <svg class="h-[32px] w-[32px] lg:hidden" viewBox="0 0 16 16" fill="currentColor">
+      <path
+        fill-rule="evenodd"
+        d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z" />
+      
+    </svg>
   </header>
 
   <div class="bg-white border-x border-b border-[#370936] rounded-b-xl overflow-hidden shadow-lg">
@@ -28,7 +33,10 @@
     (click)="toggle()"
     (keydown.enter)="toggle()">
     <h1>{{dropTitle}}</h1>
-    <app-chevron [isUp]="isActive"></app-chevron>
+  <svg class="h-[32px] w-[32px] lg:hidden" viewBox="0 0 16 16" fill="currentColor"><path
+        fill-rule="evenodd"
+        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+      </svg> 
   </header>
   }
 </div>
