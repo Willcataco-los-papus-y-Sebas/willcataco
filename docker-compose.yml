@@ -1,6 +1,9 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      args:
+        NG_ENV: ${NG_ENV}
     ports:
       - '8080:80'
     container_name: willcataco-app
