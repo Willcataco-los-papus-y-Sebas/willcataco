@@ -1,0 +1,54 @@
+<div class="dropdown">
+  @if(isActive) {
+  <header
+    class="flex justify-between items-center bg-[#370936] text-white p-3 rounded-t-xl cursor-pointer"
+    role="button"
+    tabindex="0"
+    (click)="toggle()"
+    (keydown.enter)="toggle()">
+    <h1>{{dropTitle}}</h1>
+    <svg class="h-[32px] w-[32px] lg:hidden" viewBox="0 0 16 16" fill="currentColor">
+      <path
+        fill-rule="evenodd"
+        d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z" />
+    </svg>
+  </header>
+
+  <div class="bg-white border-x border-b border-[#370936] rounded-b-xl overflow-hidden shadow-lg">
+    @for (item of items; track $index; let i = $index) {
+    <div
+      class="relative flex items-center w-full py-[16px] px-[12px] cursor-pointer"
+      [class.cursor-not-allowed]="item.isDisabled"
+      (click)="selectItem(i, item)"
+      tabindex="0"
+      (keydown.enter)="!item.isDisabled && selectItem(i, item)">
+      @if (isItemSelected(i) && !item.isDisabled) {
+      <div class="absolute left-0 top-0 h-full w-[8px] bg-[#581056]"></div>
+      }
+
+      <span
+        class="text-[16px] leading-tight"
+        [class.text-[#C62828]]="item.isDisabled"
+        [class.text-[#581056]]="isItemSelected(i) && !item.isDisabled"
+        [class.text-black]="!isItemSelected(i) && !item.isDisabled">
+        {{item.label}}
+      </span>
+    </div>
+    }
+  </div>
+  } @else {
+  <header
+    class="flex justify-between items-center bg-[#581056] text-white p-3 rounded-t-xl cursor-pointer"
+    role="button"
+    tabindex="0"
+    (click)="toggle()"
+    (keydown.enter)="toggle()">
+    <h1>{{dropTitle}}</h1>
+    <svg class="h-[32px] w-[32px] lg:hidden" viewBox="0 0 16 16" fill="currentColor">
+      <path
+        fill-rule="evenodd"
+        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+    </svg>
+  </header>
+  }
+</div>
