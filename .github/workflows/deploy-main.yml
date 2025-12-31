@@ -24,7 +24,9 @@ jobs:
         run: |
           IMAGE=ghcr.io/willcataco-los-papus-y-sebas/willcataco:prod-${{ github.sha }}
           echo "Building $IMAGE"
-          docker build -t $IMAGE .
+          docker build \
+            --build-arg NG_ENV=production \
+            -t $IMAGE .
           docker push $IMAGE
 
       - name: Notify ArgoCD (PROD)
