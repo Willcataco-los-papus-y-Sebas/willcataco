@@ -8,7 +8,20 @@ import { DirectAccessComponent } from './direct-access/direct-access';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, ButtonComponent, ModalComponent, DropdownComponent, HeaderComponent, DirectAccessComponent],
-  exports: [ButtonComponent, ModalComponent, DropdownComponent, HeaderComponent, DirectAccessComponent],
+  imports: [
+    CommonModule,
+    ButtonComponent,
+    ModalComponent,
+    DropdownComponent,
+    HeaderComponent,
+    DirectAccessComponent,
+  ],
+  exports: [
+    ButtonComponent,
+    ModalComponent,
+    DropdownComponent,
+    HeaderComponent,
+    DirectAccessComponent,
+  ],
 })
 export class ComponentsModule {}
