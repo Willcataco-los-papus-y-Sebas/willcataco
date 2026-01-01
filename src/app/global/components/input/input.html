@@ -1,17 +1,21 @@
 <div class="flex flex-col w-full gap-2 mb-4">
-    @if(label){
-    <label 
-      [for]="id" 
-      class="text-primary-dark font-sans font-bold text-subtitle ml-2">
-      {{ label }}
-    </label>
-    }
+  @if(label){
+  <label 
+    [for]="id" 
+    class="text-primary-dark font-sans font-bold text-subtitle ml-2"
+    [class.opacity-50]="isDisabled">
+    {{ label }}
+  </label>
+  }
   
-    <input
-      [id]="id"
-      [type]="type"
-      [placeholder]="placeholder"
-      [value]="value"
-      class="w-full h-[50px] px-4 border-2 border-primary rounded-xl text-primary-dark placeholder-primary/50 font-sans text-body focus:outline-none focus:bg-primary/5 transition-colors" 
-    />
-  </div>
+  <input
+    [id]="id"
+    [type]="type"
+    [placeholder]="placeholder"
+    [value]="value" 
+    (input)="onInput($event)"
+    (blur)="onTouch()"
+    [disabled]="isDisabled"
+    class="w-full h-[50px] px-4 border-2 border-primary rounded-xl text-primary-dark placeholder-primary/50 font-sans text-body focus:outline-none focus:bg-primary/5 transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60" 
+  />
+</div>
