@@ -1,1 +1,12 @@
-<p>input works!</p>
+<div class="input-group">
+    <label [for]="id" class="label-text" *ngIf="label">
+      {{ label }}
+    </label>
+    
+    <input 
+      [id]="id" 
+      [type]="type" 
+      [placeholder]="placeholder" 
+      class="form-control"
+    >
+  </div>
