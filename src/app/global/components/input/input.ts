@@ -11,9 +11,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => InputComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class InputComponent implements ControlValueAccessor {
   @Input() label = '';
@@ -21,21 +21,21 @@ export class InputComponent implements ControlValueAccessor {
   @Input() placeholder = '';
   @Input() id = 'input-' + Math.random().toString(36).substring(2);
 
-  value: string = '';
-  isDisabled: boolean = false;
+  value = '';
+  isDisabled = false;
 
-  onChange = (_: any) => {};
-  onTouch = () => {};
+  private onChange?: (value: string) => void;
+  private onTouch?: () => void;
 
-  writeValue(value: any): void {
-    this.value = value || '';
+  writeValue(value: unknown): void {
+    this.value = (value as string) || '';
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouch = fn;
   }
 
@@ -45,8 +45,8 @@ export class InputComponent implements ControlValueAccessor {
 
   onInput(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-    this.value = inputElement.value;    
-    this.onChange(this.value);
-    this.onTouch();
+    this.value = inputElement.value;
+    this.onChange?.(this.value);
+    this.onTouch?.();
   }
 }
