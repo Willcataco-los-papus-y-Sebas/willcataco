@@ -1,17 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule], 
   templateUrl: './input.html',
-  styleUrls: ['./input.css']
 })
 export class InputComponent {
-  @Input() label: string = 'Etiqueta';
+  @Input() label: string = '';
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
-  
   @Input() id: string = 'input-' + Math.random().toString(36).substring(2);
+  @Input() value: string = ''; 
 }
