@@ -5,13 +5,13 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [CommonModule, FormsModule], 
+  imports: [CommonModule, FormsModule],
   templateUrl: './input.html',
 })
 export class InputComponent {
-  @Input() label: string = '';
-  @Input() type: string = 'text';
-  @Input() placeholder: string = '';
+  @Input() label = '';
+  @Input() type = 'text';
+  @Input() placeholder = '';
   @Input() id: string = 'input-' + Math.random().toString(36).substring(2);
-  @Input() value: string = ''; 
+  @Input() value = '';
 }
