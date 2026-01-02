@@ -8,7 +8,14 @@ import { ToastComponent } from './toast/toast';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, ButtonComponent, ModalComponent, DropdownComponent, HeaderComponent, ToastComponent],
+  imports: [
+    CommonModule,
+    ButtonComponent,
+    ModalComponent,
+    DropdownComponent,
+    HeaderComponent,
+    ToastComponent,
+  ],
   exports: [ButtonComponent, ModalComponent, DropdownComponent, HeaderComponent, ToastComponent],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}

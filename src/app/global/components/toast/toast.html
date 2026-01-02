@@ -1,21 +1,32 @@
 <div class="fixed top-4 left-4 right-4 z-[9999] flex flex-col gap-2 pointer-events-none">
-    @for (toast of toastService.toasts(); track toast.id) {
-    <div class="pointer-events-auto w-full rounded-lg border p-4 shadow-lg transition-all duration-300 animate-in slide-in-from-top-2 fade-in md:w-96 md:mx-auto"
-        [ngClass]="getToastClasses(toast.type)">
-        <div class="flex items-start justify-between">
-            <div class="flex flex-col gap-1">
-                @if (toast.title) {
-                <h3 class="text-sm font-semibold">{{ toast.title }}</h3>
-                }
-                <p class="text-sm font-medium">{{ toast.message }}</p>
-            </div>
-            <button (click)="toastService.remove(toast.id)" class="ml-4 shrink-0 opacity-70 hover:opacity-100">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
+  @for (toast of toastService.toasts(); track toast.id) {
+  <div
+    class="pointer-events-auto w-full rounded-lg border p-4 shadow-lg transition-all duration-300 animate-in slide-in-from-top-2 fade-in md:w-96 md:mx-auto"
+    [ngClass]="getToastClasses(toast.type)">
+    <div class="flex items-start justify-between">
+      <div class="flex flex-col gap-1">
+        @if (toast.title) {
+        <h3 class="text-sm font-semibold">{{ toast.title }}</h3>
+        }
+        <p class="text-sm font-medium">{{ toast.message }}</p>
+      </div>
+      <button
+        (click)="toastService.remove(toast.id)"
+        class="ml-4 shrink-0 opacity-70 hover:opacity-100">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
     </div>
-    }
+  </div>
+  }
 </div>
