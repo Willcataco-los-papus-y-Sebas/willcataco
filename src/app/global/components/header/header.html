@@ -17,12 +17,12 @@
         src="assets/{{logo}}.svg"
         class="h-[80px] w-[80px] h-max-[120px] w-max-[110]" />
       <div class="flex-1 text-center max-w-[200px] flex justify-center items-start lg:max-w-none">
-        <p class="text-background text-[15px] font-sans break-words lg:text-[28px]">{{header_text}}</p>
+        <p class="text-background text-subtitle font-sans break-words lg:text-[28px]">{{header_text}}</p>
       </div>
     </div>
     }@else{
     <div class="flex-1 text-center max-w-[200px] flex justify-center lg:max-w-none">
-      <p class="text-background text-[17px] font-sans break-words lg:text-[20px]">{{header_text}}</p>
+      <p class="text-background text-title font-sans break-words lg:text-[20px]">{{header_text}}</p>
     </div>
     } @if(buttons_on){
     <app-button-header icon="logout"></app-button-header>
