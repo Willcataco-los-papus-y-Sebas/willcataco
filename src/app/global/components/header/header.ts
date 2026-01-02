@@ -16,5 +16,5 @@ export class HeaderComponent {
   @Input() size: 'normal' | 'big' = 'normal';
   @Input() logo = 'droplet-fill';
   @Input() has_design = true;
-  @Input() design = 'header'
+  @Input() design = 'header';
 }
