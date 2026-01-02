@@ -16,7 +16,7 @@ export interface Toast {
 export class ToastService {
     readonly toasts = signal<Toast[]>([]);
 
-    show(type: ToastType, message: string, title?: string, duration: number = 3000): void {
+    show(type: ToastType, message: string, title?: string, duration = 3000): void {
         const id = crypto.randomUUID();
         const newToast: Toast = { id, type, message, title, duration };
 
