@@ -1,9 +1,9 @@
 <header
-  class="bg-primary w-full fixed lg:max-w-none lg:w-full sm:w-full relative"
+  class="bg-primary dark:bg-primary-dark w-full fixed lg:max-w-none"
   [ngClass]="{
             'h-[130px]': size === 'normal',
-            'h-[265px]': size === 'big' && !has_design,
-            'h-[210px]': size === 'big' && has_design,
+            'h-[225px]': size === 'big' && !has_design,
+            'h-[190px]': size === 'big' && has_design,
         }">
   <div class="pt-[55px] flex justify-between items-start px-6 ml-2 relative">
     @if(buttons_on){
@@ -34,6 +34,7 @@
   </div>
   @if(has_design) {
   <!--Para usar cualquier svg, agrega preserveAspectRatio="none" en tu archiv.svg, dentro de la etiqueta <svg> uwu-->
-  <img alt="image" src="assets/{{design}}.svg" class="w-full h-[80px] sm:h-[100px] lg:h-[120px]" />
+  <img alt="image" src="assets/{{design}}.svg" class="w-full h-[80px] sm:h-[100px] lg:h-[120px] dark:hidden" />
+  <img alt="image" src="assets/{{dark_design}}.svg" class="w-full h-[80px] sm:h-[100px] lg:h-[120px] dark:block" />
   }
 </header>

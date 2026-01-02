@@ -17,4 +17,5 @@ export class HeaderComponent {
   @Input() logo = 'droplet-fill';
   @Input() has_design = true;
   @Input() design = 'header';
+  @Input() dark_design = 'header-dark'
 }
