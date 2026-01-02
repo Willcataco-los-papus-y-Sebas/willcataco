@@ -18,6 +18,13 @@ import { InputComponent } from './input/input';
     ToastComponent,
     InputComponent,
   ],
-  exports: [ButtonComponent, ModalComponent, DropdownComponent, HeaderComponent, ToastComponent, InputComponent],
+  exports: [
+    ButtonComponent,
+    ModalComponent,
+    DropdownComponent,
+    HeaderComponent,
+    ToastComponent,
+    InputComponent,
+  ],
 })
 export class ComponentsModule {}
