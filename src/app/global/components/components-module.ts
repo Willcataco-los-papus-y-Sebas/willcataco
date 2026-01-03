@@ -16,8 +16,15 @@ import { InputComponent } from './input/input';
     DropdownComponent,
     HeaderComponent,
     InputComponent,
-    DirectAccessComponent
+    DirectAccessComponent,
   ],
-  exports: [ButtonComponent, ModalComponent, DropdownComponent, HeaderComponent, InputComponent, DirectAccessComponent],
+  exports: [
+    ButtonComponent,
+    ModalComponent,
+    DropdownComponent,
+    HeaderComponent,
+    InputComponent,
+    DirectAccessComponent,
+  ],
 })
 export class ComponentsModule {}
