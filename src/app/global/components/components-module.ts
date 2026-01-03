@@ -4,6 +4,7 @@ import { ButtonComponent } from './button/button';
 import { ModalComponent } from './modal/modal';
 import { DropdownComponent } from './dropdown/dropdown';
 import { HeaderComponent } from './header/header';
+import { DirectAccessComponent } from './direct-access/direct-access';
 import { InputComponent } from './input/input';
 
 @NgModule({
@@ -15,7 +16,15 @@ import { InputComponent } from './input/input';
     DropdownComponent,
     HeaderComponent,
     InputComponent,
+    DirectAccessComponent,
   ],
-  exports: [ButtonComponent, ModalComponent, DropdownComponent, HeaderComponent, InputComponent],
+  exports: [
+    ButtonComponent,
+    ModalComponent,
+    DropdownComponent,
+    HeaderComponent,
+    InputComponent,
+    DirectAccessComponent,
+  ],
 })
 export class ComponentsModule {}
