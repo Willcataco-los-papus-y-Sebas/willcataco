@@ -2,18 +2,19 @@
   id="navigaton-component"
   [routerLink]="route"
   class="rounded-[7px] h-[140px] w-[175px] pt-5 flex flex-col justify-between">
-  <div class="border-t border-l border-r border-secondary rounded-t-[7px] flex-1">
+  <div
+    class="border-t border-l border-r border-secondary dark:border-background dark:bg-background rounded-t-[7px] flex-1">
     <div id="content" class="items-center gap-4 flex ml-4 mr-4 pt-5">
       <div id="report-text" class="max-w-[100px]">
-        <p class="break-words text-center text-body text-primary">{{report_text}}</p>
+        <p class="break-words text-center text-subtitle text-primary">{{report_text}}</p>
       </div>
       <img alt="report_icon" src="assets/{{icon}}.svg" class="h-[30px] w-[30px]" />
     </div>
   </div>
   <div
     id="access_text"
-    class="border border-primary dark:border-primary-dark w-full h-[25px] rounded-b-[7px]">
-    <p class="text-center text-body text-primary dark:text-primary-dark mt-0.5 block">
+    class="border border-primary w-full h-[25px] rounded-b-[7px] dark:bg-primary-dark">
+    <p class="text-center text-body text-primary dark:text-background mt-0.5 block">
       {{access_text}}
     </p>
   </div>
