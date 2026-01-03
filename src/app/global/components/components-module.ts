@@ -4,7 +4,11 @@ import { ButtonComponent } from './button/button';
 import { ModalComponent } from './modal/modal';
 import { DropdownComponent } from './dropdown/dropdown';
 import { HeaderComponent } from './header/header';
+<<<<<<< HEAD
 import { DirectAccessComponent } from './direct-access/direct-access';
+=======
+import { InputComponent } from './input/input';
+>>>>>>> origin/dev
 
 @NgModule({
   declarations: [],
@@ -14,6 +18,7 @@ import { DirectAccessComponent } from './direct-access/direct-access';
     ModalComponent,
     DropdownComponent,
     HeaderComponent,
+<<<<<<< HEAD
     DirectAccessComponent,
   ],
   exports: [
@@ -23,5 +28,10 @@ import { DirectAccessComponent } from './direct-access/direct-access';
     HeaderComponent,
     DirectAccessComponent,
   ],
+=======
+    InputComponent,
+  ],
+  exports: [ButtonComponent, ModalComponent, DropdownComponent, HeaderComponent, InputComponent],
+>>>>>>> origin/dev
 })
 export class ComponentsModule {}
