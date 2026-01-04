@@ -1,0 +1,27 @@
+<div
+    class="w-full bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-transparent dark:border-gray-700 flex justify-between items-start transition-colors duration-200">
+    <div class="flex flex-col gap-1">
+        <h3 class="font-sans font-bold text-title text-black dark:text-gray-100">
+            {{ fullName }}
+        </h3>
+        <p class="font-sans text-body text-gray-600 dark:text-gray-400">
+            {{ member.phone }}
+        </p>
+        <p class="font-sans text-body text-gray-500 text-xs dark:text-gray-500">
+            CI: {{ member.ci }}
+        </p>
+    </div>
+
+    @if (showActions) {
+    <button (click)="onActionClick($event)"
+        class="p-2 -mr-2 text-primary hover:bg-primary/5 rounded-full transition-colors dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        aria-label="Opciones">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"></circle>
+            <circle cx="12" cy="5" r="1"></circle>
+            <circle cx="12" cy="19" r="1"></circle>
+        </svg>
+    </button>
+    }
+</div>
