@@ -6,7 +6,6 @@ import { DropdownComponent } from './dropdown/dropdown';
 import { HeaderComponent } from './header/header';
 import { DirectAccessComponent } from './direct-access/direct-access';
 import { InputComponent } from './input/input';
-import { MemberCardComponent } from './member-card/member-card';
 import { KebabComponent } from './kebab/kebab';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { KebabComponent } from './kebab/kebab';
     HeaderComponent,
     InputComponent,
     DirectAccessComponent,
-    MemberCardComponent,
     KebabComponent,
   ],
   exports: [
@@ -32,4 +30,4 @@ import { KebabComponent } from './kebab/kebab';
     KebabComponent,
   ],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}

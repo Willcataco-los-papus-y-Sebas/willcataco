@@ -7,9 +7,8 @@ describe('KebabComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [KebabComponent]
-        })
-            .compileComponents();
+            imports: [KebabComponent],
+        }).compileComponents();
 
         fixture = TestBed.createComponent(KebabComponent);
         component = fixture.componentInstance;
@@ -22,8 +21,8 @@ describe('KebabComponent', () => {
 
     it('should toggle menu', () => {
         component.toggleMenu(new Event('click'));
-        expect(component.isOpen).toBeTrue();
+        expect(component.isOpen).toBe(true);
         component.toggleMenu(new Event('click'));
-        expect(component.isOpen).toBeFalse();
+        expect(component.isOpen).toBe(false);
     });
 });
