@@ -30,4 +30,4 @@ import { MemberCardComponent } from './member-card/member-card';
     MemberCardComponent,
   ],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}
