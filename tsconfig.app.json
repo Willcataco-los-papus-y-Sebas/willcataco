@@ -8,7 +8,7 @@
     "paths": {
       "@envs/*": ["src/environments/*"],
       "@models/*": ["src/app/shared/models/*"],
-      "@services/*": ["src/app/shared/services/*"],
+      "@services/*": ["src/app/core/services/*"],
       "@components/*": ["src/app/shared/components/*"],
       "@enums/*": ["src/app/shared/enums/*"]
     }
