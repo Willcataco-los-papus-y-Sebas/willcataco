@@ -6,7 +6,11 @@
     "outDir": "./out-tsc/app",
     "types": [],
     "paths": {
-      "@envs/*": ["src/environments/*"]
+      "@envs/*": ["src/environments/*"],
+      "@models/*": ["src/app/shared/models/*"],
+      "@services/*": ["src/app/shared/services/*"],
+      "@components/*": ["src/app/shared/components/*"],
+      "@enums/*": ["src/app/shared/enums/*"]
     }
   },
   "include": ["src/**/*.ts"],
