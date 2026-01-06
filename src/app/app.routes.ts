@@ -39,7 +39,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    canActivate: [authGuard],
+    //canActivate: [authGuard],
     component: Dashboard,
     children: [
       {

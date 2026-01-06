@@ -1,43 +1,13 @@
-<app-header
-  header_text="Socios de Willcataco"
-  [is_logo]="false"
-  [buttons_on]="true"
-  logo="droplet-fill"></app-header>
+<app-header header_text="Socios de Willcataco" [is_logo]="false" [buttons_on]="true" logo="droplet-fill"></app-header>
 
 <div class="p-4 mx-auto max-w-2xl pb-24">
-  <div
-    class="bg-white dark:bg-gray-800 rounded-2xl p-6 mb-6 shadow-sm border border-gray-100 dark:border-gray-700">
-    <div class="flex items-center justify-between">
-      <div>
-        <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Socios Ingresados</h3>
-        <p class="text-4xl font-bold text-gray-900 dark:text-white mt-1">{{ members().length }}</p>
-      </div>
-      <div class="flex items-center text-gray-400">
-        <span class="text-xs mr-2">Mes, 0000</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor">
-          <path
-            fill-rule="evenodd"
-            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-            clip-rule="evenodd" />
-        </svg>
-      </div>
-    </div>
-  </div>
+
 
   <div class="flex justify-center mb-6">
     <app-button variant="primary" size="md">
       <div class="flex items-center gap-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor">
-          <path
-            fill-rule="evenodd"
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
             d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
             clip-rule="evenodd" />
         </svg>
@@ -47,10 +17,7 @@
   </div>
 
   <div class="relative mb-6">
-    <app-input
-      label=""
-      placeholder="Buscar..."
-      [ngModel]="searchQuery()"
+    <app-input label="" placeholder="Buscar..." [ngModel]="searchQuery()"
       (ngModelChange)="searchQuery.set($event)"></app-input>
   </div>
 
@@ -59,10 +26,7 @@
   <div class="flex flex-col gap-4">
     @for (member of members(); track member.id) {
     <app-member-card [member]="member" (click)="onCardClick(member)" class="cursor-pointer">
-      <app-kebab
-        card-action
-        [options]="kebabOptions"
-        (optionSelected)="onKebabAction($event, member)"></app-kebab>
+      <app-kebab card-action [options]="kebabOptions" (optionSelected)="onKebabAction($event, member)"></app-kebab>
     </app-member-card>
     } @empty {
     <div class="text-center py-10 text-gray-500">No hay socios registrados.</div>

@@ -35,7 +35,7 @@ export class Members implements OnInit {
   isModalOpen = signal(false);
   searchQuery = signal('');
 
-  currentYear = new Date().getFullYear();
+
 
   kebabOptions: KebabOption[] = [
     { label: 'Ver Detalle', action: 'detail' },
