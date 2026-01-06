@@ -1,0 +1,39 @@
+<div class="px-6 py-8 md:px-12 md:py-16 max-w-4xl mx-auto flex flex-col gap-12">
+  <section class="flex flex-col gap-6 w-full max-w-md mx-auto">
+    <h2 class="text-2xl font-bold text-secondary">Ingreso de Socios</h2>
+
+    <form (ngSubmit)="onLogin()" class="flex flex-col gap-4">
+      <app-input
+        name="username"
+        label="Usuario"
+        placeholder="Ingresa tu usuario"
+        [ngModel]="username()"
+        (ngModelChange)="username.set($event)"></app-input>
+
+      <app-input
+        name="password"
+        label="contraseña"
+        type="password"
+        placeholder="Ingresa tu contraseña"
+        [ngModel]="password()"
+        (ngModelChange)="password.set($event)"></app-input>
+
+      <div class="flex flex-col items-center gap-4 mt-2">
+        <app-button variant="primary" size="lg" class="md:w-auto">Ingresar</app-button>
+
+        <p class="text-sm text-secondary">
+          ¿Olvidaste tu contraseña?
+          <a href="#" class="text-primary font-semibold hover:text-primary-dark">Recuperar</a>
+        </p>
+      </div>
+    </form>
+  </section>
+
+  <section class="flex flex-col gap-6">
+    <h2 class="text-2xl font-bold text-secondary">Sobre Nosotros</h2>
+
+    <app-info-section title="Mision" [content]="missionText"></app-info-section>
+
+    <app-info-section title="Vision" [content]="visionText"></app-info-section>
+  </section>
+</div>
