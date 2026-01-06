@@ -59,18 +59,12 @@
     </div>
 
     <div class="space-y-2 text-sm mb-6">
-      <div>
-        <span class="font-bold">Ubicacion:</span>
-        Calle Angosta y Redonda
-      </div>
+
       <div>
         <span class="font-bold">Correo:</span>
         {{ m.email }}
       </div>
-      <div class="flex items-center gap-2">
-        <span class="font-bold">Estado de Pago del mes:</span>
-        <span class="bg-green-600 text-white text-xs px-2 py-0.5 rounded-full">Pagado</span>
-      </div>
+
       <div>
         <span class="font-bold">Fecha Ingreso:</span>
         {{ m.created_at | date:'dd/MM/yyyy' }}
