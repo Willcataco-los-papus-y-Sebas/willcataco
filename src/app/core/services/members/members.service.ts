@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Member } from '@components/member-card/member.types';
 
+import { environment } from '../../../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class MembersService {
   private http = inject(HttpClient);
-  private apiUrl = '/api/v1/members';
+  private apiUrl = `${environment.apiUrl}/api/members/`;
 
   getMembers(limit = 10, offset = 0): Observable<Member[]> {
     return this.http
