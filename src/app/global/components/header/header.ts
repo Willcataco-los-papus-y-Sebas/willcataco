@@ -13,7 +13,7 @@ export class HeaderComponent {
   @Input() is_logo = true;
   @Input() header_text = '';
   @Input() buttons_on = true;
-  @Input() size: 'normal' | 'big' = 'normal';
+  @Input() is_normal = true;
   @Input() logo = 'droplet-fill';
   @Input() has_design = true;
   @Input() design = 'header';
