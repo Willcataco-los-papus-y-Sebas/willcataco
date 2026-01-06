@@ -14,5 +14,5 @@ export class HeaderComponent {
   @Input() header_text = '';
   @Input() buttons_on = true;
   @Input() size: 'normal' | 'big' = 'normal';
-  @Input() logo = 'droplet-fill.svg';
+  @Input() logo = 'droplet-fill';
 }

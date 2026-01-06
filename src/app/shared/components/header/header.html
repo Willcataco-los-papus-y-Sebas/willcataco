@@ -1,10 +1,10 @@
 <header
-  class="bg-primary w-full fixed lg:max-w-none lg:w-full sm:w-full mx-auto"
+  class="bg-primary w-full sticky top-0 z-50 lg:max-w-none lg:w-full sm:w-full mx-auto transition-transform duration-300"
   [ngClass]="{
             'h-[130px]': size === 'normal',
             'h-[265px]': size === 'big'
         }">
-  <div class="pt-[55px] flex justify-between items-start px-6 ml-2">
+  <div class="h-full flex justify-between items-center px-6 ml-2">
     @if(buttons_on){
     <app-button-header></app-button-header>
     }@else{
@@ -13,7 +13,7 @@
     <div class="flex flex-col items-center gap-6">
       <img
         src="assets/{{logo}}.svg"
-        class="h-[80px] w-[80px] h-max-[120px] w-max-[110px]"
+        class="h-[80px] w-[80px] h-max-[120px] w-max-[110px] brightness-0 invert"
         alt="logo_willcataco" />
       <div class="flex-1 text-center max-w-[200px] flex justify-center items-start lg:max-w-none">
         <p class="text-background text-title font-sans break-words">{{header_text}}</p>
