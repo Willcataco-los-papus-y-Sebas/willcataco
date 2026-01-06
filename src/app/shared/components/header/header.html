@@ -1,10 +1,10 @@
 <header
-  class="bg-primary dark:bg-primary-dark w-full fixed lg:max-w-none"
+  class="bg-primary w-full sticky top-0 z-50 lg:max-w-none lg:w-full sm:w-full mx-auto transition-transform duration-300"
   [ngClass]="{
             'h-[130px]': is_normal,
-            'h-[230px]': !is_normal
+            'h-[235px]': !is_normal
         }">
-  <div class="pt-[55px] flex justify-between items-start px-6 ml-2 relative">
+  <div class="h-full flex justify-between items-center px-6 ml-2">
     @if(buttons_on){
     <app-button-header></app-button-header>
     }@else{
@@ -12,18 +12,16 @@
     } @if(is_logo){
     <div class="flex flex-col items-center gap-6">
       <img
-        alt="logo"
         src="assets/{{logo}}.svg"
-        class="h-[80px] w-[80px] h-max-[120px] w-max-[110]" />
+        class="h-[80px] w-[80px] h-max-[120px] w-max-[110px] brightness-0 invert"
+        alt="logo_willcataco" />
       <div class="flex-1 text-center max-w-[200px] flex justify-center items-start lg:max-w-none">
-        <p class="text-background text-subtitle font-sans break-words lg:text-[28px]">
-          {{header_text}}
-        </p>
+        <p class="text-background text-title font-sans break-words">{{header_text}}</p>
       </div>
     </div>
     }@else{
     <div class="flex-1 text-center max-w-[200px] flex justify-center lg:max-w-none">
-      <p class="text-background text-title font-sans break-words lg:text-[20px]">{{header_text}}</p>
+      <p class="text-background text-title font-sans break-words">{{header_text}}</p>
     </div>
     } @if(buttons_on){
     <app-button-header icon="logout" (click)="logout()"></app-button-header>
@@ -31,15 +29,4 @@
     <div class="h-[32px] w-[32px]"></div>
     }
   </div>
-  @if(has_design) {
-  <!--Para usar cualquier svg, agrega preserveAspectRatio="none" en tu archiv.svg, dentro de la etiqueta <svg> uwu-->
-  <img
-    alt="image"
-    src="assets/{{design}}.svg"
-    class="w-full h-[80px] sm:h-[100px] lg:h-[120px] dark:hidden" />
-  <img
-    alt="image"
-    src="assets/{{dark_design}}.svg"
-    class="w-full h-[80px] sm:h-[100px] lg:h-[120px] dark:block hidden" />
-  }
 </header>
