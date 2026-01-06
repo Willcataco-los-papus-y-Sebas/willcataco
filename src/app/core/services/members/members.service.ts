@@ -11,15 +11,15 @@ export class MembersService {
     private http = inject(HttpClient);
     private apiUrl = '/api/v1/members';
 
-    getMembers(limit: number = 10, offset: number = 0): Observable<Member[]> {
-        return this.http.get<any>(this.apiUrl, {
+    getMembers(limit = 10, offset = 0): Observable<Member[]> {
+        return this.http.get<{ data?: Member[]; items?: Member[] } | Member[]>(this.apiUrl, {
             params: { limit: limit.toString(), offset: offset.toString() }
         }).pipe(
             map(response => {
-                if (response.data && Array.isArray(response.data)) {
+                if ('data' in response && Array.isArray(response.data)) {
                     return response.data;
                 }
-                if (response.items && Array.isArray(response.items)) {
+                if ('items' in response && Array.isArray(response.items)) {
                     return response.items;
                 }
                 if (Array.isArray(response)) {
