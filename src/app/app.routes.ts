@@ -5,13 +5,20 @@ import { Login } from '@pages/login/login';
 import { AdminLogin } from '@pages/admin/login/login';
 import { Home } from '@pages/home/home';
 import { Dashboard } from '@pages/admin/dashboard/dashboard';
+import { MainLayout } from '@layouts/main-layout/main-layout';
 
 export const routes: Routes = [
   {
     path: 'login',
-    canActivate: [guestGuard],
-    data: { redirectTo: '/' },
-    component: Login,
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        canActivate: [guestGuard],
+        data: { redirectTo: '/' },
+        component: Login,
+      },
+    ],
   },
   {
     path: 'admin/login',
@@ -21,8 +28,14 @@ export const routes: Routes = [
   },
   {
     path: '',
+    component: MainLayout,
     canActivate: [authGuard],
-    component: Home,
+    children: [
+      {
+        path: '',
+        component: Home,
+      },
+    ],
   },
   {
     path: 'admin',

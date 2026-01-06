@@ -6,9 +6,7 @@ import { AuthService } from '@services/auth/auth';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  template: `
-    <router-outlet />
-  `,
+  templateUrl: './app.html',
 })
 export class App {
   private auth = inject(AuthService);
