@@ -11,15 +11,8 @@ import { Member } from './member.types';
 })
 export class MemberCardComponent {
   @Input({ required: true }) member!: Member;
-  @Input() showActions = true;
-  @Output() actionClick = new EventEmitter<void>();
 
   get fullName(): string {
     return `${this.member.name} ${this.member.last_name}`;
-  }
-
-  onActionClick(event: Event) {
-    event.stopPropagation();
-    this.actionClick.emit();
   }
 }
