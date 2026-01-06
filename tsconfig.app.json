@@ -6,7 +6,15 @@
     "outDir": "./out-tsc/app",
     "types": [],
     "paths": {
-      "@envs/*": ["src/environments/*"]
+      "@envs/*": ["src/environments/*"],
+      "@models/*": ["src/app/shared/models/*"],
+      "@services/*": ["src/app/core/services/*"],
+      "@components/*": ["src/app/shared/components/*"],
+      "@enums/*": ["src/app/shared/enums/*"],
+      "@interceptors/*": ["src/app/core/interceptors/*"],
+      "@guards/*": ["src/app/core/guards/*"],
+      "@pages/*": ["src/app/pages/*"],
+      "@layouts/*": ["src/app/layouts/*"]
     }
   },
   "include": ["src/**/*.ts"],
