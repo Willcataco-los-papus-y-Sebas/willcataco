@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MemberCardComponent } from '@components/member-card/member-card';
@@ -27,7 +27,7 @@ import { KebabOption } from '@components/kebab/kebab.types';
   templateUrl: './members.html',
   styleUrl: './members.css',
 })
-export class MembersComponent {
+export class Members implements OnInit {
   private membersService = inject(MembersService);
 
   members = signal<Member[]>([]);
@@ -43,7 +43,7 @@ export class MembersComponent {
     { label: 'Eliminar', action: 'delete', variant: 'danger' },
   ];
 
-  constructor() {
+  ngOnInit() {
     this.loadMembers();
   }
 
