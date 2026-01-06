@@ -20,15 +20,8 @@
     </div>
 
     <div class="flex gap-4 mb-6">
-        <div
-            class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center justify-between w-32 cursor-pointer shadow-md shadow-primary/30">
-            <span>{{ currentMonth }}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd" />
-            </svg>
-        </div>
+        <!-- <app-dropdown [dropTitle]="currentMonth" [items]="months" class="w-32" (itemSelected)="selectMonth($event)">
+        </app-dropdown> -->
 
         <div
             class="border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 w-24 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-sm flex items-center justify-center">
@@ -37,15 +30,16 @@
     </div>
 
     <div class="flex justify-center mb-6">
-        <button
-            class="bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-6 rounded-full shadow-lg shadow-primary/30 transition-all transform active:scale-95 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                    clip-rule="evenodd" />
-            </svg>
-            Nuevo socio
-        </button>
+        <app-button variant="primary" size="md">
+            <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                        clip-rule="evenodd" />
+                </svg>
+                Nuevo socio
+            </div>
+        </app-button>
     </div>
 
     <div class="relative mb-6">
@@ -104,9 +98,8 @@
         </div>
 
         <div class="flex gap-4">
-            <button (click)="closeModal()"
-                class="flex-1 bg-black text-white rounded-full py-2 font-medium">Cerrar</button>
-            <button class="flex-1 bg-primary text-white rounded-full py-2 font-medium">Ver Pagos</button>
+            <app-button (click)="closeModal()" variant="secondary" class="flex-1">Cerrar</app-button>
+            <app-button variant="primary" class="flex-1">Ver Pagos</app-button>
         </div>
     </div>
     }

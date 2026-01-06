@@ -4,6 +4,8 @@ import { MemberCardComponent } from '@components/member-card/member-card';
 import { KebabComponent } from '@components/kebab/kebab';
 import { ModalComponent } from '@components/modal/modal';
 import { HeaderComponent } from '@components/header/header';
+import { DropdownComponent, DropdownItem } from '@components/dropdown/dropdown';
+import { ButtonComponent } from '@components/button/button';
 import { MembersService } from '@services/members/members.service';
 import { Member } from '@components/member-card/member.types';
 import { KebabOption } from '@components/kebab/kebab.types';
@@ -11,7 +13,7 @@ import { KebabOption } from '@components/kebab/kebab.types';
 @Component({
     selector: 'app-members',
     standalone: true,
-    imports: [CommonModule, MemberCardComponent, KebabComponent, ModalComponent, HeaderComponent],
+    imports: [CommonModule, MemberCardComponent, KebabComponent, ModalComponent, HeaderComponent, DropdownComponent, ButtonComponent],
     templateUrl: './members.html',
     styleUrl: './members.css'
 })
@@ -24,6 +26,13 @@ export class MembersComponent {
 
     currentMonth = 'Mes';
     currentYear = new Date().getFullYear();
+
+    months: DropdownItem[] = [
+        { label: 'Enero' }, { label: 'Febrero' }, { label: 'Marzo' },
+        { label: 'Abril' }, { label: 'Mayo' }, { label: 'Junio' },
+        { label: 'Julio' }, { label: 'Agosto' }, { label: 'Septiembre' },
+        { label: 'Octubre' }, { label: 'Noviembre' }, { label: 'Diciembre' }
+    ];
 
     kebabOptions: KebabOption[] = [
         { label: 'Ver Detalle', action: 'detail' },
@@ -40,6 +49,10 @@ export class MembersComponent {
             next: (data) => this.members.set(data),
             error: (err) => console.error(err)
         });
+    }
+
+    selectMonth(index: number) {
+        this.currentMonth = this.months[index].label;
     }
 
     onKebabAction(action: string, member: Member) {
