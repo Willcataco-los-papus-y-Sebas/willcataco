@@ -13,7 +13,8 @@
       "@enums/*": ["src/app/shared/enums/*"],
       "@interceptors/*": ["src/app/core/interceptors/*"],
       "@guards/*": ["src/app/core/guards/*"],
-      "@pages/*": ["src/app/pages/*"]
+      "@pages/*": ["src/app/pages/*"],
+      "@layouts/*": ["src/app/layouts/*"]
     }
   },
   "include": ["src/**/*.ts"],
