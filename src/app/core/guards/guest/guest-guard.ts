@@ -4,7 +4,7 @@ import { AuthService } from '@services/auth/auth';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { filter, map, take } from 'rxjs';
 
-export const guestGuard: CanActivateFn = (route) => {
+export const guestGuard: CanActivateFn = route => {
   const auth = inject(AuthService);
   const router = inject(Router);
 

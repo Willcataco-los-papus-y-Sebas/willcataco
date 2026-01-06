@@ -23,14 +23,16 @@ export class AuthService {
 
   login(credentials: LoginRequest): Observable<User> {
     this._loading.set(true);
-    return this._http.post<User>(`${this._apiUrl}/login`, credentials, { withCredentials: true }).pipe(
-      tap((user) => this._user.set(user)),
-      catchError((err) => {
-        this._user.set(null);
-        return throwError(() => err);
-      }),
-      finalize(() => this._loading.set(false))
-    );
+    return this._http
+      .post<User>(`${this._apiUrl}/login`, credentials, { withCredentials: true })
+      .pipe(
+        tap(user => this._user.set(user)),
+        catchError(err => {
+          this._user.set(null);
+          return throwError(() => err);
+        }),
+        finalize(() => this._loading.set(false))
+      );
   }
 
   logout(): Observable<void> {
@@ -46,7 +48,7 @@ export class AuthService {
 
   refresh(): Observable<void> {
     return this._http.post<void>(`${this._apiUrl}/refresh`, {}, { withCredentials: true }).pipe(
-      catchError((err) => {
+      catchError(err => {
         this._user.set(null);
         return throwError(() => err);
       })
@@ -58,12 +60,13 @@ export class AuthService {
   }
 
   private _checkSession(): void {
-    this._http.get<User>(`${this._apiUrl}/me`, { 
-      withCredentials: true,
-      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' }
-    })
+    this._http
+      .get<User>(`${this._apiUrl}/me`, {
+        withCredentials: true,
+        headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
+      })
       .pipe(
-        tap((user) => this._user.set(user)),
+        tap(user => this._user.set(user)),
         catchError(() => {
           this._user.set(null);
           return of(null);

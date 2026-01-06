@@ -19,7 +19,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       const authService = injector.get(AuthService);
 
       if (error.status === 401) {
-        if (req.url.includes('/auth/login') || req.url.includes('/auth/refresh') || req.url.includes('/auth/logout')) {
+        if (
+          req.url.includes('/auth/login') ||
+          req.url.includes('/auth/refresh') ||
+          req.url.includes('/auth/logout')
+        ) {
           return throwError(() => error);
         }
 
@@ -40,11 +44,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             refreshTokenSubject.next(true);
             return next(authReq);
           }),
-          catchError((refreshErr) => {
+          catchError(refreshErr => {
             isRefreshing = false;
             refreshTokenSubject.next(false);
             authService.clearAuth();
-            
+
             if (!req.url.includes('/auth/me')) {
               router.navigate(['/login']);
             }
