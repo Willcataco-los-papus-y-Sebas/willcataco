@@ -39,14 +39,14 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    canActivate: [authGuard],
+    //canActivate: [authGuard],
     component: Dashboard,
     children: [
       {
         path: 'socios',
-        loadComponent: () => import('./pages/admin/members/members').then(m => m.MembersComponent)
-      }
-    ]
+        loadComponent: () => import('./pages/admin/members/members').then(m => m.MembersComponent),
+      },
+    ],
   },
   {
     path: '**',
