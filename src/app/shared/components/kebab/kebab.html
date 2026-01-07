@@ -1,0 +1,50 @@
+<div class="relative inline-block text-left">
+  <button
+    (click)="toggleMenu($event)"
+    type="button"
+    class="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+    [attr.aria-expanded]="isOpen"
+    aria-haspopup="true">
+    <span class="sr-only">Open options</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5 text-gray-500 dark:text-gray-400"
+      viewBox="0 0 20 20"
+      fill="currentColor">
+      <path
+        d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+    </svg>
+  </button>
+
+  @if (isOpen) {
+  <div
+    class="fixed inset-0 z-10"
+    (click)="closeMenu($event)"
+    (keydown.escape)="closeMenu($event)"
+    (keydown.enter)="closeMenu($event)"
+    (keydown.space)="closeMenu($event)"
+    tabindex="0"
+    role="button"
+    aria-label="Close menu"></div>
+  } @if (isOpen) {
+  <div
+    class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-20 focus:outline-none"
+    role="menu"
+    aria-orientation="vertical"
+    tabindex="-1">
+    <div class="py-1" role="none">
+      @for (option of options; track option.action) {
+      <button
+        (click)="selectOption(option.action, $event)"
+        class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
+        [class.text-red-600]="option.variant === 'danger'"
+        [class.dark:text-red-400]="option.variant === 'danger'"
+        role="menuitem"
+        tabindex="-1">
+        {{ option.label }}
+      </button>
+      }
+    </div>
+  </div>
+  }
+</div>
