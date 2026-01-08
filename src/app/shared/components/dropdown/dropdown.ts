@@ -1,4 +1,4 @@
-import { Component, Input , output} from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface DropdownItem {
@@ -30,7 +30,7 @@ export class DropdownComponent {
       this.selectedIndex = index;
       this.dropTitle = item.label;
       this.isActive = false;
-      this.itemSelected.emit(item.label)
+      this.itemSelected.emit(item.label);
     }
   }
 
