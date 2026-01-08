@@ -16,12 +16,12 @@ import { ExtraPayment } from '@models/extra-payment';
   selector: 'app-extra-payments',
   standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule, 
-    InputComponent, 
-    ButtonComponent, 
-    KebabComponent, 
-    ModalComponent
+    CommonModule,
+    FormsModule,
+    InputComponent,
+    ButtonComponent,
+    KebabComponent,
+    ModalComponent,
   ],
   templateUrl: './extra-payments.html',
   styleUrls: ['./extra-payments.css'],
@@ -32,7 +32,7 @@ export class ExtraPayments implements OnInit {
 
   payments = signal<ExtraPayment[]>([]);
   loading = signal<boolean>(false);
-  
+
   isModalOpen = signal<boolean>(false);
   isEditMode = signal<boolean>(false);
   selectedPaymentId = signal<number | null>(null);
@@ -44,7 +44,7 @@ export class ExtraPayments implements OnInit {
 
   kebabOptions: KebabOption[] = [
     { label: 'Editar', action: 'edit' },
-    { label: 'Eliminar', action: 'delete', variant: 'danger' }
+    { label: 'Eliminar', action: 'delete', variant: 'danger' },
   ];
 
   ngOnInit() {
@@ -62,17 +62,16 @@ export class ExtraPayments implements OnInit {
   loadPayments() {
     this.loading.set(true);
     this._paymentService.getAll().subscribe({
-      next: (res) => {
+      next: res => {
         this.payments.set(res.data);
         this.loading.set(false);
       },
-      error: (err) => {
+      error: err => {
         console.error('Error loading payments', err);
         this.loading.set(false);
-      }
+      },
     });
   }
-
 
   openCreateModal() {
     this.isEditMode.set(false);
@@ -84,12 +83,12 @@ export class ExtraPayments implements OnInit {
   openEditModal(payment: ExtraPayment) {
     this.isEditMode.set(true);
     this.selectedPaymentId.set(payment.id);
-    
+
     this.formName.set(payment.name);
     this.formDescription.set(payment.description || '');
     this.formAmount.set(payment.amount.toString());
     this.formIsActive.set(payment.is_active);
-    
+
     this.isModalOpen.set(true);
   }
 
@@ -119,7 +118,7 @@ export class ExtraPayments implements OnInit {
       name: this.formName(),
       description: this.formDescription(),
       amount: Number(this.formAmount()),
-      is_active: this.formIsActive()
+      is_active: this.formIsActive(),
     };
 
     this.loading.set(true);
@@ -130,7 +129,7 @@ export class ExtraPayments implements OnInit {
           this.loadPayments();
           this.closeModal();
         },
-        error: () => this.loading.set(false)
+        error: () => this.loading.set(false),
       });
     } else {
       this._paymentService.create(payload).subscribe({
@@ -138,7 +137,7 @@ export class ExtraPayments implements OnInit {
           this.loadPayments();
           this.closeModal();
         },
-        error: () => this.loading.set(false)
+        error: () => this.loading.set(false),
       });
     }
   }
@@ -150,10 +149,10 @@ export class ExtraPayments implements OnInit {
     this.loading.set(true);
     this._paymentService.delete(payment.id).subscribe({
       next: () => this.loadPayments(),
-      error: (e) => {
-          console.error(e);
-          this.loading.set(false);
-      }
+      error: e => {
+        console.error(e);
+        this.loading.set(false);
+      },
     });
   }
 }

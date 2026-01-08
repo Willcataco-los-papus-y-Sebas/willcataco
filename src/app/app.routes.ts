@@ -46,7 +46,7 @@ export const routes: Routes = [
   {
     path: 'admin/extra-payments',
     component: ExtraPayments,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
     path: '**',

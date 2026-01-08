@@ -13,16 +13,14 @@ export interface ApiResponse<T> {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ExtraPaymentService {
   private _http = inject(HttpClient);
-  private _apiUrl = `${environment.apiUrl}/api/extra-payments`; 
+  private _apiUrl = `${environment.apiUrl}/api/extra-payments`;
 
-  getAll(limit: number = 50, offset: number = 0): Observable<ApiResponse<ExtraPayment[]>> {
-    const params = new HttpParams()
-      .set('limit', limit)
-      .set('offset', offset);
+  getAll(limit = 50, offset = 0): Observable<ApiResponse<ExtraPayment[]>> {
+    const params = new HttpParams().set('limit', limit).set('offset', offset);
 
     return this._http.get<ApiResponse<ExtraPayment[]>>(this._apiUrl, { params });
   }

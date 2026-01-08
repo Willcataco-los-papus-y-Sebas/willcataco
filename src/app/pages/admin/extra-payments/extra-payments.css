@@ -1,12 +1,12 @@
 :host {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 .toggle-checkbox:checked {
-    right: 0;
-    border-color: #581056;
+  right: 0;
+  border-color: #581056;
 }
 .toggle-checkbox {
-    transition: all 0.3s;
+  transition: all 0.3s;
 }

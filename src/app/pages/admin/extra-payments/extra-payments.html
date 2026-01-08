@@ -1,22 +1,29 @@
 <div class="px-4 py-6 max-w-lg mx-auto flex flex-col gap-6 min-h-[calc(100vh-130px)]">
-
-  <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center relative">
+  <div
+    class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center relative">
     <span class="text-gray-500 text-sm font-medium">Pagos Registrados</span>
     <span class="text-4xl font-bold text-[#581056] mt-1">{{ payments().length }}</span>
     <span class="text-gray-400 text-xs mt-2">Total activos</span>
-    
+
     <div class="absolute top-4 right-4 text-[#581056]/10">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-10 w-10"
+        viewBox="0 0 20 20"
+        fill="currentColor">
         <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-        <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
+        <path
+          fill-rule="evenodd"
+          d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+          clip-rule="evenodd" />
       </svg>
     </div>
   </div>
 
   <div class="flex justify-center -mt-2">
-    <app-button 
-      variant="primary" 
-      size="md" 
+    <app-button
+      variant="primary"
+      size="md"
       (click)="openCreateModal()"
       class="shadow-lg shadow-[#581056]/20 z-10">
       + Nuevo Pago
@@ -24,126 +31,129 @@
   </div>
 
   <div class="relative w-full">
-    <input 
-      type="text" 
-      placeholder="Buscar por nombre..." 
-      class="w-full h-12 pl-4 pr-10 rounded-[7px] border border-gray-300 focus:border-[#581056] focus:ring-1 focus:ring-[#581056] outline-none text-sm transition-all text-gray-700 placeholder-gray-400 bg-white"
-    >
+    <input
+      type="text"
+      placeholder="Buscar por nombre..."
+      class="w-full h-12 pl-4 pr-10 rounded-[7px] border border-gray-300 focus:border-[#581056] focus:ring-1 focus:ring-[#581056] outline-none text-sm transition-all text-gray-700 placeholder-gray-400 bg-white" />
     <div class="absolute right-3 top-3 text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
     </div>
   </div>
 
-  <hr class="border-[#581056] opacity-20">
+  <hr class="border-[#581056] opacity-20" />
 
   <div class="flex flex-col gap-4 pb-20">
     @for (payment of payments(); track payment.id) {
-      <div class="bg-white p-4 rounded-xl border-l-4 border-[#581056] shadow-sm flex justify-between items-center group hover:shadow-md transition-all">
-        
-        <div class="flex flex-col gap-1 flex-1 mr-4">
-          <h3 class="font-bold text-black text-base leading-tight">{{ payment.name }}</h3>
-          
-          <p class="text-xs text-gray-500 line-clamp-1">
-            {{ payment.description || 'Sin descripción adicional' }}
-          </p>
+    <div
+      class="bg-white p-4 rounded-xl border-l-4 border-[#581056] shadow-sm flex justify-between items-center group hover:shadow-md transition-all">
+      <div class="flex flex-col gap-1 flex-1 mr-4">
+        <h3 class="font-bold text-black text-base leading-tight">{{ payment.name }}</h3>
 
-          <div class="flex items-center gap-2 mt-1">
-             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#581056]/10 text-[#581056]">
-                Bs. {{ payment.amount }}
-             </span>
-             @if(!payment.is_active) {
-                <span class="text-[10px] text-red-500 font-semibold border border-red-200 px-1 rounded">Inactivo</span>
-             }
-          </div>
-        </div>
+        <p class="text-xs text-gray-500 line-clamp-1">
+          {{ payment.description || 'Sin descripción adicional' }}
+        </p>
 
-        <div class="flex items-center">
-           <app-kebab 
-              [options]="kebabOptions" 
-              (optionSelected)="handleKebabAction($event, payment)">
-           </app-kebab>
+        <div class="flex items-center gap-2 mt-1">
+          <span
+            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#581056]/10 text-[#581056]">
+            Bs. {{ payment.amount }}
+          </span>
+          @if(!payment.is_active) {
+          <span class="text-[10px] text-red-500 font-semibold border border-red-200 px-1 rounded">
+            Inactivo
+          </span>
+          }
         </div>
       </div>
+
+      <div class="flex items-center">
+        <app-kebab
+          [options]="kebabOptions"
+          (optionSelected)="handleKebabAction($event, payment)"></app-kebab>
+      </div>
+    </div>
     } @empty {
-      <div class="text-center py-12 flex flex-col items-center opacity-60">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-        </svg>
-        <p class="text-gray-500">No hay pagos registrados</p>
-      </div>
+    <div class="text-center py-12 flex flex-col items-center opacity-60">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-12 w-12 text-gray-300 mb-2"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1"
+          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+      </svg>
+      <p class="text-gray-500">No hay pagos registrados</p>
+    </div>
     }
   </div>
-
 </div>
 
-<app-modal 
-  [isOpen]="isModalOpen()" 
-  [title]="isEditMode() ? 'Editar Pago' : 'Nuevo Pago'" 
+<app-modal
+  [isOpen]="isModalOpen()"
+  [title]="isEditMode() ? 'Editar Pago' : 'Nuevo Pago'"
   (modalClose)="closeModal()">
-  
   <div class="flex flex-col gap-4 mt-2">
-    
     <app-input
       label="Nombre del Pago"
       placeholder="Ej: Multa Noviembre"
       [ngModel]="formName()"
-      (ngModelChange)="formName.set($event)">
-    </app-input>
+      (ngModelChange)="formName.set($event)"></app-input>
 
     <app-input
       label="Monto (Bs)"
       type="number"
       placeholder="0.00"
       [ngModel]="formAmount()"
-      (ngModelChange)="formAmount.set($event)">
-    </app-input>
+      (ngModelChange)="formAmount.set($event)"></app-input>
 
     <app-input
       label="Descripción (Opcional)"
       placeholder="Detalles sobre este cobro..."
       [ngModel]="formDescription()"
-      (ngModelChange)="formDescription.set($event)">
-    </app-input>
+      (ngModelChange)="formDescription.set($event)"></app-input>
 
-    <div class="flex items-center justify-between px-2 py-2 bg-gray-50 rounded-lg border border-gray-100">
-        <label for="isActive" class="text-sm font-bold text-primary-dark">¿Pago Activo?</label>
-        <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-            <input 
-                type="checkbox" 
-                name="isActive" 
-                id="isActive" 
-                [ngModel]="formIsActive()"
-                (ngModelChange)="formIsActive.set($event)"
-                class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-[#581056]"
-                [class.right-0]="formIsActive()"
-                [class.left-0]="!formIsActive()"
-            />
-            <label 
-                for="isActive" 
-                class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-                [class.bg-[#581056]]="formIsActive()">
-            </label>
-        </div>
+    <div
+      class="flex items-center justify-between px-2 py-2 bg-gray-50 rounded-lg border border-gray-100">
+      <label for="isActive" class="text-sm font-bold text-primary-dark">¿Pago Activo?</label>
+      <div
+        class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+        <input
+          type="checkbox"
+          name="isActive"
+          id="isActive"
+          [ngModel]="formIsActive()"
+          (ngModelChange)="formIsActive.set($event)"
+          class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-[#581056]"
+          [class.right-0]="formIsActive()"
+          [class.left-0]="!formIsActive()" />
+        <label
+          for="isActive"
+          class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+          [class.bg-[#581056]]="formIsActive()"></label>
+      </div>
     </div>
 
     <div class="flex flex-col gap-3 mt-4">
-      <app-button 
-        variant="primary" 
-        size="lg" 
-        [loading]="loading()"
-        (click)="savePayment()">
+      <app-button variant="primary" size="lg" [loading]="loading()" (click)="savePayment()">
         {{ isEditMode() ? 'Guardar Cambios' : 'Crear Pago' }}
       </app-button>
-      
-      <app-button 
-        variant="secondary" 
-        size="lg" 
-        (click)="closeModal()">
-        Cancelar
-      </app-button>
-    </div>
 
+      <app-button variant="secondary" size="lg" (click)="closeModal()">Cancelar</app-button>
+    </div>
   </div>
 </app-modal>
