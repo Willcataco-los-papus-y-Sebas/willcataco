@@ -1,0 +1,22 @@
+<div class="flex justify-center w-full">
+    <div id="conteiner" class="mx-auto content-center w-[460px] flex flex-col items-center gap-12">
+        <div id="button-conntainer" class="pt-17">
+            <app-button (click)="OpenModal()"><p>+ Nueva Calle</p></app-button>
+        </div>
+        <section id="cards-section" class="h-[410px] w-[400px]">
+            <hr class="w-full bg-primary dark:bg-primary-dark w-full h-2">
+        </section>
+    </div>
+</div>
+
+<app-modal title="Agregar Calle" [isOpen]="isModalOpen" (modalClose)="CloseModal()">
+    <div class="gap-3">
+        <form>
+            <app-input label="Nombre"></app-input>
+        </form>
+        <section id="buttons" class="flex gap-3">
+            <app-button id="cancel-button" variant="secondary" (click)="CloseModal()"><p>Cancelar</p></app-button>
+            <app-button id="create-button"><p>Crear</p></app-button>
+        </section>
+    </div>
+</app-modal>
