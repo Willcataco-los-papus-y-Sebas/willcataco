@@ -6,6 +6,7 @@ import { AdminLogin } from '@pages/admin/login/login';
 import { Home } from '@pages/home/home';
 import { Dashboard } from '@pages/admin/dashboard/dashboard';
 import { MainLayout } from '@layouts/main-layout/main-layout';
+import { ExtraPayments } from '@pages/admin/extra-payments/extra-payments';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,11 @@ export const routes: Routes = [
     path: 'admin',
     canActivate: [authGuard],
     component: Dashboard,
+  },
+  {
+    path: 'admin/extra-payments',
+    component: ExtraPayments,
+    canActivate: [authGuard]
   },
   {
     path: '**',
