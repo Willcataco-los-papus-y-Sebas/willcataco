@@ -3,6 +3,17 @@
 <div class="p-4 mx-auto max-w-2xl pb-24">
 
 
+  <div class="flex gap-4 mb-6">
+    <div class="w-1/2">
+      <app-dropdown [items]="dropdownItems" dropTitle="Seleccionar Mes"
+        (itemSelected)="onDropdownSelect($event)"></app-dropdown>
+    </div>
+    <div class="w-1/2">
+      <app-input placeholder="2026" [maxLength]="4" [ngModel]="year()"
+        (ngModelChange)="onYearChange($event)"></app-input>
+    </div>
+  </div>
+
   <div class="flex justify-center mb-6">
     <app-button variant="primary" size="md">
       <div class="flex items-center gap-2">

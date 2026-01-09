@@ -7,6 +7,7 @@ import { ModalComponent } from '@components/modal/modal';
 import { HeaderComponent } from '@components/header/header';
 import { ButtonComponent } from '@components/button/button';
 import { InputComponent } from '@components/input/input';
+import { DropdownComponent, DropdownItem } from '@components/dropdown/dropdown';
 import { MembersService } from '@services/members/members.service';
 import { Member } from '@components/member-card/member.types';
 import { KebabOption } from '@components/kebab/kebab.types';
@@ -23,6 +24,7 @@ import { KebabOption } from '@components/kebab/kebab.types';
     HeaderComponent,
     ButtonComponent,
     InputComponent,
+    DropdownComponent,
   ],
   templateUrl: './members.html',
   styleUrl: './members.css',
@@ -34,6 +36,32 @@ export class Members implements OnInit {
   selectedMember = signal<Member | null>(null);
   isModalOpen = signal(false);
   searchQuery = signal('');
+  year = signal('');
+
+  onYearChange(value: string) {
+    // Ensure only numbers
+    const numericValue = value.replace(/[^0-9]/g, '');
+    this.year.set(numericValue);
+  }
+
+  dropdownItems: DropdownItem[] = [
+    { label: 'Enero' },
+    { label: 'Febrero' },
+    { label: 'Marzo' },
+    { label: 'Abril' },
+    { label: 'Mayo' },
+    { label: 'Junio' },
+    { label: 'Julio' },
+    { label: 'Agosto' },
+    { label: 'Septiembre' },
+    { label: 'Octubre' },
+    { label: 'Noviembre' },
+    { label: 'Diciembre' },
+  ];
+
+  onDropdownSelect(item: DropdownItem) {
+    console.log('Selected:', item.label);
+  }
 
 
 

@@ -20,6 +20,8 @@ export class InputComponent implements ControlValueAccessor {
   @Input() type = 'text';
   @Input() placeholder = '';
   @Input() id = 'input-' + Math.random().toString(36).substring(2);
+  @Input() maxLength: number | null = null;
+  @Input() pattern = '';
 
   value = '';
   isDisabled = false;

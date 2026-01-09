@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface DropdownItem {
@@ -17,6 +17,7 @@ export class DropdownComponent {
   @Input() isActive = false;
   @Input() dropTitle = 'Titulo';
   @Input() items: DropdownItem[] = [];
+  @Output() itemSelected = new EventEmitter<DropdownItem>();
 
   selectedIndex: number | null = null;
 
@@ -29,6 +30,7 @@ export class DropdownComponent {
       this.selectedIndex = index;
       this.dropTitle = item.label;
       this.isActive = false;
+      this.itemSelected.emit(item);
     }
   }
 
