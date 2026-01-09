@@ -20,8 +20,8 @@ type ModalMode = 'create' | 'edit' | 'view' | 'delete' | null;
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CommonModule, 
-    UpperCasePipe, 
+    CommonModule,
+    UpperCasePipe,
     ButtonComponent,
     KebabComponent,
     ModalComponent,
