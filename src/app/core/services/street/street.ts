@@ -19,7 +19,7 @@ export class StreetService {
   private readonly _http = inject(HttpClient);
   private readonly _apiUrl = `${environment.apiUrl}/api/street`;
 
-  getAll(limit = 10, offset = 0): Observable<ApiResponse<Street[]>> {
+  getAll(limit: number, offset: number): Observable<ApiResponse<Street[]>> {
     const params = new HttpParams().set('limit', limit).set('offset', offset);
     return this._http.get<ApiResponse<Street[]>>(`${this._apiUrl}/`, { params });
   }
