@@ -7,6 +7,8 @@ import { Home } from '@pages/home/home';
 import { Dashboard } from '@pages/admin/dashboard/dashboard';
 import { MainLayout } from '@layouts/main-layout/main-layout';
 
+import { Users } from '@pages/admin/users/users';
+
 export const routes: Routes = [
   {
     path: 'login',
@@ -41,6 +43,12 @@ export const routes: Routes = [
     path: 'admin',
     canActivate: [authGuard],
     component: Dashboard,
+    children: [
+      {
+        path: 'users',
+        component: Users,
+      },
+    ],
   },
   {
     path: '**',

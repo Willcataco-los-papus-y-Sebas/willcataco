@@ -1,0 +1,136 @@
+<app-header
+  [is_logo]="false"
+  [buttons_on]="false"
+  header_text="Gestión de usuarios"
+  size="normal"></app-header>
+
+<div class="flex flex-col h-[calc(100vh-130px)]">
+  <div class="flex justify-end px-4 mt-4 mb-4 shrink-0">
+    <app-button variant="primary" (click)="openCreateModal()">Nuevo usuario</app-button>
+  </div>
+
+  <div class="flex-1 overflow-y-auto px-4 pb-24">
+    <div class="flex flex-col gap-4">
+      @for (user of users; track user.id) {
+      <div
+        class="bg-white dark:bg-black border border-primary/20 rounded-xl p-4 flex justify-between items-start shadow-sm">
+        <div class="flex flex-col gap-1">
+          <p class="text-subtitle font-semibold text-primary">{{ user.username }}</p>
+          <p class="text-body text-gray-600 dark:text-gray-300">{{ user.email }}</p>
+
+          <div class="flex gap-2 mt-2">
+            <span
+              class="px-3 py-1 rounded-full text-xs font-semibold text-white"
+              [class.bg-primary]="user.role === 'ADMIN'"
+              [class.bg-secondary]="user.role === 'STAFF'"
+              [class.bg-gray-400]="user.role === 'MEMBER'">
+              {{ user.role | uppercase }}
+            </span>
+            <span
+              class="text-xs self-center font-medium"
+              [class.text-green-600]="user.is_active"
+              [class.text-warning]="!user.is_active">
+              {{ user.is_active ? '● Activo' : '● Inactivo' }}
+            </span>
+          </div>
+        </div>
+        <app-kebab
+          [options]="kebabOptions"
+          (optionSelected)="onKebabAction($event, user)"></app-kebab>
+      </div>
+      } @empty {
+      <div class="flex flex-col items-center justify-center py-20 text-center">
+        <p class="text-gray-400 italic">No se encontraron usuarios registrados.</p>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+<app-modal [isOpen]="isModalOpen" [title]="modalTitle" (modalClose)="closeModal()">
+  @if (modalMode === 'create' || modalMode === 'edit' || modalMode === 'view') {
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+    <div>
+      <app-input
+        label="Usuario"
+        placeholder="Ej. juan_perez"
+        formControlName="username"></app-input>
+      @if (userForm.get('username')?.invalid && userForm.get('username')?.touched) {
+      <p class="text-[10px] text-red-500 ml-2 -mt-3">El nombre de usuario es obligatorio</p>
+      }
+    </div>
+
+    <div>
+      <app-input
+        label="Email"
+        type="email"
+        placeholder="correo@ejemplo.com"
+        formControlName="email"></app-input>
+      @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+      <p class="text-[10px] text-red-500 ml-2 -mt-3">
+        {{ userForm.get('email')?.errors?.['required'] ? 'El email es obligatorio' : 'Formato de
+        email inválido' }}
+      </p>
+      }
+    </div>
+
+    @if (modalMode !== 'view') {
+    <div>
+      <app-dropdown
+        [dropTitle]="userForm.value.role || 'Seleccionar rol'"
+        [items]="roleOptions"
+        (itemSelected)="onRoleSelected($event)"></app-dropdown>
+      @if (userForm.get('role')?.invalid && userForm.get('role')?.touched) {
+      <p class="text-[10px] text-red-500 ml-2 mt-1">Debes seleccionar un rol</p>
+      }
+    </div>
+
+    <div>
+      <app-input
+        label="Contraseña"
+        type="password"
+        placeholder="Mínimo 8 caracteres"
+        formControlName="password"></app-input>
+      @if (userForm.get('password')?.invalid && userForm.get('password')?.touched) {
+      <p class="text-[10px] text-red-500 ml-2 -mt-3">
+        La contraseña debe tener al menos 8 caracteres
+      </p>
+      }
+    </div>
+    } @else {
+    <div class="p-3 bg-gray-50 rounded-lg border border-gray-200">
+      <p class="text-body">
+        <strong>Rol actual:</strong>
+        {{ userForm.value.role | uppercase }}
+      </p>
+    </div>
+    }
+
+    <div class="flex justify-end gap-3 mt-6">
+      <app-button variant="secondary" size="sm" type="button" (click)="closeModal()">
+        Cancelar
+      </app-button>
+      @if (modalMode !== 'view') {
+      <app-button variant="primary" size="sm" [disabled]="userForm.invalid">
+        {{ modalMode === 'create' ? 'Crear usuario' : 'Guardar cambios' }}
+      </app-button>
+      }
+    </div>
+  </form>
+  } @if (modalMode === 'delete') {
+  <div class="flex flex-col gap-6 text-center">
+    <div class="bg-red-50 p-4 rounded-xl border border-red-100">
+      <p class="text-body text-red-900 font-medium">
+        ¿Estás seguro de desactivar a
+        <strong>{{selectedUser?.username}}</strong>
+        ?
+      </p>
+      <p class="text-xs text-red-700 mt-2">El usuario ya no podrá ingresar al sistema.</p>
+    </div>
+    <div class="flex justify-center gap-4">
+      <app-button variant="secondary" (click)="closeModal()">Cancelar</app-button>
+      <app-button variant="warning" (click)="confirmDelete()">Confirmar</app-button>
+    </div>
+  </div>
+  }
+</app-modal>

@@ -5,8 +5,8 @@ export interface User {
   username: string;
   email: string;
   role: UserRole;
-  isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt?: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string | null;
 }
