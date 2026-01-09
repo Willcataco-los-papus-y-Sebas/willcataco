@@ -1,9 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-// IMPORTANTE: Agregar UpperCasePipe aquí
+
 import { CommonModule, UpperCasePipe } from '@angular/common';
 
-/* ===== COMPONENTES ===== */
 import { ButtonComponent } from 'src/app/shared/components/button/button';
 import { KebabComponent } from 'src/app/shared/components/kebab/kebab';
 import { ModalComponent } from 'src/app/shared/components/modal/modal';
@@ -11,20 +10,18 @@ import { InputComponent } from 'src/app/shared/components/input/input';
 import { HeaderComponent } from 'src/app/shared/components/header/header';
 import { DropdownComponent, DropdownItem } from 'src/app/shared/components/dropdown/dropdown';
 
-/* ===== SERVICIOS Y TIPOS ===== */
 import { KebabOption } from 'src/app/shared/components/kebab/kebab.types';
 import { User } from '@models/user';
 import { UsersService } from 'src/app/core/services/users/users.service';
 
 type ModalMode = 'create' | 'edit' | 'view' | 'delete' | null;
-
 @Component({
   selector: 'app-users',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CommonModule, // Trae directivas básicas
-    UpperCasePipe, // SOLUCIÓN AL ERROR NG8004
+    CommonModule, 
+    UpperCasePipe, 
     ButtonComponent,
     KebabComponent,
     ModalComponent,
@@ -36,7 +33,6 @@ type ModalMode = 'create' | 'edit' | 'view' | 'delete' | null;
   styleUrl: './users.css',
 })
 export class Users implements OnInit {
-  // ... (El resto del código que ya tienes se mantiene igual)
   private fb = inject(FormBuilder);
   private usersService = inject(UsersService);
 
