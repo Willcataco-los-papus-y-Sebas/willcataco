@@ -78,3 +78,17 @@
     </form>
   </div>
 </app-modal>
+
+<app-modal title="Eliminar calle" [isOpen]="isDeleteModal()" (modalClose)="closeDeleteModal()">
+  <div class="flec flex-col gap-4">
+    <h1 class="mb-5">Desea eliminar la calle seleccionada?</h1>
+    <section id="buttons" class="flex gap-3">
+      <app-button id="cancel-button" variant="secondary" (click)="closeDeleteModal()">
+        <p>Cancelar</p>
+      </app-button>
+      <app-button id="confirm-button" (click)="deleteStreet()">
+        <p>Eliminar</p>
+      </app-button>
+    </section>
+  </div>
+</app-modal>

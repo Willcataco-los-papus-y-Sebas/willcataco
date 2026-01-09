@@ -24,10 +24,12 @@ export class Streets implements OnInit {
   name_street = signal('');
   streets = signal<Street[]>([]);
   selectedStreetId = signal<number | null>(null);
+  selectedStreet = signal<Street | null>(null);
 
   loading = signal(false);
   isModalOpen = signal<boolean>(false);
   isEditMode = signal(false);
+  isDeleteModal = signal<boolean>(false);
 
   private current_offset = 0;
   private readonly page_size = 10;
@@ -48,15 +50,31 @@ export class Streets implements OnInit {
     this.getStreets();
   }
 
-  deleteStreet(street: Street) {
-    this.streetService.delete(street.id).subscribe({
+  openDeleteModal(street: Street) {
+    this.selectedStreet.set(street);
+    this.selectedStreetId.set(street.id);
+    this.isDeleteModal.set(true);
+  }
+
+  closeDeleteModal() {
+    this.isDeleteModal.set(false);
+    this.selectedStreet.set(null);
+    this.selectedStreetId.set(null);
+  }
+
+  deleteStreet() {
+    this.loading.set(true);
+    this.streetService.delete(this.selectedStreetId()!).subscribe({
       next: () => {
-        this.toastService.success('Calle eliminada');
+        this.toastService.success('Calle eliminada correctamente');
+        this.closeDeleteModal();
         this.reloadStreets();
       },
       error: err => {
         console.error('Error al eliminar calle:', err);
-        this.toastService.error('No se pudo eliminar la calle');
+        const errorDetail = err.error?.detail;
+        this.toastService.error(errorDetail || 'No se pudo eliminar la calle');
+        this.loading.set(false);
       },
     });
   }
@@ -161,7 +179,7 @@ export class Streets implements OnInit {
     if (action === 'edit') {
       this.editStreet(street);
     } else if (action === 'delete') {
-      this.deleteStreet(street);
+      this.openDeleteModal(street);
     }
   }
 
