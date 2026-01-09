@@ -8,7 +8,7 @@
       @if(loading()){
       <p class="text-background text-subtitle">Cargando nuestras calles</p>
       }
-      <div class="flex-1 overflow-y-auto h-[350px]">
+      <div class="flex-1 overflow-y-auto h-[350px]" (scroll)="onScroll($event)">
         @for (street of streets(); track street.id) {
         <div class="w-[350px] mx-auto">
           <div
@@ -35,7 +35,21 @@
           <hr class="w-full bg-primary dark:bg-primary-dark h-2 mt-3 mb-3" />
         </div>
         }@empty {
-        <p class="text-background text-subtitle">No existe calles aún</p>
+        <div class="text-center py-12 flex flex-col items-center opacity-60">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12 text-gray-300 mb-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1"
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+          <p class="text-background text-subtitle">No existe calles aún</p>
+        </div>
         }
       </div>
     </section>
@@ -57,7 +71,9 @@
         <app-button id="cancel-button" variant="secondary" (click)="closeModal()">
           <p>Cancelar</p>
         </app-button>
-        <app-button id="create-button" type="submit"><p>Crear</p></app-button>
+        <app-button id="create-button" type="submit">
+          <p>{{ isEditMode() ? 'Editar' : 'Crear' }}</p>
+        </app-button>
       </section>
     </form>
   </div>

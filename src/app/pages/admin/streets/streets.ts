@@ -29,6 +29,14 @@ export class Streets implements OnInit {
   isModalOpen = signal<boolean>(false);
   isEditMode = signal(false);
 
+  private current_offset = 0;
+  private readonly page_size = 10;
+  hasMore = signal(true);
+
+  private isLoadingMore = false;
+  private lastScrollPosition = 0;
+  private scrollThrottleTimer: number | null = null;
+
   kebabOptions: KebabOption[] = [
     { label: 'Editar', action: 'edit' },
     { label: 'Eliminar', action: 'delete', variant: 'danger' },
@@ -44,7 +52,7 @@ export class Streets implements OnInit {
     this.streetService.delete(street.id).subscribe({
       next: () => {
         this.toastService.success('Calle eliminada');
-        this.getStreets();
+        this.reloadStreets();
       },
       error: err => {
         console.error('Error al eliminar calle:', err);
@@ -60,7 +68,7 @@ export class Streets implements OnInit {
       this.streetService.update(this.selectedStreetId()!, street_input).subscribe({
         next: () => {
           this.toastService.success('Calle actualizada');
-          this.getStreets();
+          this.reloadStreets();
           this.closeModal();
         },
         error: err => {
@@ -72,8 +80,9 @@ export class Streets implements OnInit {
       this.streetService.create(street_input).subscribe({
         next: () => {
           this.toastService.success('Calle registrada con exito');
-          this.getStreets();
+          this.reloadStreets();
           this.name_street.set('');
+          this.closeModal();
         },
         error: err => {
           if (err.error?.detail === 'Street already exist') {
@@ -87,28 +96,65 @@ export class Streets implements OnInit {
   }
 
   getStreets() {
+    if (this.isLoadingMore || !this.hasMore()) {
+      return;
+    }
     this.loading.set(true);
-    this.loadStreets([], 0);
-  }
+    this.isLoadingMore = true;
 
-  private loadStreets(loadedStreets: Street[], offset: number) {
-    const limit = 10;
-    this.loading.set(true);
-    this.streetService.getAll(limit, offset).subscribe({
+    this.streetService.getAll(this.page_size, this.current_offset).subscribe({
       next: response => {
-        const allStreets = [...loadedStreets, ...response.data];
+        this.streets.update(current => [...current, ...response.data]);
+        this.current_offset += this.page_size;
+        this.hasMore.set(response.data.length === this.page_size);
         this.loading.set(false);
 
-        if (response.data.length < limit) {
-          this.streets.set(allStreets);
-        } else {
-          this.loadStreets(allStreets, offset + limit);
-        }
+        setTimeout(() => {
+          this.loading.set(false);
+          this.isLoadingMore = false;
+        }, 300);
       },
-      error: err => {
-        console.error('Streets not load', err);
+      error: () => {
+        this.toastService.error('No se pudieron cargar las calles');
+        this.loading.set(false);
+        this.isLoadingMore = false;
       },
     });
+  }
+
+  onScroll(event: Event) {
+    if (!this.hasMore() || this.isLoadingMore) {
+      return;
+    }
+
+    if (this.scrollThrottleTimer) {
+      return;
+    }
+
+    const element = event.target as HTMLElement;
+    const scrollTop = element.scrollTop;
+
+    if (scrollTop <= this.lastScrollPosition) {
+      this.lastScrollPosition = scrollTop;
+      return;
+    }
+
+    const is_bottom = Math.abs(element.scrollHeight - element.scrollTop - element.clientHeight) < 1;
+
+    if (is_bottom && this.hasMore() && !this.loading()) {
+      this.scrollThrottleTimer = setTimeout(() => {
+        this.scrollThrottleTimer = null;
+      }, 500);
+
+      this.getStreets();
+    }
+  }
+
+  reloadStreets() {
+    this.streets.set([]);
+    this.current_offset = 0;
+    this.hasMore.set(true);
+    this.getStreets();
   }
 
   handleActions(action: string, street: Street) {
