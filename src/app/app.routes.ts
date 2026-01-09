@@ -34,9 +34,9 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: Streets
-      }
-    ]
+        component: Streets,
+      },
+    ],
   },
   {
     path: '',

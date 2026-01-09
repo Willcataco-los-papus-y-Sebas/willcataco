@@ -1,13 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonComponent } from "@components/button/button";
-import { ModalComponent } from "@components/modal/modal";
-import { InputComponent } from "@components/input/input";
+import { ButtonComponent } from '@components/button/button';
+import { ModalComponent } from '@components/modal/modal';
+import { InputComponent } from '@components/input/input';
 import { Street } from '@models/streets';
 import { StreetService } from '@services/street/street';
 import { HeaderService } from '@services/header';
 import { ToastService } from '@services/toast/toast.service';
-import { KebabComponent } from "@components/kebab/kebab";
+import { KebabComponent } from '@components/kebab/kebab';
 import { KebabOption } from '@components/kebab/kebab.types';
 
 @Component({
@@ -16,19 +16,19 @@ import { KebabOption } from '@components/kebab/kebab.types';
   templateUrl: './streets.html',
   styleUrl: './streets.css',
 })
-export class Streets implements OnInit{
-  private headerService = inject(HeaderService)
-  private toastService = inject(ToastService)
-  private streetService = inject(StreetService)
+export class Streets implements OnInit {
+  private headerService = inject(HeaderService);
+  private toastService = inject(ToastService);
+  private streetService = inject(StreetService);
 
   name_street = signal('');
   streets = signal<Street[]>([]);
   selectedStreetId = signal<number | null>(null);
-  
+
   loading = signal(false);
   isModalOpen = signal<boolean>(false);
   isEditMode = signal(false);
-  
+
   kebabOptions: KebabOption[] = [
     { label: 'Editar', action: 'edit' },
     { label: 'Eliminar', action: 'delete', variant: 'danger' },
@@ -40,53 +40,49 @@ export class Streets implements OnInit{
     this.getStreets();
   }
 
-
   deleteStreet(street: Street) {
     this.streetService.delete(street.id).subscribe({
       next: () => {
-        this.toastService.success("Calle eliminada");
+        this.toastService.success('Calle eliminada');
         this.getStreets();
       },
-      error: (err) => {
+      error: err => {
         console.error('Error al eliminar calle:', err);
         this.toastService.error('No se pudo eliminar la calle');
-      }
-    })
+      },
+    });
   }
 
   registerStreet() {
+    const street_input = { name: this.name_street() };
 
-    const street_input = { name: this.name_street()};
-
-    if(this.isEditMode() && this.selectedStreetId()){
+    if (this.isEditMode() && this.selectedStreetId()) {
       this.streetService.update(this.selectedStreetId()!, street_input).subscribe({
         next: () => {
-          this.toastService.success("Calle actualizada");
+          this.toastService.success('Calle actualizada');
           this.getStreets();
           this.closeModal();
         },
-        error: (err) => {
+        error: err => {
           console.error('Error al actualizar:', err);
-          this.toastService.error("No se pudo actualizar la calle")
-        }
-      })
-    }else {
-      this.streetService.create(
-        street_input
-      ).subscribe({
+          this.toastService.error('No se pudo actualizar la calle');
+        },
+      });
+    } else {
+      this.streetService.create(street_input).subscribe({
         next: () => {
-          this.toastService.success("Calle registrada con exito");
+          this.toastService.success('Calle registrada con exito');
           this.getStreets();
           this.name_street.set('');
         },
         error: err => {
-          if(err.error?.detail === "Street already exist") {
-            this.toastService.error("La calle ya existe");
+          if (err.error?.detail === 'Street already exist') {
+            this.toastService.error('La calle ya existe');
           } else {
-            this.toastService.error("La calle no se pudo crear");
+            this.toastService.error('La calle no se pudo crear');
           }
-        }
-      })
+        },
+      });
     }
   }
 
@@ -94,26 +90,25 @@ export class Streets implements OnInit{
     this.loading.set(true);
     this.loadStreets([], 0);
   }
-  
-  private loadStreets (loadedStreets: Street[], offset: number) {
+
+  private loadStreets(loadedStreets: Street[], offset: number) {
     const limit = 10;
     this.loading.set(true);
-    this.streetService.getAll(limit, offset)
-    .subscribe({
-      next: (response) => {
+    this.streetService.getAll(limit, offset).subscribe({
+      next: response => {
         const allStreets = [...loadedStreets, ...response.data];
         this.loading.set(false);
 
-        if(response.data.length < limit) {
+        if (response.data.length < limit) {
           this.streets.set(allStreets);
         } else {
-          this.loadStreets(allStreets, offset + limit)
+          this.loadStreets(allStreets, offset + limit);
         }
       },
       error: err => {
-      console.error("Streets not load", err);
-    }
-    })
+        console.error('Streets not load', err);
+      },
+    });
   }
 
   handleActions(action: string, street: Street) {
@@ -144,5 +139,4 @@ export class Streets implements OnInit{
     this.isEditMode.set(false);
     this.selectedStreetId.set(null);
   }
-
 }

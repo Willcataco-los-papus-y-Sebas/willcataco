@@ -1,51 +1,64 @@
 <div class="flex justify-center w-full">
-    <div id="conteiner" class="mx-auto content-center w-[460px] flex flex-col items-center gap-12">
-        <div id="button-conntainer" class="pt-17">
-            <app-button (click)="openModal()"><p>+ Nueva Calle</p></app-button>
-        </div>
-        <section id="cards-section" class="h-[410px] w-[400px] flex flex-col">
-            <hr class="w-full bg-primary dark:bg-primary-dark h-2 mb-5">
-            @if(loading()){
-                <p class="text-background text-subtitle">Cargando nuestras calles</p>
-            }
-            <div class="flex-1 overflow-y-auto h-[350px]">
-            @for (street of streets(); track street.id) {
-                <div class="w-[350px] mx-auto">
-                    <div
-                        class="w-full bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-transparent dark:border-gray-700 flex justify-between items-start transition-colors duration-200">
-                        <div class="flex flex-col gap-1">
-                            <h3 class="font-sans font-bold text-title text-black dark:text-gray-100">{{street.name}}</h3>
-                            <p class="font-sans text-body text-gray-600 dark:text-gray-400">Modificación: {{street.updated_at == null ? "Ninguna" : street.updated_at}}</p>
-                            <p class="font-sans text-body text-gray-500 text-xs dark:text-gray-500">Creación: {{street.created_at}}</p>
-                        </div>
-
-                        <div class="flex-shrink-0">
-                            <app-kebab 
-                                [options]="kebabOptions"
-                                (optionSelected)="handleActions($event, street)"
-                            >
-                            </app-kebab>
-                        </div>
-                    </div>
-
-                    <hr class="w-full bg-primary dark:bg-primary-dark h-2 mt-3 mb-3">
-                </div>
-            }@empty {
-                <p class="text-background text-subtitle">No existe calles aún</p>
-            } 
-            </div>
-        </section>
+  <div id="conteiner" class="mx-auto content-center w-[460px] flex flex-col items-center gap-12">
+    <div id="button-conntainer" class="pt-17">
+      <app-button (click)="openModal()"><p>+ Nueva Calle</p></app-button>
     </div>
+    <section id="cards-section" class="h-[410px] w-[400px] flex flex-col">
+      <hr class="w-full bg-primary dark:bg-primary-dark h-2 mb-5" />
+      @if(loading()){
+      <p class="text-background text-subtitle">Cargando nuestras calles</p>
+      }
+      <div class="flex-1 overflow-y-auto h-[350px]">
+        @for (street of streets(); track street.id) {
+        <div class="w-[350px] mx-auto">
+          <div
+            class="w-full bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-transparent dark:border-gray-700 flex justify-between items-start transition-colors duration-200">
+            <div class="flex flex-col gap-1">
+              <h3 class="font-sans font-bold text-title text-black dark:text-gray-100">
+                {{street.name}}
+              </h3>
+              <p class="font-sans text-body text-gray-600 dark:text-gray-400">
+                Modificación: {{street.updated_at === null ? "Ninguna" : street.updated_at}}
+              </p>
+              <p class="font-sans text-body text-gray-500 text-xs dark:text-gray-500">
+                Creación: {{street.created_at}}
+              </p>
+            </div>
+
+            <div class="flex-shrink-0">
+              <app-kebab
+                [options]="kebabOptions"
+                (optionSelected)="handleActions($event, street)"></app-kebab>
+            </div>
+          </div>
+
+          <hr class="w-full bg-primary dark:bg-primary-dark h-2 mt-3 mb-3" />
+        </div>
+        }@empty {
+        <p class="text-background text-subtitle">No existe calles aún</p>
+        }
+      </div>
+    </section>
+  </div>
 </div>
 
-<app-modal [title]="isEditMode() ? 'Editar Calle' : 'Agregar Calle'" [isOpen]="isModalOpen()" (modalClose)="closeModal()">
-    <div class="gap-3">
-        <form (ngSubmit)="registerStreet()">
-            <app-input name="street_name" label="Nombre" [ngModel]="name_street()" (ngModelChange)="name_street.set($event)"></app-input>
-            <section id="buttons" class="flex gap-3">
-            <app-button id="cancel-button" variant="secondary" (click)="closeModal()"><p>Cancelar</p></app-button>
-            <app-button id="create-button" type="submit"><p>Crear</p></app-button>
-        </section>
-        </form>
-    </div>
+<app-modal
+  [title]="isEditMode() ? 'Editar Calle' : 'Agregar Calle'"
+  [isOpen]="isModalOpen()"
+  (modalClose)="closeModal()">
+  <div class="gap-3">
+    <form (ngSubmit)="registerStreet()">
+      <app-input
+        name="street_name"
+        label="Nombre"
+        [ngModel]="name_street()"
+        (ngModelChange)="name_street.set($event)"></app-input>
+      <section id="buttons" class="flex gap-3">
+        <app-button id="cancel-button" variant="secondary" (click)="closeModal()">
+          <p>Cancelar</p>
+        </app-button>
+        <app-button id="create-button" type="submit"><p>Crear</p></app-button>
+      </section>
+    </form>
+  </div>
 </app-modal>
