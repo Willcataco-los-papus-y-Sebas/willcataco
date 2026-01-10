@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonHeader } from '../button-header/button-header';
 import { AuthService } from '@services/auth/auth';
 import { Router } from '@angular/router';
-import { Carrusel } from "@components/carrusel/carrusel";
+import { Carrusel } from '@components/carrusel/carrusel';
 import { ICarruselItem } from '@components/carrusel/carrusel';
 @Component({
   selector: 'app-header',

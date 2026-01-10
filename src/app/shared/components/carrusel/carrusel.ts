@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component , Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-export interface ICarruselItem{
-  id : number,
-  title: string,
-  subtitle?: string,
-  footPage?: string,
-  marginLeft?: number,
+export interface ICarruselItem {
+  id: number;
+  title: string;
+  subtitle?: string;
+  footPage?: string;
+  marginLeft?: number;
 }
-
 
 @Component({
   selector: 'app-carrusel',
@@ -18,12 +17,12 @@ export interface ICarruselItem{
 })
 export class Carrusel {
   @Input() items: ICarruselItem[] = [];
-  @Input() colorItem : string = "bg-background"
+  @Input() colorItem = 'bg-background';
 
   public currentPosition = 0;
 
-  ngOnInit() {
-    this.items.forEach((i , index) =>{
+  OnInit() {
+    this.items.forEach((i, index) => {
       i.id = index;
       i.marginLeft = 0;
     });
@@ -35,28 +34,28 @@ export class Carrusel {
       this.items[0].marginLeft = -100 * position;
     }
   }
-  
-  setNext(){
+
+  setNext() {
     let finalPercentage = 0;
-    let nextPosition = this.currentPosition +1 ;
-    if(nextPosition < this.items.length){
+    let nextPosition = this.currentPosition + 1;
+    if (nextPosition < this.items.length) {
       finalPercentage = -100 * nextPosition;
-    }else{
+    } else {
       nextPosition = 0;
     }
-    this.items[0].marginLeft = finalPercentage
+    this.items[0].marginLeft = finalPercentage;
     this.currentPosition = nextPosition;
   }
-  setBack(){
+  setBack() {
     let finalPercentage = 0;
-    let backPosition = this.currentPosition -1;
-    if (backPosition >= 0){
+    let backPosition = this.currentPosition - 1;
+    if (backPosition >= 0) {
       finalPercentage = -100 * backPosition;
-    }else{
-      backPosition = this.items.length -1;
+    } else {
+      backPosition = this.items.length - 1;
       finalPercentage = -100 * backPosition;
     }
-    this.items[0].marginLeft = finalPercentage
+    this.items[0].marginLeft = finalPercentage;
     this.currentPosition = backPosition;
   }
 }
