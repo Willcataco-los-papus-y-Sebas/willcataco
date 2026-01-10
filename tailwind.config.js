@@ -13,6 +13,7 @@ module.exports = {
         },
         secondary: '#000000',
         background: '#FFFFFF',
+        warning: '#C62828',
       },
       // 3. Tipografía única
       fontFamily: {
