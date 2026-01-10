@@ -1,14 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-
-export interface ICarruselItem {
-  id: number;
-  title: string;
-  subtitle?: string;
-  footPage?: string;
-  marginLeft?: number;
-}
-
+import { ICarruselItem } from '@models/carrusel/carrusel.item.types';
 @Component({
   selector: 'app-carrusel',
   imports: [CommonModule],
