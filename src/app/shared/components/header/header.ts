@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ButtonHeader } from '../button-header/button-header';
 import { AuthService } from '@services/auth/auth';
 import { Router } from '@angular/router';
+import { Carrusel } from "@components/carrusel/carrusel";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, ButtonHeader],
+  imports: [CommonModule, ButtonHeader, Carrusel],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -20,6 +21,7 @@ export class HeaderComponent {
   @Input() buttons_on = true;
   @Input() size: 'normal' | 'big' = 'normal';
   @Input() logo = 'droplet-fill';
+  @Input() is_carrusel = true;
 
   logout() {
     this.authService.logout().subscribe(() => {

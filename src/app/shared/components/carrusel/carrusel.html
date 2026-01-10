@@ -5,11 +5,11 @@
                 d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223" />
         </svg>
     </div>
-    <div class="relative w-full overflow-hidden border-b border-x rounded-xl">
-        <div class="flex h-25 transition-all duration-800 ease-in-out">
+    <div class="relative w-full overflow-hidden border-b border-x rounded-xl {{colorItem}}">
+        <div class="flex h-25">
 
             @for (item of items; track item.id) {
-            <div class="min-w-full flex flex-col justify-center text-white p-4 {{colorItem}}"
+            <div class="min-w-full flex flex-col justify-center text-white p-4"
                 [style.marginLeft.%]="item.id === 0 ? item.marginLeft : 0">
                 @if (item.subtitle) {
                 <span class="leading-tight text-body text-secondary/80">{{ item.subtitle }}</span>

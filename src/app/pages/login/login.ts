@@ -32,6 +32,7 @@ export class Login implements OnInit {
     this.headerService.buttons_on.set(false);
     this.headerService.header_text.set('Willcataco');
     this.headerService.size.set('big');
+    this.headerService.is_carrusel.set(false);
   }
 
   onLogin() {

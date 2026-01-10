@@ -9,6 +9,7 @@ export class HeaderService {
   buttons_on = signal(true);
   size = signal<'normal' | 'big'>('normal');
   logo = signal('droplet-fill');
+  is_carrusel = signal(true)
 
   reset() {
     this.is_logo.set(true);
@@ -16,5 +17,6 @@ export class HeaderService {
     this.buttons_on.set(true);
     this.size.set('normal');
     this.logo.set('droplet-fill');
+    this.is_carrusel.set(true)
   }
 }
