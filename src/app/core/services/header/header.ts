@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-
+import { ICarruselItem } from '@components/carrusel/carrusel';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,6 +11,9 @@ export class HeaderService {
   logo = signal('droplet-fill');
   is_carrusel = signal(true)
 
+  carrusel_items = signal<ICarruselItem[]>([]);
+  carrusel_color = signal('bg-background');
+
   reset() {
     this.is_logo.set(true);
     this.header_text.set('');
@@ -18,5 +21,7 @@ export class HeaderService {
     this.size.set('normal');
     this.logo.set('droplet-fill');
     this.is_carrusel.set(true)
+    this.carrusel_items.set([]);
+    this.carrusel_color.set('bg-background');
   }
 }

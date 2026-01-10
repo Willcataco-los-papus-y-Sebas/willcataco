@@ -4,7 +4,7 @@ import { ButtonHeader } from '../button-header/button-header';
 import { AuthService } from '@services/auth/auth';
 import { Router } from '@angular/router';
 import { Carrusel } from "@components/carrusel/carrusel";
-
+import { ICarruselItem } from '@components/carrusel/carrusel';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -22,6 +22,9 @@ export class HeaderComponent {
   @Input() size: 'normal' | 'big' = 'normal';
   @Input() logo = 'droplet-fill';
   @Input() is_carrusel = true;
+
+  @Input() carrusel_items: ICarruselItem[] = [];
+  @Input() carrusel_color = 'bg-background';
 
   logout() {
     this.authService.logout().subscribe(() => {

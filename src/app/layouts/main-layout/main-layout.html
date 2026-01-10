@@ -5,7 +5,10 @@
     [buttons_on]="headerService.buttons_on()"
     [size]="headerService.size()"
     [logo]="headerService.logo()"
-    [is_carrusel]="headerService.is_carrusel()"></app-header>
+    [is_carrusel]="headerService.is_carrusel()"
+    [carrusel_items]="headerService.carrusel_items()"
+    [carrusel_color]="headerService.carrusel_color()">
+  </app-header>
   <main class="flex-grow">
     <router-outlet></router-outlet>
   </main>
