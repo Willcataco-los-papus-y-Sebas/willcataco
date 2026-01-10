@@ -22,7 +22,6 @@ export class ExtraPaymentDetail implements OnInit {
   ngOnInit() {
     this._headerService.reset();
     this._headerService.header_text.set('Detalle de Pago');
-    this._headerService.size.set('normal');
     this._headerService.is_logo.set(false);
     this._headerService.buttons_on.set(true);
 

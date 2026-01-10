@@ -56,7 +56,6 @@ export class ExtraPayments implements OnInit {
   setupHeader() {
     this._headerService.reset();
     this._headerService.header_text.set('Pagos Extras');
-    this._headerService.size.set('normal');
     this._headerService.is_logo.set(false);
     this._headerService.buttons_on.set(true);
   }
