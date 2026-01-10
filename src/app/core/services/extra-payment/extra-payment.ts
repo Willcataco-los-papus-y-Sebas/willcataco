@@ -8,33 +8,35 @@ export interface ApiResponse<T> {
   detail: string;
   status_code: number;
   data: T;
-  page?: number;
+  limit?: number;
   offset?: number;
+  page?: number; 
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExtraPaymentService {
-  private _http = inject(HttpClient);
-  private _apiUrl = `${environment.apiUrl}/api/extra-payments`;
+  private readonly _http = inject(HttpClient);
+  private readonly _apiUrl = `${environment.apiUrl}/api/extra-payments`;
 
-  getAll(limit = 50, offset = 0): Observable<ApiResponse<ExtraPayment[]>> {
-    const params = new HttpParams().set('limit', limit).set('offset', offset);
-
-    return this._http.get<ApiResponse<ExtraPayment[]>>(this._apiUrl, { params });
+  getAll(limit: number, offset: number): Observable<ApiResponse<ExtraPayment[]>> {
+    const params = new HttpParams()
+      .set('limit', limit)
+      .set('offset', offset);
+    return this._http.get<ApiResponse<ExtraPayment[]>>(`${this._apiUrl}/`, { params });
   }
 
   getById(id: number): Observable<ApiResponse<ExtraPayment>> {
     return this._http.get<ApiResponse<ExtraPayment>>(`${this._apiUrl}/${id}`);
   }
 
-  create(payment: ExtraPaymentCreate): Observable<ApiResponse<ExtraPayment>> {
-    return this._http.post<ApiResponse<ExtraPayment>>(this._apiUrl, payment);
+  create(data: ExtraPaymentCreate): Observable<ApiResponse<ExtraPayment>> {
+    return this._http.post<ApiResponse<ExtraPayment>>(this._apiUrl, data);
   }
 
-  update(id: number, payment: ExtraPaymentUpdate): Observable<ApiResponse<ExtraPayment>> {
-    return this._http.patch<ApiResponse<ExtraPayment>>(`${this._apiUrl}/${id}`, payment);
+  update(id: number, data: ExtraPaymentUpdate): Observable<ApiResponse<ExtraPayment>> {
+    return this._http.patch<ApiResponse<ExtraPayment>>(`${this._apiUrl}/${id}`, data);
   }
 
   delete(id: number): Observable<ApiResponse<void>> {

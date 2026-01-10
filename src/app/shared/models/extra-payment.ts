@@ -13,7 +13,6 @@ export interface ExtraPaymentCreate {
   name: string;
   description?: string;
   amount: number;
-  is_active: boolean;
 }
 
 export interface ExtraPaymentUpdate {
