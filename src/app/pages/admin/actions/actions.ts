@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
     InputComponent,
     ModalComponent,
     DatePipe,
-    CurrencyPipe
+    CurrencyPipe,
   ],
   templateUrl: './actions.html',
   styleUrl: './actions.css',
@@ -46,7 +46,7 @@ export class Actions implements OnInit {
   isModalOpen = signal(false);
   isEditing = signal(false);
   isDeleteModalOpen = signal(false);
-  
+
   selectedActionId = signal<number | null>(null);
   actionToDelete = signal<Action | null>(null);
 
@@ -74,19 +74,19 @@ export class Actions implements OnInit {
   loadActions() {
     this.loading.set(true);
     this._actionService.getAll(this.limit, this.offset).subscribe({
-      next: (res) => {
+      next: res => {
         this.actions.set(res.data);
         this.hasMore.set(res.data.length >= this.limit);
-        
+
         if (this.offset === 0) {
-           this.totalActions.set(res.data.length); 
+          this.totalActions.set(res.data.length);
         }
         this.loading.set(false);
       },
       error: () => {
         this._toastService.error('Error al cargar acciones');
         this.loading.set(false);
-      }
+      },
     });
   }
 
@@ -102,7 +102,7 @@ export class Actions implements OnInit {
     this.formMemberId.set(action.member_id.toString());
     this.formStreetId.set(action.street_id.toString());
     this.formPrice.set(action.total_price.toString());
-    
+
     this.isModalOpen.set(true);
   }
 
@@ -124,14 +124,14 @@ export class Actions implements OnInit {
     const price = parseFloat(this.formPrice());
 
     if (!memberId || !streetId || isNaN(price)) {
-        this._toastService.warning('Complete todos los campos correctamente');
-        return;
+      this._toastService.warning('Complete todos los campos correctamente');
+      return;
     }
 
     const payload = {
       member_id: memberId,
       street_id: streetId,
-      total_price: price
+      total_price: price,
     };
 
     if (this.isEditing() && this.selectedActionId()) {
@@ -141,7 +141,7 @@ export class Actions implements OnInit {
           this.loadActions();
           this.closeModal();
         },
-        error: () => this._toastService.error('Error al actualizar')
+        error: () => this._toastService.error('Error al actualizar'),
       });
     } else {
       this._actionService.create(payload).subscribe({
@@ -150,7 +150,7 @@ export class Actions implements OnInit {
           this.loadActions();
           this.closeModal();
         },
-        error: () => this._toastService.error('Error al crear')
+        error: () => this._toastService.error('Error al crear'),
       });
     }
   }
@@ -175,7 +175,7 @@ export class Actions implements OnInit {
         this.closeDeleteModal();
         this.loadActions();
       },
-      error: () => this._toastService.error('Error al eliminar')
+      error: () => this._toastService.error('Error al eliminar'),
     });
   }
 
@@ -192,7 +192,7 @@ export class Actions implements OnInit {
       this.offset -= this.limit;
       this.currentPage.update(v => v - 1);
       this.loadActions();
-      this.hasMore.set(true); 
+      this.hasMore.set(true);
     }
   }
 }

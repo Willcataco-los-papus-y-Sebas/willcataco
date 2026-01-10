@@ -1,7 +1,7 @@
 export enum ActionStatus {
   UNPAID = 'UNPAID',
   PAID = 'PAID',
-  PENDING = 'PENDING'
+  PENDING = 'PENDING',
 }
 
 export interface Action {

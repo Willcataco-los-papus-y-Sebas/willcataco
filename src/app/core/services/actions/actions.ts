@@ -10,7 +10,7 @@ import { Action, ActionCreate, ActionPatch } from '@models/actions';
 })
 export class ActionService {
   private readonly _http = inject(HttpClient);
-  private readonly _apiUrl = `${environment.apiUrl}/api/actions`; 
+  private readonly _apiUrl = `${environment.apiUrl}/api/actions`;
 
   getAll(limit: number, offset: number): Observable<ApiResponse<Action[]>> {
     const params = new HttpParams().set('limit', limit).set('skip', offset);

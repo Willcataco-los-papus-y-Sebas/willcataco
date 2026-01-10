@@ -32,7 +32,7 @@ export class ActionDetail implements OnInit {
 
   loadData(id: number) {
     this._service.getById(id).subscribe({
-      next: (res) => {
+      next: res => {
         this.action.set(res.data);
         this.loading.set(false);
       },
