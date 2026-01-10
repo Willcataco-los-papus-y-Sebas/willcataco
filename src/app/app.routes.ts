@@ -6,6 +6,8 @@ import { AdminLogin } from '@pages/admin/login/login';
 import { Home } from '@pages/home/home';
 import { Dashboard } from '@pages/admin/dashboard/dashboard';
 import { MainLayout } from '@layouts/main-layout/main-layout';
+import { Actions } from '@pages/admin/actions/actions';
+import { ActionDetail } from '@pages/admin/actions/detail/detail';
 
 export const routes: Routes = [
   {
@@ -34,6 +36,14 @@ export const routes: Routes = [
       {
         path: '',
         component: Home,
+      },
+      {
+        path: 'admin/actions',
+        component: Actions,
+      },
+      {
+        path: 'admin/actions/:id',
+        component: ActionDetail,
       },
     ],
   },
