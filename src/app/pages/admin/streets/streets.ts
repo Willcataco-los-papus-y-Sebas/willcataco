@@ -132,7 +132,7 @@ export class Streets implements OnInit {
     }
   }
 
-  private validateStreetName(){
+  private validateStreetName() {
     if (!this.nameStreet().trim()) {
       this.toastService.warning('Por favor ingrese un nombre');
       return false;
