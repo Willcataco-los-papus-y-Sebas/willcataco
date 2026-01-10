@@ -10,7 +10,6 @@ export class HeaderService {
   is_normal = signal(true);
   logo = signal('droplet-fill');
   is_carrusel = signal(true);
-
   carrusel_items = signal<ICarruselItem[]>([]);
   carrusel_color = signal('bg-background');
 

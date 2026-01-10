@@ -21,8 +21,8 @@ export class HeaderComponent {
   @Input() buttons_on = true;
   @Input() is_normal = true;
   @Input() logo = 'droplet-fill';
-  @Input() is_carrusel = true;
 
+  @Input() is_carrusel = true;
   @Input() carrusel_items: ICarruselItem[] = [];
   @Input() carrusel_color = 'bg-background';
 
