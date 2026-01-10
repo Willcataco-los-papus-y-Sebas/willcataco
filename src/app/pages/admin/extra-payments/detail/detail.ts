@@ -3,16 +3,15 @@ import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
 import { HeaderService } from '@services/header/header';
 import { ExtraPaymentService } from '@services/extra-payment/extra-payment';
 import { ExtraPayment } from '@models/extra-payment';
-import { ButtonComponent } from '@components/button/button';
 
 @Component({
   selector: 'app-extra-payment-detail',
   standalone: true,
-  imports: [CommonModule, DatePipe, CurrencyPipe, ButtonComponent],
+  imports: [CommonModule, DatePipe, CurrencyPipe],
   templateUrl: './detail.html',
 })
 export class ExtraPaymentDetail implements OnInit {
-  @Input() id?: string; 
+  @Input() id?: string;
 
   private _headerService = inject(HeaderService);
   private _service = inject(ExtraPaymentService);
@@ -34,12 +33,12 @@ export class ExtraPaymentDetail implements OnInit {
 
   loadData(id: number) {
     this._service.getById(id).subscribe({
-      next: (res) => {
+      next: res => {
         this.payment.set(res.data);
-        this._headerService.header_text.set('Pagos Extras'); 
+        this._headerService.header_text.set('Pagos Extras');
         this.loading.set(false);
       },
-      error: () => this.loading.set(false)
+      error: () => this.loading.set(false),
     });
   }
 }

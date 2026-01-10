@@ -15,31 +15,25 @@ import { ExtraPayment } from '@models/extra-payment';
 @Component({
   selector: 'app-extra-payments',
   standalone: true,
-  imports: [
-    CommonModule, 
-    FormsModule, 
-    ButtonComponent, 
-    InputComponent, 
-    ModalComponent
-  ],
+  imports: [CommonModule, FormsModule, ButtonComponent, InputComponent, ModalComponent],
   templateUrl: './extra-payments.html',
   styleUrl: './extra-payments.css',
 })
 export class ExtraPayments implements OnInit {
   private _headerService = inject(HeaderService);
   private _extraPaymentService = inject(ExtraPaymentService);
-  private _toastService = inject(ToastService); 
+  private _toastService = inject(ToastService);
   private _router = inject(Router);
 
   payments = signal<ExtraPayment[]>([]);
-  totalPayments = signal(0); 
+  totalPayments = signal(0);
   loading = signal(false);
-  currentDate = new Date(); 
+  currentDate = new Date();
 
   limit = 10;
   offset = 0;
   currentPage = signal(1);
-  hasMore = signal(true); 
+  hasMore = signal(true);
 
   searchTerm = signal('');
 
@@ -62,7 +56,7 @@ export class ExtraPayments implements OnInit {
   setupHeader() {
     this._headerService.reset();
     this._headerService.header_text.set('Pagos Extras');
-    this._headerService.size.set('normal'); 
+    this._headerService.size.set('normal');
     this._headerService.is_logo.set(false);
     this._headerService.buttons_on.set(true);
   }
@@ -70,9 +64,9 @@ export class ExtraPayments implements OnInit {
   loadPayments() {
     this.loading.set(true);
     this._extraPaymentService.getAll(this.limit, this.offset).subscribe({
-      next: (res) => {
+      next: res => {
         this.payments.set(res.data);
-        
+
         if (res.data.length < this.limit) {
           this.hasMore.set(false);
         } else {
@@ -80,16 +74,16 @@ export class ExtraPayments implements OnInit {
         }
 
         if (this.offset === 0 && this.totalPayments() === 0) {
-           this.totalPayments.set(res.data.length); 
+          this.totalPayments.set(res.data.length);
         }
 
         this.loading.set(false);
       },
-      error: (err) => {
+      error: err => {
         console.error(err);
         this._toastService.error('Error al cargar pagos');
         this.loading.set(false);
-      }
+      },
     });
   }
 
@@ -131,7 +125,7 @@ export class ExtraPayments implements OnInit {
     if (this.isEditing() && this.selectedPaymentId()) {
       const payload = {
         description: description,
-        amount: amount
+        amount: amount,
       };
 
       this._extraPaymentService.update(this.selectedPaymentId()!, payload).subscribe({
@@ -140,17 +134,16 @@ export class ExtraPayments implements OnInit {
           this.loadPayments();
           this.closeModal();
         },
-        error: (e) => {
+        error: e => {
           console.error(e);
           this._toastService.error('Error al actualizar pago');
-        }
+        },
       });
-
     } else {
       const payload = {
-        name: this.formName(), 
+        name: this.formName(),
         description: description,
-        amount: amount
+        amount: amount,
       };
 
       this._extraPaymentService.create(payload).subscribe({
@@ -159,10 +152,10 @@ export class ExtraPayments implements OnInit {
           this.loadPayments();
           this.closeModal();
         },
-        error: (e) => {
+        error: e => {
           console.error(e);
           this._toastService.error('Error al crear pago');
-        }
+        },
       });
     }
   }
@@ -187,7 +180,7 @@ export class ExtraPayments implements OnInit {
         this.closeDeleteModal();
         this.loadPayments();
       },
-      error: () => this._toastService.error('Error al eliminar')
+      error: () => this._toastService.error('Error al eliminar'),
     });
   }
 
@@ -204,7 +197,7 @@ export class ExtraPayments implements OnInit {
       this.offset -= this.limit;
       this.currentPage.update(v => v - 1);
       this.loadPayments();
-      this.hasMore.set(true); 
+      this.hasMore.set(true);
     }
   }
 }

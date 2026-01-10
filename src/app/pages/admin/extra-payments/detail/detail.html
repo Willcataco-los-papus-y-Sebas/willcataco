@@ -1,4 +1,4 @@
-<div class="relative px-4" style="margin-top: -60px; z-index: 20;">
+<div class="relative z-[50] px-4 -mt-[25px] mb-8">
     
     @if (loading()) {
         <div class="bg-white rounded-2xl shadow-xl p-8 text-center min-h-[300px] flex items-center justify-center">
@@ -35,10 +35,6 @@
                     <span class="font-bold text-black">Fecha Creación:</span>
                     <span class="text-gray-600">{{ p.created_at | date:'dd/MM/yyyy' }}</span>
                 </div>
-            </div>
-
-            <div class="mt-auto pt-10">
-                <app-button variant="primary" size="md">Ver Pagos</app-button>
             </div>
         </div>
     }

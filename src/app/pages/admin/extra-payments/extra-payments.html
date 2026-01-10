@@ -57,20 +57,33 @@
                 @for (payment of payments(); track payment.id) {
                     <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center transition-transform">
                         
-                        <div class="flex flex-col gap-1 cursor-pointer flex-1" (click)="goToDetail(payment.id)">
-                            <h3 class="font-bold text-lg text-secondary truncate font-sans">{{ payment.name }}</h3>
-                            <p class="text-sm text-gray-500 truncate max-w-[150px] font-sans">{{ payment.description || 'Sin descripción' }}</p>
+                        <button
+                            type="button"
+                            class="flex flex-col gap-1 flex-1 text-left bg-transparent border-none p-0 focus:outline-none"
+                            (click)="goToDetail(payment.id)">
+
+                            <h3 class="font-bold text-lg text-secondary truncate font-sans">
+                                {{ payment.name }}
+                            </h3>
+
+                            <p class="text-sm text-gray-500 truncate max-w-[150px] font-sans">
+                                {{ payment.description || 'Sin descripción' }}
+                            </p>
+
                             <div class="flex items-center gap-2 mt-1">
                                 <span class="text-xs font-bold bg-gray-100 text-primary px-2 py-0.5 rounded-md font-sans">
                                     {{ payment.amount | currency:'Bs ':'symbol':'1.0-0' }}
                                 </span>
-                                <span class="text-[10px] uppercase font-bold tracking-wide font-sans" 
-                                      [class.text-green-600]="payment.is_active" 
-                                      [class.text-red-600]="!payment.is_active">
+
+                                <span
+                                    class="text-[10px] uppercase font-bold tracking-wide font-sans"
+                                    [class.text-green-600]="payment.is_active"
+                                    [class.text-red-600]="!payment.is_active">
                                     {{ payment.is_active ? 'Activo' : 'Inactivo' }}
                                 </span>
                             </div>
-                        </div>
+                        </button>
+
                         
                         <div class="flex shrink-0 gap-2 ml-2">
                             <button class="h-10 w-10 rounded-lg flex items-center justify-center transition-colors bg-primary-dark hover:bg-primary text-white shadow-sm" 

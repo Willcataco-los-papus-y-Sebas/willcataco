@@ -10,7 +10,7 @@ export interface ApiResponse<T> {
   data: T;
   limit?: number;
   offset?: number;
-  page?: number; 
+  page?: number;
 }
 
 @Injectable({
@@ -21,9 +21,7 @@ export class ExtraPaymentService {
   private readonly _apiUrl = `${environment.apiUrl}/api/extra-payments`;
 
   getAll(limit: number, offset: number): Observable<ApiResponse<ExtraPayment[]>> {
-    const params = new HttpParams()
-      .set('limit', limit)
-      .set('offset', offset);
+    const params = new HttpParams().set('limit', limit).set('offset', offset);
     return this._http.get<ApiResponse<ExtraPayment[]>>(`${this._apiUrl}/`, { params });
   }
 
