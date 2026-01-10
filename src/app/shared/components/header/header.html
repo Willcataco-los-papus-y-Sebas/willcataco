@@ -1,8 +1,8 @@
 <header
   class="bg-primary w-full sticky top-0 z-50 lg:max-w-none lg:w-full sm:w-full mx-auto transition-transform duration-300"
   [ngClass]="{
-            'h-[130px]': size === 'normal',
-            'h-[265px]': size === 'big'
+            'h-[130px]': is_normal,
+            'h-[235px]': !is_normal
         }">
   <div class="h-full flex justify-between items-center px-6 ml-2">
     @if(buttons_on){
