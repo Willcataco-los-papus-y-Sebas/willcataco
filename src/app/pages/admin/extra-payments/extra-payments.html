@@ -55,11 +55,7 @@
     class="border-b-2 border-primary dark:border-primary-dark w-full max-w-md mx-auto mb-6 px-4 mt-4 opacity-20"></div>
 
   <div class="w-full max-w-md mx-auto px-4">
-    @if (loading()) {
-    <div class="flex justify-center py-10">
-      <p class="text-neutral-500 dark:text-neutral-400 animate-pulse font-sans">Cargando...</p>
-    </div>
-    } @else if (payments().length === 0) {
+    @defer (when payments()) { @if (payments()!.length === 0) {
     <div class="flex flex-col items-center justify-center mt-10 opacity-50 gap-4">
       <div class="p-4 bg-neutral-100 dark:bg-neutral-900 rounded-full">
         <svg
@@ -81,7 +77,7 @@
     <div class="flex flex-col gap-4">
       @for (payment of payments(); track payment.id) {
       <div
-        class="bg-background dark:bg-neutral-900 p-4 rounded-xl shadow-sm border border-neutral-100 dark:border-neutral-800 flex justify-between items-center transition-transform hover:scale-[1.01] duration-200">
+        class="bg-background dark:bg-neutral-900 p-4 rounded-xl shadow-sm border border-neutral-100 dark:border-neutral-800 flex justify-between items-center transition-transform hover:scale-[1.01] duration-200 relative z-10">
         <div
           class="flex flex-col gap-1 cursor-pointer flex-1 outline-none focus:ring-2 focus:ring-primary/50 rounded-lg p-1 transition-all"
           (click)="goToDetail(payment.id)"
@@ -185,6 +181,10 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
         </svg>
       </button>
+    </div>
+    } } @placeholder (minimum 500ms) {
+    <div class="flex justify-center py-10">
+      <p class="text-neutral-500 dark:text-neutral-400 animate-pulse font-sans">Cargando...</p>
     </div>
     }
   </div>

@@ -17,7 +17,6 @@ export class ExtraPaymentDetail implements OnInit {
   private _service = inject(ExtraPaymentService);
 
   payment = signal<ExtraPayment | null>(null);
-  loading = signal(true);
 
   ngOnInit() {
     this._headerService.reset();
@@ -35,9 +34,8 @@ export class ExtraPaymentDetail implements OnInit {
       next: res => {
         this.payment.set(res.data);
         this._headerService.header_text.set('Pagos Extras');
-        this.loading.set(false);
       },
-      error: () => this.loading.set(false),
+      error: err => console.error(err),
     });
   }
 }

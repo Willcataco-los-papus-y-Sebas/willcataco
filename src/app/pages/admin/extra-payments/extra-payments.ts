@@ -25,9 +25,9 @@ export class ExtraPayments implements OnInit {
   private _toastService = inject(ToastService);
   private _router = inject(Router);
 
-  payments = signal<ExtraPayment[]>([]);
+  payments = signal<ExtraPayment[] | null>(null);
+
   totalPayments = signal(0);
-  loading = signal(false);
   currentDate = new Date();
 
   limit = 10;
@@ -61,7 +61,6 @@ export class ExtraPayments implements OnInit {
   }
 
   loadPayments() {
-    this.loading.set(true);
     this._extraPaymentService.getAll(this.limit, this.offset).subscribe({
       next: res => {
         this.payments.set(res.data);
@@ -75,13 +74,10 @@ export class ExtraPayments implements OnInit {
         if (this.offset === 0 && this.totalPayments() === 0) {
           this.totalPayments.set(res.data.length);
         }
-
-        this.loading.set(false);
       },
       error: err => {
         console.error(err);
         this._toastService.error('Error al cargar pagos');
-        this.loading.set(false);
       },
     });
   }

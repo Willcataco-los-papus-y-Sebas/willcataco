@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@envs/environment';
 import { Observable } from 'rxjs';
-import { ApiResponse } from 'src/app/shared/models/api-response';
+import { ApiResponse } from '@models/api-response';
 import { ExtraPayment, ExtraPaymentCreate, ExtraPaymentUpdate } from '@models/extra-payment';
 
 @Injectable({
