@@ -1,89 +1,94 @@
 <div class="relative z-[50] px-4 -mt-[25px] mb-8">
-  
   @defer (when action()) {
-    <div
-      class="bg-background dark:bg-neutral-900 rounded-2xl shadow-xl p-8 min-h-[500px] flex flex-col items-center w-full max-w-md mx-auto border border-transparent dark:border-neutral-800 transition-colors">
-      
-      <h2 class="text-2xl font-bold text-secondary dark:text-white mb-2 text-center font-sans">
-        Acción #{{ action()!.id }}
-      </h2>
-      <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-8 font-sans">
-        Detalle completo del registro
-      </p>
+  <div
+    class="bg-background dark:bg-neutral-900 rounded-2xl shadow-xl p-8 min-h-[500px] flex flex-col items-center w-full max-w-md mx-auto border border-transparent dark:border-neutral-800 transition-colors">
+    <h2 class="text-2xl font-bold text-secondary dark:text-white mb-2 text-center font-sans">
+      Acción #{{ action()!.id }}
+    </h2>
+    <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-8 font-sans">
+      Detalle completo del registro
+    </p>
 
-      <div class="w-full space-y-6">
-        <div class="flex flex-col gap-1 border-b border-neutral-100 dark:border-neutral-800 pb-4">
-          <span class="font-bold text-secondary dark:text-white font-sans text-sm uppercase tracking-wide opacity-70">
-            Socio ID
-          </span>
-          <span class="text-xl text-neutral-800 dark:text-neutral-200 font-sans font-medium">
-            {{ action()!.member_id }}
-          </span>
-        </div>
+    <div class="w-full space-y-6">
+      <div class="flex flex-col gap-1 border-b border-neutral-100 dark:border-neutral-800 pb-4">
+        <span
+          class="font-bold text-secondary dark:text-white font-sans text-sm uppercase tracking-wide opacity-70">
+          Socio ID
+        </span>
+        <span class="text-xl text-neutral-800 dark:text-neutral-200 font-sans font-medium">
+          {{ action()!.member_id }}
+        </span>
+      </div>
 
-        <div class="flex flex-col gap-1 border-b border-neutral-100 dark:border-neutral-800 pb-4">
-          <span class="font-bold text-secondary dark:text-white font-sans text-sm uppercase tracking-wide opacity-70">
-            Calle ID
-          </span>
-          <span class="text-xl text-neutral-800 dark:text-neutral-200 font-sans font-medium">
-            {{ action()!.street_id }}
-          </span>
-        </div>
+      <div class="flex flex-col gap-1 border-b border-neutral-100 dark:border-neutral-800 pb-4">
+        <span
+          class="font-bold text-secondary dark:text-white font-sans text-sm uppercase tracking-wide opacity-70">
+          Calle ID
+        </span>
+        <span class="text-xl text-neutral-800 dark:text-neutral-200 font-sans font-medium">
+          {{ action()!.street_id }}
+        </span>
+      </div>
 
-        <div class="flex flex-col gap-1 border-b border-neutral-100 dark:border-neutral-800 pb-4">
-          <span class="font-bold text-secondary dark:text-white font-sans text-sm uppercase tracking-wide opacity-70">
-            Monto Total
-          </span>
-          <span class="text-2xl text-primary dark:text-primary-dark font-bold font-sans">
-            {{ action()!.total_price | currency:'Bs ':'symbol':'1.0-2' }}
-          </span>
-        </div>
+      <div class="flex flex-col gap-1 border-b border-neutral-100 dark:border-neutral-800 pb-4">
+        <span
+          class="font-bold text-secondary dark:text-white font-sans text-sm uppercase tracking-wide opacity-70">
+          Monto Total
+        </span>
+        <span class="text-2xl text-primary dark:text-primary-dark font-bold font-sans">
+          {{ action()!.total_price | currency:'Bs ':'symbol':'1.0-2' }}
+        </span>
+      </div>
 
-        <div class="flex items-center justify-between gap-2 border-b border-neutral-100 dark:border-neutral-800 pb-4">
-          <span class="font-bold text-secondary dark:text-white font-sans text-sm uppercase tracking-wide opacity-70">
-            Estado
-          </span>
+      <div
+        class="flex items-center justify-between gap-2 border-b border-neutral-100 dark:border-neutral-800 pb-4">
+        <span
+          class="font-bold text-secondary dark:text-white font-sans text-sm uppercase tracking-wide opacity-70">
+          Estado
+        </span>
+        <span
+          class="px-4 py-1.5 rounded-full text-sm font-bold font-sans tracking-wide"
+          [class.bg-yellow-100]="action()!.status === 'UNPAID'"
+          [class.text-yellow-700]="action()!.status === 'UNPAID'"
+          [class.dark:bg-yellow-900/30]="action()!.status === 'UNPAID'"
+          [class.dark:text-yellow-400]="action()!.status === 'UNPAID'"
+          [class.bg-green-100]="action()!.status === 'PAID'"
+          [class.text-green-700]="action()!.status === 'PAID'"
+          [class.dark:bg-green-900/30]="action()!.status === 'PAID'"
+          [class.dark:text-green-400]="action()!.status === 'PAID'">
+          {{ action()!.status }}
+        </span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 pt-2">
+        <div class="flex flex-col gap-1">
           <span
-            class="px-4 py-1.5 rounded-full text-sm font-bold font-sans tracking-wide"
-            [class.bg-yellow-100]="action()!.status === 'UNPAID'"
-            [class.text-yellow-700]="action()!.status === 'UNPAID'"
-            [class.dark:bg-yellow-900/30]="action()!.status === 'UNPAID'"
-            [class.dark:text-yellow-400]="action()!.status === 'UNPAID'"
-            [class.bg-green-100]="action()!.status === 'PAID'"
-            [class.text-green-700]="action()!.status === 'PAID'"
-            [class.dark:bg-green-900/30]="action()!.status === 'PAID'"
-            [class.dark:text-green-400]="action()!.status === 'PAID'">
-            {{ action()!.status }}
+            class="font-bold text-secondary dark:text-white font-sans text-xs uppercase tracking-wide opacity-70">
+            Creado
+          </span>
+          <span class="text-sm text-neutral-600 dark:text-neutral-400 font-sans">
+            {{ action()!.created_at | date:'dd/MM/yy HH:mm' }}
           </span>
         </div>
-
-        <div class="grid grid-cols-2 gap-4 pt-2">
-          <div class="flex flex-col gap-1">
-            <span class="font-bold text-secondary dark:text-white font-sans text-xs uppercase tracking-wide opacity-70">
-              Creado
-            </span>
-            <span class="text-sm text-neutral-600 dark:text-neutral-400 font-sans">
-              {{ action()!.created_at | date:'dd/MM/yy HH:mm' }}
-            </span>
-          </div>
-          <div class="flex flex-col gap-1">
-            <span class="font-bold text-secondary dark:text-white font-sans text-xs uppercase tracking-wide opacity-70">
-              Actualizado
-            </span>
-            <span class="text-sm text-neutral-600 dark:text-neutral-400 font-sans">
-              {{ action()!.updated_at | date:'dd/MM/yy HH:mm' }}
-            </span>
-          </div>
+        <div class="flex flex-col gap-1">
+          <span
+            class="font-bold text-secondary dark:text-white font-sans text-xs uppercase tracking-wide opacity-70">
+            Actualizado
+          </span>
+          <span class="text-sm text-neutral-600 dark:text-neutral-400 font-sans">
+            {{ action()!.updated_at | date:'dd/MM/yy HH:mm' }}
+          </span>
         </div>
       </div>
     </div>
+  </div>
 
   } @placeholder (minimum 500ms) {
-    <div
-      class="bg-background dark:bg-neutral-900 rounded-2xl shadow-xl p-8 text-center min-h-[300px] flex items-center justify-center border border-transparent dark:border-neutral-800">
-      <p class="text-sm text-neutral-500 dark:text-neutral-400 font-sans animate-pulse">
-        Cargando detalles...
-      </p>
-    </div>
+  <div
+    class="bg-background dark:bg-neutral-900 rounded-2xl shadow-xl p-8 text-center min-h-[300px] flex items-center justify-center border border-transparent dark:border-neutral-800">
+    <p class="text-sm text-neutral-500 dark:text-neutral-400 font-sans animate-pulse">
+      Cargando detalles...
+    </p>
+  </div>
   }
 </div>

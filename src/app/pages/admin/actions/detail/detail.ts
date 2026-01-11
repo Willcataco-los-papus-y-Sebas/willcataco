@@ -34,7 +34,7 @@ export class ActionDetail implements OnInit {
       next: res => {
         this.action.set(res.data);
       },
-      error: (err) => console.error(err)
+      error: err => console.error(err),
     });
   }
 }
