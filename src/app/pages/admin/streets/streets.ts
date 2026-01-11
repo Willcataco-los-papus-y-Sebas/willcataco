@@ -186,8 +186,9 @@ export class Streets implements OnInit {
       next: response => {
         this.streets.update(current => [...current, ...response.data]);
         this.currentOffset += this.pageSize;
-        this.hasMore.set(response.data.length === this.pageSize);
-        this.loading.set(false);
+
+        const hasMoreData = response.data.length === this.pageSize;
+        this.hasMore.set(hasMoreData);
 
         setTimeout(() => {
           this.loading.set(false);
@@ -203,6 +204,10 @@ export class Streets implements OnInit {
   }
 
   onScroll(event: Event) {
+    if (this.streets().length === 0) {
+      return;
+    }
+
     if (!this.hasMore() || this.isLoadingMore) {
       return;
     }
@@ -219,7 +224,7 @@ export class Streets implements OnInit {
       return;
     }
 
-    const isBottom = Math.abs(element.scrollHeight - element.scrollTop - element.clientHeight) < 1;
+    const isBottom = Math.abs(element.scrollHeight - element.scrollTop - element.clientHeight) < 10;
 
     if (isBottom && this.hasMore() && !this.loading()) {
       this.scrollThrottleTimer = setTimeout(() => {
@@ -234,6 +239,14 @@ export class Streets implements OnInit {
     this.streets.set([]);
     this.currentOffset = 0;
     this.hasMore.set(true);
+    this.isLoadingMore = false;
+    this.lastScrollPosition = 0;
+
+    if (this.scrollThrottleTimer !== null) {
+      clearTimeout(this.scrollThrottleTimer);
+      this.scrollThrottleTimer = null;
+    }
+
     this.getStreets();
   }
 }

@@ -5,9 +5,7 @@
     </div>
     <section id="cards-section" class="h-[410px] w-[400px] flex flex-col">
       <hr class="w-full bg-primary dark:bg-primary-dark h-2 mb-5" />
-      @if(loading()){
-      <p class="text-background text-subtitle">Cargando nuestras calles</p>
-      }
+      @defer(on viewport) {
       <div class="flex-1 overflow-y-auto h-[350px]" (scroll)="onScroll($event)">
         @for (street of streets(); track street.id) {
         <div class="w-[350px] mx-auto">
@@ -39,6 +37,11 @@
         </div>
         }
       </div>
+      }@loading {
+      <p class="text-background text-subtitle">Cargando componente</p>
+      }@placeholder {
+      <p class="text-background text-subtitle">Cargando nuestras calles</p>
+      }
     </section>
   </div>
 </div>
