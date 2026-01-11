@@ -11,8 +11,8 @@
         <div class="w-[350px] mx-auto">
           <app-card-street
             firstLine="{{street.name}}"
-            secondLine="Modificacion: {{street.updated_at}}"
-            thirdLine="Creacion: {{street.created_at}}">
+            secondLine="Modificacion: {{street.updated_at | date: 'short'}}"
+            thirdLine="Creacion: {{street.created_at | date: 'short'}}">
             <app-kebab
               [options]="kebabOptions"
               (optionSelected)="handleActions($event, street)"></app-kebab>

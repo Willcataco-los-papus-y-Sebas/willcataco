@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 import { ButtonComponent } from '@components/button/button';
 import { ModalComponent } from '@components/modal/modal';
@@ -17,6 +18,7 @@ import { ToastService } from '@services/toast/toast.service';
   selector: 'app-streets',
   imports: [
     FormsModule,
+    DatePipe,
     ButtonComponent,
     ModalComponent,
     InputComponent,
