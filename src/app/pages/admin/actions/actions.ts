@@ -33,9 +33,9 @@ export class Actions implements OnInit {
   private _toastService = inject(ToastService);
   private _router = inject(Router);
 
-  actions = signal<Action[]>([]);
+  actions = signal<Action[] | null>(null);
+
   totalActions = signal(0);
-  loading = signal(false);
   currentDate = new Date();
 
   limit = 10;
@@ -67,12 +67,10 @@ export class Actions implements OnInit {
   }
 
   goToDetail(id: number) {
-    console.log('Navegando a detalle ID:', id);
     this._router.navigate(['/admin/actions', id]);
   }
 
   loadActions() {
-    this.loading.set(true);
     this._actionService.getAll(this.limit, this.offset).subscribe({
       next: res => {
         this.actions.set(res.data);
@@ -81,11 +79,9 @@ export class Actions implements OnInit {
         if (this.offset === 0) {
           this.totalActions.set(res.data.length);
         }
-        this.loading.set(false);
       },
       error: () => {
         this._toastService.error('Error al cargar acciones');
-        this.loading.set(false);
       },
     });
   }

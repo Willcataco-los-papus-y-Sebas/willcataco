@@ -17,7 +17,6 @@ export class ActionDetail implements OnInit {
   private _service = inject(ActionService);
 
   action = signal<Action | null>(null);
-  loading = signal(true);
 
   ngOnInit() {
     this._headerService.reset();
@@ -34,9 +33,8 @@ export class ActionDetail implements OnInit {
     this._service.getById(id).subscribe({
       next: res => {
         this.action.set(res.data);
-        this.loading.set(false);
       },
-      error: () => this.loading.set(false),
+      error: (err) => console.error(err)
     });
   }
 }
