@@ -12,6 +12,14 @@ const COLORS = {
     DEFAULT: '#FFFFFF',
     dark: '#101016',
   },
+  hover: {
+    DEFAULT: '#7A2570',
+    dark: '#7E57C2',
+  },
+  disabled: {
+    DEFAULT: '#D0D0D0',
+    dark: '#4A4A4A',
+  },
   success: '#2E7D32',
   warning: '#F9A825',
   error: '#C62828',
