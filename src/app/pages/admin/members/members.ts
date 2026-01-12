@@ -39,9 +39,22 @@ export class Members implements OnInit {
   year = signal('');
 
   onYearChange(value: string) {
-    // Ensure only numbers
     const numericValue = value.replace(/[^0-9]/g, '');
     this.year.set(numericValue);
+  }
+
+  onKeyDown(event: KeyboardEvent) {
+    if (['Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete', 'Enter', 'Escape'].includes(event.key)) {
+      return;
+    }
+
+    if (event.ctrlKey || event.metaKey) {
+      return;
+    }
+
+    if (!/^[0-9]$/.test(event.key)) {
+      event.preventDefault();
+    }
   }
 
   dropdownItems: DropdownItem[] = [

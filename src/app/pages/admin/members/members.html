@@ -9,8 +9,8 @@
         (itemSelected)="onDropdownSelect($event)"></app-dropdown>
     </div>
     <div class="w-1/2">
-      <app-input placeholder="2026" [maxLength]="4" [ngModel]="year()"
-        (ngModelChange)="onYearChange($event)"></app-input>
+      <app-input placeholder="Año" type="tel" [maxLength]="4" [ngModel]="year()" (ngModelChange)="onYearChange($event)"
+        (keydown)="onKeyDown($event)"></app-input>
     </div>
   </div>
 
@@ -70,11 +70,6 @@
     </div>
 
     <div class="space-y-2 text-sm mb-6">
-
-      <div>
-        <span class="font-bold">Correo:</span>
-        {{ m.email }}
-      </div>
 
       <div>
         <span class="font-bold">Fecha Ingreso:</span>
