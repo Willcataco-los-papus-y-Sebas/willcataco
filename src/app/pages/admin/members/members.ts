@@ -85,11 +85,27 @@ export class Members implements OnInit {
     this.loadMembers();
   }
 
-  kebabOptions: KebabOption[] = [
-    { label: 'Ver Detalle', action: 'detail' },
-    { label: 'Editar', action: 'edit' },
-    { label: 'Eliminar', action: 'delete', variant: 'danger' },
-  ];
+  getMemberOptions(member: Member): KebabOption[] {
+    const options: KebabOption[] = [
+      { label: 'Ver Detalle', action: 'detail' },
+    ];
+
+    /*
+    const createdAt = new Date(member.created_at).getTime();
+    const now = new Date().getTime();
+    const diffInMinutes = (now - createdAt) / (1000 * 60);
+
+    if (diffInMinutes <= 60) {
+      options.push(
+        { label: 'Editar', action: 'edit' },
+        { label: 'Eliminar', action: 'delete', variant: 'danger' }
+      );
+    }
+    */
+
+    return options;
+  }
+
 
   ngOnInit() {
     this.loadMembers();

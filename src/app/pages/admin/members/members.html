@@ -37,7 +37,8 @@
     <div class="flex flex-col gap-4">
       @for (member of members(); track member.id) {
       <app-member-card [member]="member" (click)="onCardClick(member)" class="cursor-pointer">
-        <app-kebab card-action [options]="kebabOptions" (optionSelected)="onKebabAction($event, member)"></app-kebab>
+        <app-kebab card-action [options]="getMemberOptions(member)"
+          (optionSelected)="onKebabAction($event, member)"></app-kebab>
       </app-member-card>
       } @empty {
       <div class="text-center py-10 text-gray-500">No hay socios registrados.</div>
