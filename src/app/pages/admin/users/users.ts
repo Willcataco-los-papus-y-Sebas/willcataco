@@ -12,6 +12,7 @@ import { DropdownComponent } from 'src/app/shared/components/dropdown/dropdown';
 import { KebabOption } from 'src/app/shared/components/kebab/kebab.types';
 import { User, ROLE_COLORS, ROLE_OPTIONS, UserRole } from '@models/user';
 import { UsersService } from 'src/app/core/services/users/users.service';
+import { CreateUserDTO, UpdateUserDTO } from 'src/app/core/services/users/user.types';
 
 type ModalMode = 'create' | 'edit' | 'view' | 'delete' | null;
 
@@ -37,17 +38,14 @@ export class Users implements OnInit {
   private usersService = inject(UsersService);
   private cdr = inject(ChangeDetectorRef);
 
-  // 🔹 Datos
   users: User[] = [];
   isLoading = false;
 
-  // 🔹 Modal
   isModalOpen = false;
   modalMode: ModalMode = null;
   modalTitle = '';
   selectedUser: User | null = null;
 
-  // 🔹 Shared constants
   readonly roleOptions = ROLE_OPTIONS;
   readonly roleColors = ROLE_COLORS;
 
@@ -88,9 +86,11 @@ export class Users implements OnInit {
     this.modalMode = 'create';
     this.modalTitle = 'Nuevo usuario';
     this.selectedUser = null;
+
     this.userForm.reset({ role: UserRole.MEMBER });
     this.userForm.get('password')?.setValidators([Validators.required, Validators.minLength(7)]);
     this.userForm.get('password')?.updateValueAndValidity();
+
     this.userForm.enable();
     this.isModalOpen = true;
   }
@@ -99,6 +99,7 @@ export class Users implements OnInit {
     this.modalMode = 'view';
     this.modalTitle = 'Detalle de usuario';
     this.selectedUser = user;
+
     this.userForm.patchValue(user);
     this.userForm.disable();
     this.isModalOpen = true;
@@ -108,17 +109,19 @@ export class Users implements OnInit {
     this.modalMode = 'edit';
     this.modalTitle = 'Editar usuario';
     this.selectedUser = user;
+
     this.userForm.patchValue({
       username: user.username,
       email: user.email,
       role: user.role,
       password: '',
     });
-    this.userForm.enable();
 
+    this.userForm.enable();
     this.userForm.get('password')?.clearValidators();
     this.userForm.get('password')?.setValidators([Validators.minLength(7)]);
     this.userForm.get('password')?.updateValueAndValidity();
+
     this.isModalOpen = true;
   }
 
@@ -143,37 +146,63 @@ export class Users implements OnInit {
   onSubmit(): void {
     if (this.userForm.invalid) return;
 
-    const payload = { ...this.userForm.value };
+    const formValue = this.userForm.value as {
+      username: string;
+      email: string;
+      password: string;
+      role: UserRole;
+    };
 
-    if (this.modalMode === 'edit' && !payload.password) {
-      delete payload.password;
-    }
+    /** CREATE */
+    if (this.modalMode === 'create') {
+      const payload: CreateUserDTO = {
+        username: formValue.username,
+        email: formValue.email,
+        password: formValue.password,
+        role: formValue.role,
+      };
 
-    const request =
-      this.modalMode === 'create'
-        ? this.usersService.createUser(payload)
-        : this.usersService.updateUser(this.selectedUser!.id, payload);
-
-    request.subscribe({
-      next: () => {
-        this.loadUsers();
-        this.closeModal();
-      },
-      error: err => {
-        console.error('Error en la operación:', err);
-      },
-    });
-  }
-
-  confirmDelete(): void {
-    if (this.selectedUser) {
-      this.usersService.deleteUser(this.selectedUser.id).subscribe({
+      this.usersService.createUser(payload).subscribe({
         next: () => {
           this.loadUsers();
           this.closeModal();
         },
+        error: err => console.error('Error en la operación:', err),
       });
+      return;
     }
+
+    /** EDIT → PATCH parcial */
+    if (!this.selectedUser) return;
+
+    const original = this.selectedUser;
+    const payload: UpdateUserDTO = {};
+
+    if (formValue.username !== original.username) payload.username = formValue.username;
+    if (formValue.email !== original.email) payload.email = formValue.email;
+    if (formValue.role !== original.role) payload.role = formValue.role;
+    if (formValue.password) payload.password = formValue.password;
+
+    if (Object.keys(payload).length === 0) return;
+
+    this.usersService.updateUser(original.id, payload).subscribe({
+      next: () => {
+        this.loadUsers();
+        this.closeModal();
+      },
+      error: err => console.error('Error en la operación:', err),
+    });
+  }
+
+  confirmDelete(): void {
+    if (!this.selectedUser) return;
+
+    this.usersService.deleteUser(this.selectedUser.id).subscribe({
+      next: () => {
+        this.loadUsers();
+        this.closeModal();
+      },
+    });
   }
 
   onKebabAction(action: string, user: User): void {

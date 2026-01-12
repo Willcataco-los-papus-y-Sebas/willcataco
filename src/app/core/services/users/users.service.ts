@@ -1,10 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { User } from '@models/user';
+import { IResponse } from '@models/api-response';
 import { environment } from 'src/environments/environment';
 
-import { IResponse } from '@models/api-response';
+import { CreateUserDTO, UpdateUserDTO } from './user.types';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +19,12 @@ export class UsersService {
     return this.http.get<IResponse<User[]>>(`${this.apiUrl}/`);
   }
 
-  createUser(user: Partial<User>): Observable<IResponse<User>> {
-    return this.http.post<IResponse<User>>(`${this.apiUrl}/`, user);
+  createUser(payload: CreateUserDTO): Observable<IResponse<User>> {
+    return this.http.post<IResponse<User>>(`${this.apiUrl}/`, payload);
   }
 
-  updateUser(id: number, user: Partial<User>): Observable<IResponse<User>> {
-    return this.http.patch<IResponse<User>>(`${this.apiUrl}/${id}`, user);
+  updateUser(id: number, payload: UpdateUserDTO): Observable<IResponse<User>> {
+    return this.http.patch<IResponse<User>>(`${this.apiUrl}/${id}`, payload);
   }
 
   deleteUser(id: number): Observable<IResponse<void>> {
