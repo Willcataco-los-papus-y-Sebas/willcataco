@@ -80,6 +80,11 @@ export class Members implements OnInit {
     console.log('Selected:', label);
   }
 
+  onSearchChange(query: string) {
+    this.searchQuery.set(query);
+    this.loadMembers();
+  }
+
   kebabOptions: KebabOption[] = [
     { label: 'Ver Detalle', action: 'detail' },
     { label: 'Editar', action: 'edit' },
@@ -91,7 +96,8 @@ export class Members implements OnInit {
   }
 
   loadMembers() {
-    this.membersService.getMembers().subscribe({
+    const search = this.searchQuery();
+    this.membersService.getMembers(10, 0, search).subscribe({
       next: data => this.members.set(data),
       error: err => console.error(err),
     });

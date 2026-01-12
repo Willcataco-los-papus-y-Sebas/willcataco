@@ -13,10 +13,24 @@ export class MembersService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/api/members/`;
 
-  getMembers(limit = 10, offset = 0): Observable<Member[]> {
+  getMembers(
+    limit = 10,
+    offset = 0,
+    search?: string
+  ): Observable<Member[]> {
+    let params: any = { limit: limit.toString(), offset: offset.toString() };
+
+    if (search) {
+      if (/^\d+$/.test(search)) {
+        params.ci = search;
+      } else {
+        params.name = search;
+      }
+    }
+
     return this.http
       .get<{ data?: Member[]; items?: Member[] } | Member[]>(this.apiUrl, {
-        params: { limit: limit.toString(), offset: offset.toString() },
+        params,
       })
       .pipe(
         map(response => {
