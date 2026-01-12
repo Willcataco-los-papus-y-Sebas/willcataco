@@ -44,7 +44,11 @@ export class Members implements OnInit {
   }
 
   onKeyDown(event: KeyboardEvent) {
-    if (['Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete', 'Enter', 'Escape'].includes(event.key)) {
+    if (
+      ['Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete', 'Enter', 'Escape'].includes(
+        event.key
+      )
+    ) {
       return;
     }
 
