@@ -19,10 +19,10 @@ export class StatusBadgeComponent {
       'px-4 py-1.5 rounded-full font-sans text-body font-bold text-white min-w-[100px] text-center transition-colors';
 
     const variants: Record<StatusType, string> = {
-      paid: 'bg-green-700',
-      debt: 'bg-warning',
-      process: 'bg-yellow-500',
-      pending: 'bg-orange-600',
+      paid: 'bg-success',
+      debt: 'bg-error',
+      process: 'bg-warning',
+      pending: 'bg-pending',
     };
 
     return `${base} ${variants[this.status]}`;
