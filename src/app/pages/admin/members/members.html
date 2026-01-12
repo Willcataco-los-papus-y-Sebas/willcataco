@@ -1,16 +1,23 @@
-<app-header header_text="Socios de Willcataco" [is_logo]="false" [buttons_on]="true" logo="droplet-fill"
-  [is_carrusel]="true"></app-header>
-
+<app-header
+  header_text="Socios de Willcataco"
+  [is_logo]="false"
+  [buttons_on]="true"
+  logo="droplet-fill"></app-header>
 <div class="p-4 mx-auto max-w-2xl pb-24">
-
-
   <div class="flex gap-4 mb-6">
     <div class="w-1/2 relative z-30">
-      <app-dropdown [items]="dropdownItems" dropTitle="Seleccionar Mes"
+      <app-dropdown
+        [items]="dropdownItems"
+        dropTitle="Seleccionar Mes"
         (itemSelected)="onDropdownSelect($event)"></app-dropdown>
     </div>
     <div class="w-1/2">
-      <app-input placeholder="Año" type="tel" [maxLength]="4" [ngModel]="year()" (ngModelChange)="onYearChange($event)"
+      <app-input
+        placeholder="Año"
+        type="tel"
+        [maxLength]="4"
+        [ngModel]="year()"
+        (ngModelChange)="onYearChange($event)"
         (keydown)="onKeyDown($event)"></app-input>
     </div>
   </div>
@@ -18,8 +25,13 @@
   <div class="flex justify-center mb-6">
     <app-button variant="primary" size="md">
       <div class="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd"
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor">
+          <path
+            fill-rule="evenodd"
             d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
             clip-rule="evenodd" />
         </svg>
@@ -29,7 +41,10 @@
   </div>
 
   <div class="relative mb-6">
-    <app-input label="" placeholder="Buscar..." [ngModel]="searchQuery()"
+    <app-input
+      label=""
+      placeholder="Buscar..."
+      [ngModel]="searchQuery()"
       (ngModelChange)="searchQuery.set($event)"></app-input>
   </div>
 
@@ -38,7 +53,10 @@
   <div class="flex flex-col gap-4">
     @for (member of members(); track member.id) {
     <app-member-card [member]="member" (click)="onCardClick(member)" class="cursor-pointer">
-      <app-kebab card-action [options]="kebabOptions" (optionSelected)="onKebabAction($event, member)"></app-kebab>
+      <app-kebab
+        card-action
+        [options]="kebabOptions"
+        (optionSelected)="onKebabAction($event, member)"></app-kebab>
     </app-member-card>
     } @empty {
     <div class="text-center py-10 text-gray-500">No hay socios registrados.</div>
@@ -71,7 +89,6 @@
     </div>
 
     <div class="space-y-2 text-sm mb-6">
-
       <div>
         <span class="font-bold">Fecha Ingreso:</span>
         {{ m.created_at | date:'dd/MM/yyyy' }}
