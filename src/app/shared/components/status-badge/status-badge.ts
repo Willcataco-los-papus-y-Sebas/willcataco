@@ -15,8 +15,9 @@ export class StatusBadgeComponent {
   @Input() status: StatusType = 'pending';
 
   get badgeClasses(): string {
-    const base = 'px-4 py-1.5 rounded-full font-sans text-body font-bold text-white min-w-[100px] text-center transition-colors';
-    
+    const base =
+      'px-4 py-1.5 rounded-full font-sans text-body font-bold text-white min-w-[100px] text-center transition-colors';
+
     const variants: Record<StatusType, string> = {
       paid: 'bg-green-700',
       debt: 'bg-warning',
