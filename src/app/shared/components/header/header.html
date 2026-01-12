@@ -1,5 +1,5 @@
 <header
-  class="bg-primary w-full sticky top-0 z-50 lg:max-w-none lg:w-full sm:w-full mx-auto transition-transform duration-300"
+  class="bg-primary dark:bg-primary-dark w-full sticky top-0 z-50 lg:max-w-none lg:w-full sm:w-full mx-auto transition-transform duration-300"
   [ngClass]="{
             'h-[130px]': is_normal,
             'h-[235px]': !is_normal
@@ -16,12 +16,12 @@
         class="h-[80px] w-[80px] h-max-[120px] w-max-[110px] brightness-0 invert"
         alt="logo_willcataco" />
       <div class="flex-1 text-center max-w-[200px] flex justify-center items-start lg:max-w-none">
-        <p class="text-background text-title font-sans break-words">{{header_text}}</p>
+        <p class="text-white text-title font-sans break-words">{{header_text}}</p>
       </div>
     </div>
     }@else{
     <div class="flex-1 text-center max-w-[200px] flex justify-center lg:max-w-none">
-      <p class="text-background text-title font-sans break-words">{{header_text}}</p>
+      <p class="text-white text-title font-sans break-words">{{header_text}}</p>
     </div>
     } @if(buttons_on){
     <app-button-header icon="logout" (click)="logout()"></app-button-header>
