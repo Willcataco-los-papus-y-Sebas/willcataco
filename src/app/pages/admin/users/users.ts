@@ -55,7 +55,7 @@ export class Users implements OnInit {
     username: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: [''],
-    role: ['MEMBER', Validators.required],
+    role: [UserRole.MEMBER, Validators.required],
   });
 
   kebabOptions: KebabOption[] = [
@@ -88,7 +88,7 @@ export class Users implements OnInit {
     this.modalMode = 'create';
     this.modalTitle = 'Nuevo usuario';
     this.selectedUser = null;
-    this.userForm.reset({ role: 'MEMBER' });
+    this.userForm.reset({ role: UserRole.MEMBER });
     this.userForm.get('password')?.setValidators([Validators.required, Validators.minLength(7)]);
     this.userForm.get('password')?.updateValueAndValidity();
     this.userForm.enable();
@@ -108,9 +108,16 @@ export class Users implements OnInit {
     this.modalMode = 'edit';
     this.modalTitle = 'Editar usuario';
     this.selectedUser = user;
-    this.userForm.patchValue({ ...user, password: '' });
+    this.userForm.patchValue({
+      username: user.username,
+      email: user.email,
+      role: user.role,
+      password: ''
+    });
     this.userForm.enable();
+
     this.userForm.get('password')?.clearValidators();
+    this.userForm.get('password')?.setValidators([Validators.minLength(7)]);
     this.userForm.get('password')?.updateValueAndValidity();
     this.isModalOpen = true;
   }
@@ -129,23 +136,32 @@ export class Users implements OnInit {
     this.userForm.reset();
   }
 
-  onRoleSelected(role: UserRole): void {
-    this.userForm.get('role')?.setValue(role);
+  onRoleSelected(role: string): void {
+    this.userForm.get('role')?.setValue(role as UserRole);
   }
 
   onSubmit(): void {
     if (this.userForm.invalid) return;
 
+    const payload = { ...this.userForm.value };
+    
+    if (this.modalMode === 'edit' && !payload.password) {
+      delete payload.password;
+    }
+
     const request =
       this.modalMode === 'create'
-        ? this.usersService.createUser(this.userForm.value)
-        : this.usersService.updateUser(this.selectedUser!.id, this.userForm.value);
+        ? this.usersService.createUser(payload)
+        : this.usersService.updateUser(this.selectedUser!.id, payload);
 
     request.subscribe({
       next: () => {
         this.loadUsers();
         this.closeModal();
       },
+      error: (err) => {
+        console.error('Error en la operación:', err);
+      }
     });
   }
 

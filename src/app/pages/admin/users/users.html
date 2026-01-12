@@ -3,8 +3,7 @@
   [buttons_on]="true"
   [is_carrusel]="false"
   [is_normal]="true"
-  header_text="Gestión de usuarios"
-  size="normal">
+  header_text="Gestión de usuarios">
 </app-header>
 
 <div class="flex flex-col h-[calc(100vh-130px)]">
@@ -17,7 +16,7 @@
   <div class="flex-1 overflow-y-auto px-4 pb-24">
 
     @if (isLoading) {
-      <!-- 🔹 Estado de carga -->
+    
       <div class="flex justify-center items-center py-10">
         <p class="text-primary animate-pulse italic">
           Cargando usuarios...
@@ -40,14 +39,13 @@
               </p>
 
               <div class="flex gap-2 mt-2">
-                <!-- 🔹 Badge de rol (dinámico) -->
+                
                 <span
                   class="px-3 py-1 rounded-full text-xs font-semibold text-white"
                   [ngClass]="roleColors[user.role]">
                   {{ user.role | uppercase }}
                 </span>
 
-                <!-- 🔹 Estado activo/inactivo -->
                 <span
                   class="text-xs self-center font-medium"
                   [class.text-green-600]="user.is_active"
@@ -63,7 +61,7 @@
             </app-kebab>
           </div>
         } @empty {
-          <!-- 🔹 Empty state -->
+        
           <div class="flex flex-col items-center justify-center py-20 text-center">
             <p class="text-gray-400 italic">
               No se encontraron usuarios registrados.
@@ -117,7 +115,7 @@
       @if (modalMode !== 'view') {
         <div>
           <app-dropdown
-            [dropTitle]="userForm.value.role || 'Seleccionar rol'"
+            [dropTitle]="userForm.get('role')?.value || 'Seleccionar rol'"
             [items]="roleOptions"
             (itemSelected)="onRoleSelected($event)">
           </app-dropdown>
@@ -132,7 +130,7 @@
           <app-input
             label="Contraseña"
             type="password"
-            placeholder="Mínimo 7 caracteres"
+            [placeholder]="modalMode === 'edit' ? 'Dejar vacío para mantener la actual' : 'Mínimo 7 caracteres'"
             formControlName="password">
           </app-input>
           @if (userForm.get('password')?.invalid && userForm.get('password')?.touched) {
@@ -142,8 +140,8 @@
           }
         </div>
       } @else {
-        <div class="p-3 bg-gray-50 rounded-lg border border-gray-200">
-          <p class="text-body">
+        <div class="p-3 bg-gray-50 dark:bg-zinc-900 rounded-lg border border-gray-200 dark:border-primary/20">
+          <p class="text-body dark:text-white">
             <strong>Rol actual:</strong>
             {{ userForm.value.role | uppercase }}
           </p>
