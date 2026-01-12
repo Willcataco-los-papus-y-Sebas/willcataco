@@ -49,42 +49,64 @@
 
 <app-modal [isOpen]="isModalOpen()" [title]="'Modal Socio'" (modalClose)="closeModal()">
   @if (selectedMember(); as m) {
-  <div class="p-6">
-    <h2 class="text-xl font-bold text-center mb-4">{{ m.name }} {{ m.last_name }}</h2>
+  <div class="p-6 text-black">
+    <h2 class="text-2xl font-bold text-center mb-6">{{ m.name }} {{ m.last_name }}</h2>
 
-    <div class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm mb-6">
-      <div class="font-bold">
-        Medidor:
+    <div class="grid grid-cols-2 gap-y-2 gap-x-4 text-base mb-4">
+      <div class="flex gap-2">
+        <span class="font-bold">Medidor:</span>
         <span class="font-normal">{{ m.user_id }}9321</span>
       </div>
-      <div class="font-bold">
-        Codigo:
+      <div class="flex gap-2">
+        <span class="font-bold">Codigo:</span>
         <span class="font-normal">{{ m.id }}</span>
       </div>
-      <div class="font-bold">
-        CI:
+      <div class="flex gap-2">
+        <span class="font-bold">CI:</span>
         <span class="font-normal">{{ m.ci }}</span>
       </div>
-      <div class="font-bold">
-        Telefono:
+      <div class="flex gap-2">
+        <span class="font-bold">Telefono:</span>
         <span class="font-normal">{{ m.phone }}</span>
       </div>
     </div>
 
-    <div class="space-y-2 text-sm mb-6">
-      <div>
+    <div class="h-0.5 bg-primary w-full my-6 rounded"></div>
+
+    <!--
+    <div class="space-y-3 mb-6 text-base">
+       <div class="flex gap-2">
+           <span class="font-bold">Ubicacion:</span>
+           <span>{{ m.address }}</span>
+       </div>
+       <div class="flex gap-2">
+           <span class="font-bold">Correo:</span>
+           <span>{{ m.email }}</span>
+       </div>
+       <div class="flex gap-2 items-center">
+           <span class="font-bold">Estado de Pago del mes:</span>
+           <app-payment-status [status]="m.payment_status"></app-payment-status>
+       </div>
+    </div>
+    -->
+
+    <div class="space-y-2 mb-8 text-base">
+      <div class="flex gap-2">
         <span class="font-bold">Fecha Ingreso:</span>
-        {{ m.created_at | date:'dd/MM/yyyy' }}
+        <span class="font-normal">{{ m.created_at | date:'dd/MM/yyyy' }}</span>
       </div>
-      <div>
-        <span class="font-bold">Fecha Modificacion:</span>
-        {{ m.updated_at | date:'dd/MM/yyyy' }}
+      <div class="flex gap-2">
+        <span class="font-normal">{{ m.updated_at | date:'dd/MM/yyyy' }}</span>
       </div>
     </div>
 
-    <div class="flex gap-4">
-      <app-button (click)="closeModal()" variant="secondary" class="flex-1">Cerrar</app-button>
-      <app-button variant="primary" class="flex-1">Ver Pagos</app-button>
+    <div class="flex gap-4 w-full modal-actions">
+      <app-button (click)="closeModal()" variant="secondary" class="flex-1">
+        Cerrar
+      </app-button>
+      <app-button variant="primary" class="flex-1">
+        Ver Pagos
+      </app-button>
     </div>
   </div>
   }
