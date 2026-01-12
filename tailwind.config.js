@@ -14,6 +14,7 @@ module.exports = {
         secondary: '#000000',
         background: '#FFFFFF',
         warning: '#C62828',
+        muted: '#9CA3AF',
       },
       // 3. Tipografía única
       fontFamily: {

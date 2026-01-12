@@ -3,21 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '@models/user';
 import { environment } from 'src/environments/environment';
-
-// Interfaz para la respuesta estándar de tu backend FastAPI
-export interface IResponse<T> {
-  detail: string;
-  status_code: number;
-  ok: boolean;
-  data: T;
-}
+// 1. Dejamos solo el import
+import { IResponse } from '@models/api-response'; 
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/api/users`;
+  private apiUrl = `${environment.apiUrl}/api/users/`;
 
   getUsers(): Observable<IResponse<User[]>> {
     return this.http.get<IResponse<User[]>>(this.apiUrl);

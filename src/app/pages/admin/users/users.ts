@@ -1,6 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-
 import { CommonModule, UpperCasePipe } from '@angular/common';
 
 import { ButtonComponent } from 'src/app/shared/components/button/button';
@@ -8,13 +7,14 @@ import { KebabComponent } from 'src/app/shared/components/kebab/kebab';
 import { ModalComponent } from 'src/app/shared/components/modal/modal';
 import { InputComponent } from 'src/app/shared/components/input/input';
 import { HeaderComponent } from 'src/app/shared/components/header/header';
-import { DropdownComponent, DropdownItem } from 'src/app/shared/components/dropdown/dropdown';
+import { DropdownComponent } from 'src/app/shared/components/dropdown/dropdown';
 
 import { KebabOption } from 'src/app/shared/components/kebab/kebab.types';
-import { User } from '@models/user';
+import { User, ROLE_COLORS, ROLE_OPTIONS, UserRole } from '@models/user';
 import { UsersService } from 'src/app/core/services/users/users.service';
 
 type ModalMode = 'create' | 'edit' | 'view' | 'delete' | null;
+
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -35,12 +35,21 @@ type ModalMode = 'create' | 'edit' | 'view' | 'delete' | null;
 export class Users implements OnInit {
   private fb = inject(FormBuilder);
   private usersService = inject(UsersService);
+  private cdr = inject(ChangeDetectorRef);
 
+  // 🔹 Datos
   users: User[] = [];
+  isLoading = false;
+
+  // 🔹 Modal
   isModalOpen = false;
   modalMode: ModalMode = null;
   modalTitle = '';
   selectedUser: User | null = null;
+
+  // 🔹 Shared constants
+  readonly roleOptions = ROLE_OPTIONS;
+  readonly roleColors = ROLE_COLORS;
 
   userForm: FormGroup = this.fb.group({
     username: ['', Validators.required],
@@ -55,16 +64,23 @@ export class Users implements OnInit {
     { label: 'Desactivar', action: 'delete', variant: 'danger' },
   ];
 
-  roleOptions: DropdownItem[] = [{ label: 'ADMIN' }, { label: 'STAFF' }, { label: 'MEMBER' }];
-
   ngOnInit(): void {
     this.loadUsers();
   }
 
   loadUsers(): void {
+    this.isLoading = true;
+
     this.usersService.getUsers().subscribe({
-      next: res => (this.users = res.data),
-      error: err => console.error('Error al cargar usuarios', err),
+      next: res => {
+        this.users = res.data;
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      },
+      error: err => {
+        console.error('Error al cargar usuarios', err);
+        this.isLoading = false;
+      },
     });
   }
 
@@ -73,7 +89,7 @@ export class Users implements OnInit {
     this.modalTitle = 'Nuevo usuario';
     this.selectedUser = null;
     this.userForm.reset({ role: 'MEMBER' });
-    this.userForm.get('password')?.setValidators([Validators.required, Validators.minLength(8)]);
+    this.userForm.get('password')?.setValidators([Validators.required, Validators.minLength(7)]);
     this.userForm.get('password')?.updateValueAndValidity();
     this.userForm.enable();
     this.isModalOpen = true;
@@ -113,7 +129,7 @@ export class Users implements OnInit {
     this.userForm.reset();
   }
 
-  onRoleSelected(role: string): void {
+  onRoleSelected(role: UserRole): void {
     this.userForm.get('role')?.setValue(role);
   }
 
