@@ -112,7 +112,7 @@ export class Users implements OnInit {
       username: user.username,
       email: user.email,
       role: user.role,
-      password: ''
+      password: '',
     });
     this.userForm.enable();
 
@@ -144,7 +144,7 @@ export class Users implements OnInit {
     if (this.userForm.invalid) return;
 
     const payload = { ...this.userForm.value };
-    
+
     if (this.modalMode === 'edit' && !payload.password) {
       delete payload.password;
     }
@@ -159,9 +159,9 @@ export class Users implements OnInit {
         this.loadUsers();
         this.closeModal();
       },
-      error: (err) => {
+      error: err => {
         console.error('Error en la operación:', err);
-      }
+      },
     });
   }
 

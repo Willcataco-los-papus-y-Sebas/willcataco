@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '@models/user';
 import { environment } from 'src/environments/environment';
 
-import { IResponse } from '@models/api-response'; 
+import { IResponse } from '@models/api-response';
 
 @Injectable({
   providedIn: 'root',

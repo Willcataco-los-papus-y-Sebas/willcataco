@@ -14,7 +14,7 @@ export interface User {
 export const ROLE_COLORS: Record<UserRole, string> = {
   [UserRole.ADMIN]: 'bg-primary',
   [UserRole.STAFF]: 'bg-secondary',
-  [UserRole.MEMBER]: 'bg-muted', 
+  [UserRole.MEMBER]: 'bg-muted',
 };
 
 export const ROLE_OPTIONS = [
