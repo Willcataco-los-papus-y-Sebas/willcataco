@@ -1,10 +1,11 @@
-<app-header header_text="Socios de Willcataco" [is_logo]="false" [buttons_on]="true" logo="droplet-fill"></app-header>
+<app-header header_text="Socios de Willcataco" [is_logo]="false" [buttons_on]="true" logo="droplet-fill"
+  [is_carrusel]="true"></app-header>
 
 <div class="p-4 mx-auto max-w-2xl pb-24">
 
 
   <div class="flex gap-4 mb-6">
-    <div class="w-1/2">
+    <div class="w-1/2 relative z-30">
       <app-dropdown [items]="dropdownItems" dropTitle="Seleccionar Mes"
         (itemSelected)="onDropdownSelect($event)"></app-dropdown>
     </div>

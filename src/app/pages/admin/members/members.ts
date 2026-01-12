@@ -9,7 +9,7 @@ import { ButtonComponent } from '@components/button/button';
 import { InputComponent } from '@components/input/input';
 import { DropdownComponent, DropdownItem } from '@components/dropdown/dropdown';
 import { MembersService } from '@services/members/members.service';
-import { Member } from '@components/member-card/member.types';
+import { Member } from '@models/members/member.types';
 import { KebabOption } from '@components/kebab/kebab.types';
 
 @Component({
@@ -72,11 +72,9 @@ export class Members implements OnInit {
     { label: 'Diciembre' },
   ];
 
-  onDropdownSelect(item: DropdownItem) {
-    console.log('Selected:', item.label);
+  onDropdownSelect(label: string) {
+    console.log('Selected:', label);
   }
-
-
 
   kebabOptions: KebabOption[] = [
     { label: 'Ver Detalle', action: 'detail' },

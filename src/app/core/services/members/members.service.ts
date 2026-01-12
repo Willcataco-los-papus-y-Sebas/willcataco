@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Member } from '@components/member-card/member.types';
+import { Member } from '@models/members/member.types';
 
 import { environment } from '../../../../environments/environment';
 
