@@ -1,31 +1,39 @@
 /** @type {import('tailwindcss').Config} */
+const COLORS = {
+  primary: {
+    DEFAULT: '#581056',
+    dark: '#370936',
+  },
+  secondary: '#000000',
+  background: '#FFFFFF',
+  warning: '#C62828',
+};
+
+const TYPOGRAPHY = {
+  fontFamily: {
+    sans: ['Roboto', 'sans-serif'],
+  },
+  fontSize: {
+    title: ['20px', { lineHeight: '28px', fontWeight: '700' }],
+    subtitle: ['18px', { lineHeight: '24px', fontWeight: '500' }],
+    body: ['14px', { lineHeight: '20px', fontWeight: '400' }],
+  },
+};
+
+const CONTENT_PATHS = ['./src/**/*.{html,ts}'];
+
 module.exports = {
-  // 1. Modo oscuro por defecto del sistema
   darkMode: 'media',
-  content: ['./src/**/*.{html,ts}'],
+
+  content: CONTENT_PATHS,
+
   theme: {
     extend: {
-      // 2. Paleta de colores única
-      colors: {
-        primary: {
-          DEFAULT: '#581056',
-          dark: '#370936',
-        },
-        secondary: '#000000',
-        background: '#FFFFFF',
-        warning: '#C62828',
-      },
-      // 3. Tipografía única
-      fontFamily: {
-        sans: ['Roboto', 'sans-serif'],
-      },
-      // 4. Tamaños de texto únicos
-      fontSize: {
-        title: ['20px', { lineHeight: '28px', fontWeight: '700' }],
-        subtitle: ['18px', { lineHeight: '24px', fontWeight: '500' }],
-        body: ['14px', { lineHeight: '20px', fontWeight: '400' }],
-      },
+      colors: COLORS,
+      fontFamily: TYPOGRAPHY.fontFamily,
+      fontSize: TYPOGRAPHY.fontSize,
     },
   },
+
   plugins: [],
 };
