@@ -2,11 +2,19 @@
 const COLORS = {
   primary: {
     DEFAULT: '#581056',
-    dark: '#370936',
+    dark: '#6A1B9A',
   },
-  secondary: '#000000',
-  background: '#FFFFFF',
-  warning: '#C62828',
+  secondary: {
+    DEFAULT: '#000000',
+    dark: '#FFFFFF',
+  },
+  background: {
+    DEFAULT: '#FFFFFF',
+    dark: '#101016',
+  },
+  success: '#2E7D32',
+  warning: '#F9A825',
+  error: '#C62828',
 };
 
 const TYPOGRAPHY = {
