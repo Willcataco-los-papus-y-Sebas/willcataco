@@ -12,6 +12,10 @@ const COLORS = {
     DEFAULT: '#FFFFFF',
     dark: '#101016',
   },
+  secondaryBackground: {
+    DEFAULT: '#F5F5F5',
+    dark: '#1E1B24',
+  },
   hover: {
     DEFAULT: '#7A2570',
     dark: '#7E57C2',
