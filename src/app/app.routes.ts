@@ -45,7 +45,7 @@ export const routes: Routes = [
     component: Dashboard,
   },
   {
-    path: "password/",
+    path: "password",
     canActivate: [guestGuard],
     data: { redirectTo: '/' },
     component: MainLayout,
