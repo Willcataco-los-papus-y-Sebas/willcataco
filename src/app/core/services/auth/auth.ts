@@ -65,7 +65,9 @@ export class AuthService {
     return this._http
       .post<void>(`${this._apiUrl}/forgot`, payload, { withCredentials: true })
       .pipe(
-        catchError(() => of(void 0)),
+        catchError(err => {
+          return throwError(() => err)
+        }),
         finalize(() => {
           this._loading.set(false)
         })
@@ -75,9 +77,11 @@ export class AuthService {
   resetPassword(payload: ResetRequest): Observable<void> {
     this._loading.set(true);
     return this._http
-      .post<void>(`${this._apiUrl}/reset`, payload, {withCredentials: true})
+      .post<void>(`${this._apiUrl}/reset`, payload, { withCredentials: true })
       .pipe(
-        catchError(() => of(void 0)),
+        catchError(err => {
+          return throwError(() => err)
+        }),
         finalize(() => {
           this._loading.set(false)
         })

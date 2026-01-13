@@ -5,10 +5,11 @@ import { PanelComponent } from '@components/panel';
 import { AuthService } from '@services/auth';
 import { HeaderService } from '@services/header';
 import { ToastService } from '@services/toast';
+import { ButtonComponent } from "@components/button";
 
 @Component({
   selector: 'app-forget',
-  imports: [FormsModule],
+  imports: [FormsModule, PanelComponent, InputComponent, ButtonComponent],
   templateUrl: './forget.html',
   styleUrl: './forget.css',
 })
@@ -40,7 +41,7 @@ export class Forget implements OnInit {
       })
       .subscribe({
         next: () => {
-          this.toastService.success('Email enviado, puede cerrar esta pagina', 'Le llegara un email con los siguientes pasos');
+          this.toastService.success('Le llegara un email con los siguientes pasos', 'Email enviado, puede cerrar esta pagina', 5000);
         },
         error: error => {
           if (error.status === 0) {
@@ -48,8 +49,8 @@ export class Forget implements OnInit {
               'No se pudo conectar con el servidor, Verifica tu conexion a internet',
               'Sin conexión',
             )
-          } else if (error.status === 401 || error.status === 403) {
-            this.toastService.error('No se envio el email, intente nuevamente')
+          } else if (error.status === 401 || error.status === 403 || error.status === 422) {
+            this.toastService.error('No se envio el email, revise su correo', 'Error')
           } else {
             this.toastService.error('Ha ocurrido un error inesperado. Intenta nuevamente', 'Error');
           }
