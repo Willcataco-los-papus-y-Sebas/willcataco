@@ -8,11 +8,13 @@ import { Member } from '@models/members/member.types';
 import { HeaderComponent } from '@components/header/header';
 import { StatusBadgeComponent } from '@components/status-badge/status-badge';
 import { HeaderService } from '@services/header';
+import { Carrusel } from '@components/carrusel/carrusel';
+import { ICarruselItem } from '@models/carrusel/carrusel.item.types';
 
 @Component({
     selector: 'app-member-payments',
     standalone: true,
-    imports: [CommonModule, HeaderComponent, StatusBadgeComponent],
+    imports: [CommonModule, HeaderComponent, StatusBadgeComponent, Carrusel],
     templateUrl: './payments.html',
     styleUrl: './payments.css',
 })
@@ -27,6 +29,7 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
     member = signal<Member | null>(null);
     payments = signal<WaterPayment[]>([]);
     activeTab = signal<'PAID' | 'UNPAID'>('UNPAID');
+    carruselItems = signal<ICarruselItem[]>([]);
 
     filteredPayments = computed(() => {
         return this.payments().filter(p => p.status === this.activeTab());
@@ -79,8 +82,7 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
     updateHeaderCarousel() {
         const debt = this.totalDebt();
         this.headerService.is_normal.set(false);
-        this.headerService.is_carrusel.set(true);
-        this.headerService.carrusel_items.set([
+        this.carruselItems.set([
             {
                 id: 0,
                 title: 'Monto a Pagar',

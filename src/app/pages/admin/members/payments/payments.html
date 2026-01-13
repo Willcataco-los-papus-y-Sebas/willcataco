@@ -1,5 +1,8 @@
 <div class="h-full flex flex-col bg-background">
     <app-header></app-header>
+    <div class="relative -mt-10 z-10">
+        <app-carrusel [items]="carruselItems()" [colorItem]="'bg-background'"></app-carrusel>
+    </div>
 
     <div class="flex-1 overflow-auto p-4 flex flex-col gap-4">
 

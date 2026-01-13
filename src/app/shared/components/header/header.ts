@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ButtonHeader } from '../button-header/button-header';
 import { AuthService } from '@services/auth/auth';
 import { Router } from '@angular/router';
-import { Carrusel } from '@components/carrusel/carrusel';
+
 import { HeaderService } from '@services/header';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, ButtonHeader, Carrusel],
+  imports: [CommonModule, ButtonHeader],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
