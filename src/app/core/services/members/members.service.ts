@@ -20,7 +20,7 @@ export class MembersService {
       if (/^\d+$/.test(search)) {
         params['ci'] = search;
       } else {
-        params['name'] = search;
+        params['full_name'] = search;
       }
     }
 

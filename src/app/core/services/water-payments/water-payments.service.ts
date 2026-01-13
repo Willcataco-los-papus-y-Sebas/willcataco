@@ -11,7 +11,7 @@ import { WaterPayment } from '@models/water-payments/water-payment.types';
 })
 export class WaterPaymentsService {
   private http = inject(HttpClient);
-  // Assuming the backend route prefix is /api/water-meters/water-payments
+
   private apiUrl = `${environment.apiUrl}/api/water_payment/`;
 
   getWaterPayments(
