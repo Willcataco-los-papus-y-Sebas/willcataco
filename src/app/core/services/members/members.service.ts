@@ -47,4 +47,10 @@ export class MembersService {
         })
       );
   }
+
+  getMemberById(id: number): Observable<Member> {
+    return this.http
+      .get<{ data: Member }>(`${this.apiUrl}${id}`)
+      .pipe(map(response => response.data));
+  }
 }
