@@ -1,12 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HeaderService } from '@services/header/header';
-import { AuthService } from '@services/auth/auth';
-import { ButtonComponent } from '@components/button/button';
-import { InputComponent } from '@components/input/input';
+import { HeaderService } from '@services/header';
+import { AuthService } from '@services/auth';
+import { ButtonComponent } from '@components/button';
+import { InputComponent } from '@components/input';
 import { PanelComponent } from '@components/panel';
-import { InfoSectionComponent } from './components/info-section/info-section';
+import { InfoSectionComponent } from './components/info-section';
 
 @Component({
   selector: 'app-login',
