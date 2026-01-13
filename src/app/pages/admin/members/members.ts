@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MemberCardComponent } from '@components/member-card/member-card';
 import { KebabComponent } from '@components/kebab/kebab';
-import { AppHeader } from '@components/header/header';
-import { AppButton } from '@components/button/button';
-import { Dropdown } from '@components/dropdown/dropdown';
+import { HeaderComponent } from '@components/header/header';
+import { ButtonComponent } from '@components/button/button';
+import { ModalComponent } from '@components/modal/modal';
+import { InputComponent } from '@components/input/input';
+import { DropdownComponent, DropdownItem } from '@components/dropdown/dropdown';
 import { MembersService } from '@services/members/members.service';
-import { ScrollService } from '@services/scroll/scroll.service';
 import { Member } from '@models/members/member.types';
-import { KebabOption } from '@models/kebab/kebab-option.types';
+import { KebabOption } from '@components/kebab/kebab.types';
 
 @Component({
   selector: 'app-members',
@@ -18,11 +19,13 @@ import { KebabOption } from '@models/kebab/kebab-option.types';
   imports: [
     CommonModule,
     FormsModule,
-    AppHeader,
-    AppButton,
+    HeaderComponent,
+    ButtonComponent,
     MemberCardComponent,
-    Dropdown,
+    DropdownComponent,
     KebabComponent,
+    ModalComponent,
+    InputComponent,
   ],
   templateUrl: './members.html',
   styleUrl: './members.css',
@@ -30,7 +33,6 @@ import { KebabOption } from '@models/kebab/kebab-option.types';
 export class Members implements OnInit {
   private membersService = inject(MembersService);
   private router = inject(Router);
-  private scrollService = inject(ScrollService);
 
   members = signal<Member[]>([]);
   selectedMember = signal<Member | null>(null);
