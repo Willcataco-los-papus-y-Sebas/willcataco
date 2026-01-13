@@ -62,9 +62,12 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
     loadData(id: number) {
         this.waterPaymentsService
             .getWaterPayments(id)
-            .subscribe(data => {
-                this.payments.set(data);
-                this.updateHeaderCarousel();
+            .subscribe({
+                next: (data) => {
+                    this.payments.set(data);
+                    this.updateHeaderCarousel();
+                },
+                error: (err) => console.error('Error loading payments:', err)
             });
 
         this.membersService.getMemberById(id).subscribe(data => {
@@ -75,6 +78,7 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
 
     updateHeaderCarousel() {
         const debt = this.totalDebt();
+        this.headerService.is_normal.set(false);
         this.headerService.is_carrusel.set(true);
         this.headerService.carrusel_items.set([
             {
@@ -84,7 +88,6 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
                 footPage: 'Total Deuda Acumulada',
             }
         ]);
-        //this.headerService.carrusel_color.set(debt > 0 ? 'bg-red-500' : 'bg-green-500');
     }
 
     setTab(tab: 'PAID' | 'UNPAID') {
