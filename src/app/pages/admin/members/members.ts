@@ -1,16 +1,16 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MemberCardComponent } from '@components/member-card/member-card';
 import { KebabComponent } from '@components/kebab/kebab';
-import { ModalComponent } from '@components/modal/modal';
-import { HeaderComponent } from '@components/header/header';
-import { ButtonComponent } from '@components/button/button';
-import { InputComponent } from '@components/input/input';
-import { DropdownComponent, DropdownItem } from '@components/dropdown/dropdown';
+import { AppHeader } from '@components/header/header';
+import { AppButton } from '@components/button/button';
+import { Dropdown } from '@components/dropdown/dropdown';
 import { MembersService } from '@services/members/members.service';
+import { ScrollService } from '@services/scroll/scroll.service';
 import { Member } from '@models/members/member.types';
-import { KebabOption } from '@components/kebab/kebab.types';
+import { KebabOption } from '@models/kebab/kebab-option.types';
 
 @Component({
   selector: 'app-members',
@@ -18,19 +18,19 @@ import { KebabOption } from '@components/kebab/kebab.types';
   imports: [
     CommonModule,
     FormsModule,
+    AppHeader,
+    AppButton,
     MemberCardComponent,
+    Dropdown,
     KebabComponent,
-    ModalComponent,
-    HeaderComponent,
-    ButtonComponent,
-    InputComponent,
-    DropdownComponent,
   ],
   templateUrl: './members.html',
   styleUrl: './members.css',
 })
 export class Members implements OnInit {
   private membersService = inject(MembersService);
+  private router = inject(Router);
+  private scrollService = inject(ScrollService);
 
   members = signal<Member[]>([]);
   selectedMember = signal<Member | null>(null);
@@ -137,5 +137,12 @@ export class Members implements OnInit {
   closeModal() {
     this.isModalOpen.set(false);
     this.selectedMember.set(null);
+  }
+
+  goToPayments() {
+    const member = this.selectedMember();
+    if (member) {
+      this.router.navigate(['/admin/socios', member.id, 'pagos']);
+    }
   }
 }
