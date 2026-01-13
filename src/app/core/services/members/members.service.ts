@@ -13,18 +13,14 @@ export class MembersService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/api/members/`;
 
-  getMembers(
-    limit = 10,
-    offset = 0,
-    search?: string
-  ): Observable<Member[]> {
-    let params: any = { limit: limit.toString(), offset: offset.toString() };
+  getMembers(limit = 10, offset = 0, search?: string): Observable<Member[]> {
+    const params: Record<string, string> = { limit: limit.toString(), offset: offset.toString() };
 
     if (search) {
       if (/^\d+$/.test(search)) {
-        params.ci = search;
+        params['ci'] = search;
       } else {
-        params.name = search;
+        params['name'] = search;
       }
     }
 

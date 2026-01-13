@@ -49,9 +49,7 @@ export const routes: Routes = [
       {
         path: 'socios/:id/pagos',
         loadComponent: () =>
-          import('./pages/admin/members/payments/payments').then(
-            m => m.MemberPaymentsComponent
-          ),
+          import('./pages/admin/members/payments/payments').then(m => m.MemberPaymentsComponent),
       },
     ],
   },

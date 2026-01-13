@@ -36,8 +36,6 @@ export class Login implements OnInit {
     this.headerService.buttons_on.set(false);
     this.headerService.header_text.set('Willcataco');
     this.headerService.is_normal.set(false);
-
-
   }
 
   onLogin() {

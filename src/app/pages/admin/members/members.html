@@ -3,20 +3,32 @@
   <div class="p-4 shrink-0 bg-background z-10">
     <div class="flex gap-4 mb-6">
       <div class="w-1/2 relative z-30">
-        <app-dropdown [items]="dropdownItems" dropTitle="Seleccionar Mes"
+        <app-dropdown
+          [items]="dropdownItems"
+          dropTitle="Seleccionar Mes"
           (itemSelected)="onDropdownSelect($event)"></app-dropdown>
       </div>
       <div class="w-1/2">
-        <app-input placeholder="Año" type="tel" [maxLength]="4" [ngModel]="year()"
-          (ngModelChange)="onYearChange($event)" (keydown)="onKeyDown($event)"></app-input>
+        <app-input
+          placeholder="Año"
+          type="tel"
+          [maxLength]="4"
+          [ngModel]="year()"
+          (ngModelChange)="onYearChange($event)"
+          (keydown)="onKeyDown($event)"></app-input>
       </div>
     </div>
 
     <div class="flex justify-center mb-6">
       <app-button variant="primary" size="md">
         <div class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor">
+            <path
+              fill-rule="evenodd"
               d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
               clip-rule="evenodd" />
           </svg>
@@ -26,7 +38,10 @@
     </div>
 
     <div class="relative mb-6">
-      <app-input label="" placeholder="Buscar..." [ngModel]="searchQuery()"
+      <app-input
+        label=""
+        placeholder="Buscar..."
+        [ngModel]="searchQuery()"
         (ngModelChange)="onSearchChange($event)"></app-input>
     </div>
 
@@ -37,7 +52,9 @@
     <div class="flex flex-col gap-4">
       @for (member of members(); track member.id) {
       <app-member-card [member]="member" (click)="onCardClick(member)" class="cursor-pointer">
-        <app-kebab card-action [options]="getMemberOptions(member)"
+        <app-kebab
+          card-action
+          [options]="getMemberOptions(member)"
           (optionSelected)="onKebabAction($event, member)"></app-kebab>
       </app-member-card>
       } @empty {
@@ -101,12 +118,8 @@
     </div>
 
     <div class="flex gap-4 w-full modal-actions">
-      <app-button (click)="closeModal()" variant="secondary" class="flex-1">
-        Cerrar
-      </app-button>
-      <app-button variant="primary" class="flex-1" (click)="goToPayments()">
-        Ver Pagos
-      </app-button>
+      <app-button (click)="closeModal()" variant="secondary" class="flex-1">Cerrar</app-button>
+      <app-button variant="primary" class="flex-1" (click)="goToPayments()">Ver Pagos</app-button>
     </div>
   </div>
   }
