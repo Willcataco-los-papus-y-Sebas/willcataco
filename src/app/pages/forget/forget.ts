@@ -19,12 +19,41 @@ export class Forget implements OnInit {
 
   email = signal('');
 
-  ngOnInit(){
+  ngOnInit() {
     this.headerService.reset();
     this.headerService.is_logo.set(true);
     this.headerService.header_text.set('Recuperar Cuenta');
     this.headerService.buttons_on.set(false);
     this.headerService.is_normal.set(false);
     this.headerService.has_wave.set(true)
+  }
+
+  onSendPayload() {
+    if (!this.email().trim()) {
+      this.toastService.info('Porfavor ingrese su email registrado en wilcataco');
+      return;
+    }
+    this.authService
+      .recoveryAccount({
+        email: this.email(),
+        url: '',
+      })
+      .subscribe({
+        next: () => {
+          this.toastService.success('Email enviado, puede cerrar esta pagina', 'Le llegara un email con los siguientes pasos');
+        },
+        error: error => {
+          if (error.status === 0) {
+            this.toastService.error(
+              'No se pudo conectar con el servidor, Verifica tu conexion a internet',
+              'Sin conexión',
+            )
+          } else if (error.status === 401 || error.status === 403) {
+            this.toastService.error('No se envio el email, intente nuevamente')
+          } else {
+            this.toastService.error('Ha ocurrido un error inesperado. Intenta nuevamente', 'Error');
+          }
+        }
+      })
   }
 }
