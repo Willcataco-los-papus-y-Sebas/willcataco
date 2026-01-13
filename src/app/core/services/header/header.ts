@@ -8,7 +8,7 @@ export class HeaderService {
   header_text = signal('');
   buttons_on = signal(true);
   is_normal = signal(true);
-  logo = signal('droplet-fill');
+  logo = signal('willcataco');
   is_carrusel = signal(true);
   carrusel_items = signal<ICarruselItem[]>([]);
   carrusel_color = signal('bg-background');
@@ -18,7 +18,7 @@ export class HeaderService {
     this.header_text.set('');
     this.buttons_on.set(true);
     this.is_normal.set(true);
-    this.logo.set('droplet-fill');
+    this.logo.set('willcataco');
     this.is_carrusel.set(true);
     this.carrusel_items.set([]);
     this.carrusel_color.set('bg-background');

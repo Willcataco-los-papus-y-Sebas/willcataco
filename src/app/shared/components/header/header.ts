@@ -20,7 +20,7 @@ export class HeaderComponent {
   @Input() header_text = '';
   @Input() buttons_on = true;
   @Input() is_normal = true;
-  @Input() logo = 'droplet-fill';
+  @Input() logo = 'willcataco';
 
   @Input() is_carrusel = true;
   @Input() carrusel_items: ICarruselItem[] = [];
