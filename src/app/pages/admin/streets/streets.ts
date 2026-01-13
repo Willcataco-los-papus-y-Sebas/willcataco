@@ -198,7 +198,6 @@ export class Streets implements OnInit {
         }, 300);
       },
       error: () => {
-        this.toastService.error('No se pudieron cargar las calles');
         this.loading.set(false);
         this.isLoadingMore = false;
       },
