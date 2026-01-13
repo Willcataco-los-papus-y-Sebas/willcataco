@@ -112,6 +112,12 @@ export class Members implements OnInit {
 
 
   ngOnInit() {
+    this.headerService.reset();
+    this.headerService.buttons_on.set(true);
+    this.headerService.is_logo.set(false);
+    this.headerService.logo.set('droplet-fill');
+    this.headerService.header_text.set('Socios de Willcataco');
+
     this.loadMembers();
   }
 
