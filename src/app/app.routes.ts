@@ -6,6 +6,8 @@ import { AdminLogin } from '@pages/admin/login';
 import { Home } from '@pages/home';
 import { Dashboard } from '@pages/admin/dashboard';
 import { MainLayout } from '@layouts/main-layout';
+import { Reset } from '@pages/reset/reset';
+import { Forget } from '@pages/forget/forget';
 
 export const routes: Routes = [
   {
@@ -41,6 +43,22 @@ export const routes: Routes = [
     path: 'admin',
     canActivate: [authGuard],
     component: Dashboard,
+  },
+  {
+    path: "password/",
+    canActivate: [guestGuard],
+    data: { redirectTo: '/' },
+    component: MainLayout,
+    children: [
+      {
+        path : "forget",
+        component: Forget,
+      },
+      {
+        path : "login",
+        component: Reset
+      }
+    ],
   },
   {
     path: '**',
