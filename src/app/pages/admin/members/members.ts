@@ -12,6 +12,7 @@ import { DropdownComponent, DropdownItem } from '@components/dropdown/dropdown';
 import { MembersService } from '@services/members/members.service';
 import { Member } from '@models/members/member.types';
 import { KebabOption } from '@components/kebab/kebab.types';
+import { HeaderService } from '@services/header';
 
 @Component({
   selector: 'app-members',
@@ -33,6 +34,7 @@ import { KebabOption } from '@components/kebab/kebab.types';
 export class Members implements OnInit {
   private membersService = inject(MembersService);
   private router = inject(Router);
+  private headerService = inject(HeaderService);
 
   members = signal<Member[]>([]);
   selectedMember = signal<Member | null>(null);
@@ -128,7 +130,7 @@ export class Members implements OnInit {
   }
 
   onCardClick(member: Member) {
-    console.log(member.name);
+    this.router.navigate(['/admin/socios', member.id, 'pagos']);
   }
 
   openDetail(member: Member) {
