@@ -49,8 +49,8 @@ export class Forget implements OnInit {
               'No se pudo conectar con el servidor, Verifica tu conexion a internet',
               'Sin conexión',
             )
-          } else if (error.status === 401 || error.status === 403 || error.status === 422) {
-            this.toastService.error('No se envio el email, revise su correo', 'Error')
+          } else if (error.status === 401 || error.status === 403 || error.status === 422 || error.status === 404) {
+            this.toastService.error('No se envio el email, revise el correo', 'Error')
           } else {
             this.toastService.error('Ha ocurrido un error inesperado. Intenta nuevamente', 'Error');
           }

@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, DOCUMENT, inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@envs/environment';
 import { catchError, finalize, Observable, of, tap, throwError } from 'rxjs';
@@ -7,6 +7,7 @@ import { LoginRequest, RecoveryRequest, ResetRequest } from '@models/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private readonly _document = inject(DOCUMENT)
   private readonly _http = inject(HttpClient);
   private readonly _apiUrl = `${environment.apiUrl}/api/auth`;
 
@@ -61,7 +62,7 @@ export class AuthService {
 
   recoveryAccount(payload: RecoveryRequest): Observable<void> {
     this._loading.set(true);
-    payload.url = this._apiUrl;
+    payload.url = this._document.location.origin;
     return this._http
       .post<void>(`${this._apiUrl}/forgot`, payload, { withCredentials: true })
       .pipe(
