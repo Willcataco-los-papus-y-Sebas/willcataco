@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ToastService, ToastType } from '@services/toast/toast.service';
+import { ToastService, ToastType } from '@services/toast';
 
 @Component({
   selector: 'app-toast',
@@ -14,15 +14,30 @@ export class ToastComponent {
   getToastClasses(type: ToastType): string {
     switch (type) {
       case 'success':
-        return 'bg-green-50 border-green-500 text-green-900';
+        return 'bg-secondaryBackground dark:bg-secondaryBackground-dark border-2 border-success text-black dark:text-white';
       case 'error':
-        return 'bg-red-50 border-red-500 text-red-900';
+        return 'bg-secondaryBackground dark:bg-secondaryBackground-dark border-2 border-error text-black dark:text-white';
       case 'warning':
-        return 'bg-yellow-50 border-yellow-500 text-yellow-900';
+        return 'bg-secondaryBackground dark:bg-secondaryBackground-dark border-2 border-warning text-black dark:text-white';
       case 'info':
-        return 'bg-blue-50 border-blue-500 text-blue-900';
+        return 'bg-secondaryBackground dark:bg-secondaryBackground-dark border-2 border-info text-black dark:text-white';
       default:
-        return 'bg-white border-gray-200 text-gray-900';
+        return 'bg-secondaryBackground dark:bg-secondaryBackground-dark border-2 border-gray-200 dark:border-gray-700 text-black dark:text-white';
+    }
+  }
+
+  getTitleClasses(type: ToastType): string {
+    switch (type) {
+      case 'success':
+        return 'text-success';
+      case 'error':
+        return 'text-error';
+      case 'warning':
+        return 'text-warning';
+      case 'info':
+        return 'text-info';
+      default:
+        return 'text-black dark:text-white';
     }
   }
 }

@@ -3,10 +3,12 @@
 
 @layer base {
   html {
-    /* Aplicamos la fuente del config */
     font-family: 'Roboto', sans-serif;
+<<<<<<< HEAD
 
     /* El modo oscuro y claro se heredarán de aquí */
+=======
+>>>>>>> origin/dev
     @apply bg-white text-black dark:bg-black dark:text-white;
   }
 }
