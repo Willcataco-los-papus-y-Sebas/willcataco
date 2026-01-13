@@ -62,12 +62,29 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
     loadData(id: number) {
         this.waterPaymentsService
             .getWaterPayments(id)
-            .subscribe(data => this.payments.set(data));
+            .subscribe(data => {
+                this.payments.set(data);
+                this.updateHeaderCarousel();
+            });
 
         this.membersService.getMemberById(id).subscribe(data => {
             this.member.set(data);
             this.headerService.header_text.set(`${data.name} ${data.last_name}`);
         });
+    }
+
+    updateHeaderCarousel() {
+        const debt = this.totalDebt();
+        this.headerService.is_carrusel.set(true);
+        this.headerService.carrusel_items.set([
+            {
+                id: 0,
+                title: 'Monto a Pagar',
+                subtitle: `Bs. ${debt}`,
+                footPage: 'Total Deuda Acumulada',
+            }
+        ]);
+        //this.headerService.carrusel_color.set(debt > 0 ? 'bg-red-500' : 'bg-green-500');
     }
 
     setTab(tab: 'PAID' | 'UNPAID') {
