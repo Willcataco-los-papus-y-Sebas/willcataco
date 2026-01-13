@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@envs/environment';
 import { catchError, finalize, Observable, of, tap, throwError } from 'rxjs';
 import { User } from '@models/user';
@@ -74,10 +74,14 @@ export class AuthService {
       );
   }
 
-  resetPassword(payload: ResetRequest): Observable<void> {
+  resetPassword(payload: ResetRequest, token: string): Observable<void> {
     this._loading.set(true);
+    const params = new HttpParams().set('token', token);
     return this._http
-      .post<void>(`${this._apiUrl}/reset`, payload, { withCredentials: true })
+      .post<void>(`${this._apiUrl}/reset`, payload, {
+        params,
+        withCredentials: true
+      })
       .pipe(
         catchError(err => {
           return throwError(() => err)
