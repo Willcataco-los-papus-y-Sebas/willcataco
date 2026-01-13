@@ -7,7 +7,7 @@ import { LoginRequest, RecoveryRequest, ResetRequest } from '@models/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly _document = inject(DOCUMENT)
+  private readonly _document = inject(DOCUMENT);
   private readonly _http = inject(HttpClient);
   private readonly _apiUrl = `${environment.apiUrl}/api/auth`;
 
@@ -63,16 +63,14 @@ export class AuthService {
   recoveryAccount(payload: RecoveryRequest): Observable<void> {
     this._loading.set(true);
     payload.url = this._document.location.origin;
-    return this._http
-      .post<void>(`${this._apiUrl}/forgot`, payload, { withCredentials: true })
-      .pipe(
-        catchError(err => {
-          return throwError(() => err)
-        }),
-        finalize(() => {
-          this._loading.set(false)
-        })
-      );
+    return this._http.post<void>(`${this._apiUrl}/forgot`, payload, { withCredentials: true }).pipe(
+      catchError(err => {
+        return throwError(() => err);
+      }),
+      finalize(() => {
+        this._loading.set(false);
+      })
+    );
   }
 
   resetPassword(payload: ResetRequest, token: string): Observable<void> {
@@ -81,14 +79,14 @@ export class AuthService {
     return this._http
       .post<void>(`${this._apiUrl}/reset`, payload, {
         params,
-        withCredentials: true
+        withCredentials: true,
       })
       .pipe(
         catchError(err => {
-          return throwError(() => err)
+          return throwError(() => err);
         }),
         finalize(() => {
-          this._loading.set(false)
+          this._loading.set(false);
         })
       );
   }

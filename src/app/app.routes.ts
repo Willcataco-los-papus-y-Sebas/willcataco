@@ -45,24 +45,24 @@ export const routes: Routes = [
     component: Dashboard,
   },
   {
-    path: "password",
+    path: 'password',
     canActivate: [guestGuard],
     data: { redirectTo: '/' },
     component: MainLayout,
     children: [
       {
-        path: "",
+        path: '',
         pathMatch: 'full',
-        redirectTo: '/'
+        redirectTo: '/',
       },
       {
-        path: "forget",
+        path: 'forget',
         component: Forget,
       },
       {
-        path: "reset",
-        component: Reset
-      }
+        path: 'reset',
+        component: Reset,
+      },
     ],
   },
   {

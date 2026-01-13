@@ -1,4 +1,4 @@
 export interface ResetRequest {
-    first : string;
-    second : string;
+  first: string;
+  second: string;
 }

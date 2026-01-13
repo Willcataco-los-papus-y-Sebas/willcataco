@@ -5,7 +5,7 @@ import { PanelComponent } from '@components/panel';
 import { AuthService } from '@services/auth';
 import { HeaderService } from '@services/header';
 import { ToastService } from '@services/toast';
-import { ButtonComponent } from "@components/button";
+import { ButtonComponent } from '@components/button';
 
 @Component({
   selector: 'app-forget',
@@ -14,9 +14,9 @@ import { ButtonComponent } from "@components/button";
   styleUrl: './forget.css',
 })
 export class Forget implements OnInit {
-  private headerService = inject(HeaderService)
-  private authService = inject(AuthService)
-  private toastService = inject(ToastService)
+  private headerService = inject(HeaderService);
+  private authService = inject(AuthService);
+  private toastService = inject(ToastService);
 
   email = signal('');
 
@@ -26,7 +26,7 @@ export class Forget implements OnInit {
     this.headerService.header_text.set('Recuperar Cuenta');
     this.headerService.buttons_on.set(false);
     this.headerService.is_normal.set(false);
-    this.headerService.has_wave.set(true)
+    this.headerService.has_wave.set(true);
   }
 
   onSendPayload() {
@@ -41,20 +41,29 @@ export class Forget implements OnInit {
       })
       .subscribe({
         next: () => {
-          this.toastService.success('Le llegara un email con los siguientes pasos', 'Email enviado, puede cerrar esta pagina', 5000);
+          this.toastService.success(
+            'Le llegara un email con los siguientes pasos',
+            'Email enviado, puede cerrar esta pagina',
+            5000
+          );
         },
         error: error => {
           if (error.status === 0) {
             this.toastService.error(
               'No se pudo conectar con el servidor, Verifica tu conexion a internet',
-              'Sin conexión',
-            )
-          } else if (error.status === 401 || error.status === 403 || error.status === 422 || error.status === 404) {
-            this.toastService.error('No se envio el email, revise el correo', 'Error')
+              'Sin conexión'
+            );
+          } else if (
+            error.status === 401 ||
+            error.status === 403 ||
+            error.status === 422 ||
+            error.status === 404
+          ) {
+            this.toastService.error('No se envio el email, revise el correo', 'Error');
           } else {
             this.toastService.error('Ha ocurrido un error inesperado. Intenta nuevamente', 'Error');
           }
-        }
-      })
+        },
+      });
   }
 }

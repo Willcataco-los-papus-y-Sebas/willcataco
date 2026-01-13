@@ -1,4 +1,4 @@
 export interface RecoveryRequest {
-    url: string;
-    email: string;
+  url: string;
+  email: string;
 }
