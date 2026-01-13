@@ -5,12 +5,13 @@ import { HeaderService } from '@services/header/header';
 import { AuthService } from '@services/auth/auth';
 import { ButtonComponent } from '@components/button/button';
 import { InputComponent } from '@components/input/input';
+import { PanelComponent } from '@components/panel';
 import { InfoSectionComponent } from './components/info-section/info-section';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ButtonComponent, InputComponent, InfoSectionComponent],
+  imports: [FormsModule, ButtonComponent, InputComponent, InfoSectionComponent, PanelComponent],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
