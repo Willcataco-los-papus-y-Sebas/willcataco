@@ -79,7 +79,7 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
 
   updateHeaderCarousel() {
     const debt = this.totalDebt();
-    this.headerService.is_normal.set(false);
+    //this.headerService.is_normal.set(false);
     const date = new Date();
     const month = date.toLocaleString('es-ES', { month: 'short' });
     const formattedDate = `${month.charAt(0).toUpperCase() + month.slice(1)}, ${date.getFullYear()}`;
