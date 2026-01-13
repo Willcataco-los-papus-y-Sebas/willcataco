@@ -13,7 +13,8 @@
             firstLine="{{street.name}}"
             secondLine="Modificacion: {{street.updated_at | date: 'short'}}"
             thirdLine="Creacion: {{street.created_at | date: 'short'}}">
-            <app-kebab
+            <app-kebab 
+              card-action
               [options]="kebabOptions"
               (optionSelected)="handleActions($event, street)"></app-kebab>
           </app-data-card>
