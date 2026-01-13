@@ -9,7 +9,7 @@ import { ModalComponent } from '@components/modal/modal';
 
 import { MemberService } from '@services/new-members/new-members';
 import { HeaderService } from '@services/header';
-import { ToastService } from '@services/toast/toast.service';
+import { ToastService } from 'src/app/core/services/toast/toast.service';
 
 @Component({
   selector: 'app-new-members',
