@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@envs/environment';
 import { catchError, finalize, Observable, of, tap, throwError } from 'rxjs';
 import { User } from '@models/user';
-import { LoginRequest, RecoveryRequest } from '@models/auth';
+import { LoginRequest, RecoveryRequest, ResetRequest } from '@models/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -64,6 +64,18 @@ export class AuthService {
     payload.url = this._apiUrl;
     return this._http
       .post<void>(`${this._apiUrl}/forgot`, payload, { withCredentials: true })
+      .pipe(
+        catchError(() => of(void 0)),
+        finalize(() => {
+          this._loading.set(false)
+        })
+      );
+  }
+
+  resetPassword(payload: ResetRequest): Observable<void> {
+    this._loading.set(true);
+    return this._http
+      .post<void>(`${this._apiUrl}/reset`, payload, {withCredentials: true})
       .pipe(
         catchError(() => of(void 0)),
         finalize(() => {
