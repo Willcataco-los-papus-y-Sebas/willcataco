@@ -17,6 +17,8 @@ export class MemberService {
   }
 
   getAll(limit: number, offset: number): Observable<ApiResponse<Member[]>> {
-     return this._http.get<ApiResponse<Member[]>>(`${this._apiUrl}/?limit=${limit}&offset=${offset}`);
+    return this._http.get<ApiResponse<Member[]>>(
+      `${this._apiUrl}/?limit=${limit}&offset=${offset}`
+    );
   }
 }
