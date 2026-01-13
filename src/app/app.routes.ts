@@ -6,6 +6,7 @@ import { AdminLogin } from '@pages/admin/login/login';
 import { Home } from '@pages/home/home';
 import { Dashboard } from '@pages/admin/dashboard/dashboard';
 import { MainLayout } from '@layouts/main-layout/main-layout';
+import { NewMembers } from '@pages/admin/new-members/new-members';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,17 @@ export const routes: Routes = [
     canActivate: [guestGuard],
     data: { redirectTo: '/admin' },
     component: AdminLogin,
+  },
+  {
+    path: 'admin/new-members',
+    component: MainLayout,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        component: NewMembers,
+      },
+    ],
   },
   {
     path: '',

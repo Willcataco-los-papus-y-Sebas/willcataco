@@ -1,0 +1,100 @@
+<div class="min-h-screen bg-secondaryBackground dark:bg-secondaryBackground-dark p-6 flex flex-col items-center">
+  
+  <div class="w-full max-w-md flex flex-col gap-6">
+    
+    <div class="flex flex-col gap-2">
+      <label class="text-primary dark:text-primary-dark font-sans font-bold text-subtitle ml-2 mb-2">
+        Datos personales:
+      </label>
+
+      <app-input
+        label="ID de Usuario (Sistema):"
+        placeholder="Ej: 15"
+        type="number"
+        [ngModel]="userId()"
+        (ngModelChange)="userId.set($event)">
+      </app-input>
+
+      <app-input
+        label="Primer Nombre:"
+        placeholder="MARIO"
+        [ngModel]="name()"
+        (ngModelChange)="name.set($event)">
+      </app-input>
+
+      <app-input
+        label="Apellido Paterno:"
+        placeholder="ZULETA"
+        [ngModel]="lastName()"
+        (ngModelChange)="lastName.set($event)">
+      </app-input>
+
+      <app-input
+        label="Carnet de Identidad:"
+        placeholder="12345678"
+        [ngModel]="ci()"
+        (ngModelChange)="ci.set($event)">
+      </app-input>
+
+      <app-input
+        label="Contacto:"
+        placeholder="Celular o telefono fijo"
+        [ngModel]="phone()"
+        (ngModelChange)="phone.set($event)">
+      </app-input>
+
+    </div>
+
+    <div class="mt-4 flex justify-center">
+      <app-button 
+        variant="primary" 
+        size="lg" 
+        [loading]="loading()"
+        (click)="openConfirmModal()">
+        crear Socio
+      </app-button>
+    </div>
+
+    <div class="flex items-start gap-4 mt-4 px-2 opacity-80">
+      <p class="text-body text-background font-sans leading-relaxed flex-1 text-justify">
+        Atencion:<br>
+        Las cuentas de los socios una vez añadidas no se podran eliminar por completo
+      </p>
+  
+      <div class="bg-warning rounded-full h-8 w-8 flex items-center justify-center shrink-0 shadow-sm text-background font-bold text-lg select-none">
+        !
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<app-modal
+  [isOpen]="isConfirmModalOpen()"
+  title=""
+  (modalClose)="closeConfirmModal()">
+  
+  <div class="flex flex-col gap-6 items-center pt-2 pb-2">
+    <h3 class="text-center font-bold text-subtitle font-sans text-secondary dark:text-secondary-dark w-full px-4">
+      ¿Estas seguro de realizar esta accion?
+    </h3>
+    
+    <div class="flex gap-4 w-full justify-center px-4">
+      <app-button 
+        variant="warning" 
+        size="md" 
+        (click)="closeConfirmModal()">
+        Cancelar
+      </app-button>
+
+      <app-button 
+        variant="secondary" 
+        size="md" 
+        (click)="createMember()">
+        Confirmar
+      </app-button>
+    </div>
+  </div>
+
+</app-modal>
