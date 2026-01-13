@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@envs/environment';
 import { catchError, finalize, Observable, of, tap, throwError } from 'rxjs';
 import { User } from '@models/user';
-import { LoginRequest } from '@models/auth';
+import { LoginRequest, RecoveryRequest } from '@models/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -57,6 +57,19 @@ export class AuthService {
 
   clearAuth(): void {
     this._user.set(null);
+  }
+
+  recoveryAccount(payload: RecoveryRequest): Observable<void> {
+    this._loading.set(true);
+    payload.url = this._apiUrl;
+    return this._http
+      .post<void>(`${this._apiUrl}/forgot`, payload, { withCredentials: true })
+      .pipe(
+        catchError(() => of(void 0)),
+        finalize(() => {
+          this._loading.set(false)
+        })
+      );
   }
 
   private _checkSession(): void {
