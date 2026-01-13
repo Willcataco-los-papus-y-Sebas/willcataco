@@ -60,7 +60,7 @@ export const routes: Routes = [
         component: Forget,
       },
       {
-        path: "login",
+        path: "reset",
         component: Reset
       }
     ],
