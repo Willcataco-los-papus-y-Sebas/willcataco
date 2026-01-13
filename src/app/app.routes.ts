@@ -1,13 +1,14 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '@guards/auth/auth-guard';
 import { guestGuard } from '@guards/guest/guest-guard';
+
 import { Login } from '@pages/login';
 import { AdminLogin } from '@pages/admin/login';
 import { Home } from '@pages/home';
 import { Dashboard } from '@pages/admin/dashboard';
-import { MainLayout } from '@layouts/main-layout';
-
 import { Users } from '@pages/admin/users/users';
+
+import { MainLayout } from '@layouts/main-layout';
 
 export const routes: Routes = [
   {
@@ -41,12 +42,17 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    canActivate: [authGuard],
     component: Dashboard,
+    canActivate: [authGuard],
     children: [
       {
         path: 'users',
         component: Users,
+      },
+      {
+        path: 'socios',
+        loadComponent: () =>
+          import('./pages/admin/members/members').then(m => m.Members),
       },
     ],
   },

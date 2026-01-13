@@ -1,5 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { ICarruselItem } from '@models/carrusel/carrusel.item.types';
+import { ICarruselItem } from '../../../shared/models/carrusel/carrusel.item.types';
+
 @Injectable({
   providedIn: 'root',
 })

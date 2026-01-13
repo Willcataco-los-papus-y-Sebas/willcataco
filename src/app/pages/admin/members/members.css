@@ -1,0 +1,11 @@
+.modal-actions ::ng-deep app-button {
+    display: block;
+    width: 100%;
+}
+
+.modal-actions ::ng-deep app-button button {
+    width: 100% !important;
+    min-width: 100px !important;
+    padding-left: 0;
+    padding-right: 0;
+}

@@ -11,10 +11,8 @@
     <div class="h-[32px] w-[32px]"></div>
     } @if(headerService.is_logo()){
     <div class="flex flex-col items-center gap-6">
-      <img
-        src="assets/{{headerService.logo()}}.svg"
-        class="h-[80px] w-[80px] h-max-[120px] w-max-[110px] brightness-0 invert"
-        alt="logo_willcataco" />
+      <img src="assets/{{headerService.logo()}}.svg"
+        class="h-[80px] w-[80px] h-max-[120px] w-max-[110px] brightness-0 invert" alt="logo_willcataco" />
       <div class="flex-1 text-center max-w-[200px] flex justify-center items-start lg:max-w-none">
         <p class="text-white text-title font-sans break-words">{{headerService.header_text()}}</p>
       </div>
@@ -31,19 +29,12 @@
   </div>
   @if (headerService.is_carrusel()){
   <div class="relative -mt-10">
-    <app-carrusel
-      [items]="headerService.carrusel_items()"
-      [colorItem]="headerService.carrusel_color()"></app-carrusel>
+    <app-carrusel [items]="headerService.carrusel_items()" [colorItem]="headerService.carrusel_color()"></app-carrusel>
   </div>
   } @if (headerService.has_wave()){
-  <svg
-    class="absolute bottom-0 left-0 w-full h-[40px]"
-    viewBox="0 0 1200 120"
-    preserveAspectRatio="none"
+  <svg class="absolute bottom-0 left-0 w-full h-[40px]" viewBox="0 0 1200 120" preserveAspectRatio="none"
     style="margin-top: auto">
-    <path
-      d="M0,60 Q300,10 600,60 T1200,60 L1200,120 L0,120 Z"
-      fill="currentColor"
+    <path d="M0,60 Q300,10 600,60 T1200,60 L1200,120 L0,120 Z" fill="currentColor"
       class="text-background dark:text-background-dark"></path>
   </svg>
   }
