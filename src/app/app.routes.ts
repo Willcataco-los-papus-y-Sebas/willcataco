@@ -51,11 +51,16 @@ export const routes: Routes = [
     component: MainLayout,
     children: [
       {
-        path : "forget",
+        path: "",
+        pathMatch: 'full',
+        redirectTo: '/'
+      },
+      {
+        path: "forget",
         component: Forget,
       },
       {
-        path : "login",
+        path: "login",
         component: Reset
       }
     ],
