@@ -7,12 +7,12 @@ import { ModalComponent } from '@components/modal/modal';
 import { InputComponent } from '@components/input/input';
 import { KebabComponent } from '@components/kebab/kebab';
 import { KebabOption } from '@components/kebab/kebab.types';
-import { CardStreet } from './components/card-street/card-street';
 
 import { Street } from '@models/streets';
 import { StreetService } from '@services/street/street';
 import { HeaderService } from '@services/header';
-import { ToastService } from '@services/toast/toast.service';
+import { ToastService } from '@services/toast';
+import { DataCardComponent } from '@components/data-card/data-card';
 
 @Component({
   selector: 'app-streets',
@@ -23,7 +23,7 @@ import { ToastService } from '@services/toast/toast.service';
     ModalComponent,
     InputComponent,
     KebabComponent,
-    CardStreet,
+    DataCardComponent,
   ],
   templateUrl: './streets.html',
   styleUrl: './streets.css',

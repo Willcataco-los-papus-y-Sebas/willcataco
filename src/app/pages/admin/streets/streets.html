@@ -9,14 +9,14 @@
       <div class="flex-1 overflow-y-auto h-[350px]" (scroll)="onScroll($event)">
         @for (street of streets(); track street.id) {
         <div class="w-[350px] mx-auto">
-          <app-card-street
+          <app-data-card
             firstLine="{{street.name}}"
             secondLine="Modificacion: {{street.updated_at | date: 'short'}}"
             thirdLine="Creacion: {{street.created_at | date: 'short'}}">
             <app-kebab
               [options]="kebabOptions"
               (optionSelected)="handleActions($event, street)"></app-kebab>
-          </app-card-street>
+          </app-data-card>
           <hr class="w-full bg-primary dark:bg-primary-dark h-2 mt-3 mb-3" />
         </div>
         }@empty {
