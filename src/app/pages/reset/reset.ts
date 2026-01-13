@@ -3,10 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@services/auth';
 import { HeaderService } from '@services/header';
 import { ToastService } from '@services/toast';
+import { InputComponent } from "@components/input";
+import { PanelComponent } from "@components/panel";
+import { FormsModule } from '@angular/forms';
+import { ButtonComponent } from "@components/button";
 
 @Component({
   selector: 'app-reset',
-  imports: [],
+  imports: [InputComponent, PanelComponent, FormsModule, ButtonComponent],
   templateUrl: './reset.html',
   styleUrl: './reset.css',
 })
@@ -24,7 +28,7 @@ export class Reset {
     const token = this.route.snapshot.queryParamMap.get('token');
     this.headerService.reset();
     this.headerService.is_logo.set(true);
-    this.headerService.header_text.set('Reestablecer Cuenta');
+    this.headerService.header_text.set('Reestablecer Contraseña');
     this.headerService.buttons_on.set(false);
     this.headerService.is_normal.set(false);
     this.headerService.has_wave.set(true)
@@ -41,7 +45,7 @@ export class Reset {
     }
     const token = this.route.snapshot.queryParamMap.get('token');
     if (!token) {
-      this.toastService.error('Ocurrio un error', 'Error');
+      this.toastService.error('Ocurrio un error inesperado', 'Error');
       return
     }
     this.authService
