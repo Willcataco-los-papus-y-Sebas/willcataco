@@ -27,6 +27,7 @@ const COLORS = {
   success: '#2E7D32',
   warning: '#F9A825',
   error: '#C62828',
+  info: '#581056',
 };
 
 const TYPOGRAPHY = {

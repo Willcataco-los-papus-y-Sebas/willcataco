@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HeaderService } from '@services/header';
 import { AuthService } from '@services/auth';
+import { ToastService } from '@services/toast';
 import { ButtonComponent } from '@components/button';
 import { InputComponent } from '@components/input';
 import { PanelComponent } from '@components/panel';
@@ -19,6 +20,7 @@ export class Login implements OnInit {
   private headerService = inject(HeaderService);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private toastService = inject(ToastService);
 
   username = signal('');
   password = signal('');
@@ -39,20 +41,33 @@ export class Login implements OnInit {
   }
 
   onLogin() {
-    if (this.username() && this.password()) {
-      this.authService
-        .login({
-          username: this.username(),
-          password: this.password(),
-        })
-        .subscribe({
-          next: () => {
-            this.router.navigate(['/']);
-          },
-          error: err => {
-            console.error('Login failed', err);
-          },
-        });
+    if (!this.username().trim() || !this.password().trim()) {
+      this.toastService.info('Por favor ingresa tu usuario y contraseña', 'Campos requeridos');
+      return;
     }
+
+    this.authService
+      .login({
+        username: this.username(),
+        password: this.password(),
+      })
+      .subscribe({
+        next: () => {
+          this.toastService.success('Has iniciado sesión correctamente', 'Login exitoso');
+          this.router.navigate(['/']);
+        },
+        error: error => {
+          if (error.status === 0) {
+            this.toastService.error(
+              'No se pudo conectar con el servidor. Verifica tu conexión a internet',
+              'Sin conexión'
+            );
+          } else if (error.status === 401 || error.status === 403) {
+            this.toastService.error('Las credenciales no son válidas', 'Error de login');
+          } else {
+            this.toastService.error('Ha ocurrido un error inesperado. Intenta nuevamente', 'Error');
+          }
+        },
+      });
   }
 }

@@ -31,12 +31,20 @@
   </div>
   @if (headerService.is_carrusel()){
   <div class="relative -mt-10">
-    <app-carrusel [items]="headerService.carrusel_items()" [colorItem]="headerService.carrusel_color()"></app-carrusel>
+    <app-carrusel
+      [items]="headerService.carrusel_items()"
+      [colorItem]="headerService.carrusel_color()"></app-carrusel>
   </div>
-  }
-  @if (headerService.has_wave()){
-  <svg class="absolute bottom-0 left-0 w-full h-[40px]" viewBox="0 0 1200 120" preserveAspectRatio="none" style="margin-top: auto;">
-    <path d="M0,60 Q300,10 600,60 T1200,60 L1200,120 L0,120 Z" fill="currentColor" class="text-background dark:text-background-dark"></path>
+  } @if (headerService.has_wave()){
+  <svg
+    class="absolute bottom-0 left-0 w-full h-[40px]"
+    viewBox="0 0 1200 120"
+    preserveAspectRatio="none"
+    style="margin-top: auto">
+    <path
+      d="M0,60 Q300,10 600,60 T1200,60 L1200,120 L0,120 Z"
+      fill="currentColor"
+      class="text-background dark:text-background-dark"></path>
   </svg>
   }
 </header>
