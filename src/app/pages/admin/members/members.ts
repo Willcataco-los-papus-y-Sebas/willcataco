@@ -41,10 +41,14 @@ export class Members implements OnInit {
   isModalOpen = signal(false);
   searchQuery = signal('');
   year = signal('');
+  month = signal<string | undefined>(undefined);
 
   onYearChange(value: string) {
     const numericValue = value.replace(/[^0-9]/g, '');
     this.year.set(numericValue);
+    if (numericValue.length === 4 || numericValue.length === 0) {
+      this.loadMembers();
+    }
   }
 
   onKeyDown(event: KeyboardEvent) {
@@ -80,12 +84,23 @@ export class Members implements OnInit {
     { label: 'Diciembre' },
   ];
 
+  monthMap: Record<string, string> = {
+    'Enero': '1', 'Febrero': '2', 'Marzo': '3', 'Abril': '4',
+    'Mayo': '5', 'Junio': '6', 'Julio': '7', 'Agosto': '8',
+    'Septiembre': '9', 'Octubre': '10', 'Noviembre': '11', 'Diciembre': '12'
+  };
+
   onDropdownSelect(label: string) {
-    console.log('Selected:', label);
+    const monthNum = this.monthMap[label];
+    this.month.set(monthNum);
+    this.loadMembers();
   }
 
   onSearchChange(query: string) {
     this.searchQuery.set(query);
+    // Clear filters when searching by name
+    this.year.set('');
+    this.month.set(undefined);
     this.loadMembers();
   }
 
@@ -121,10 +136,26 @@ export class Members implements OnInit {
 
   loadMembers() {
     const search = this.searchQuery();
-    this.membersService.getMembers(10, 0, search).subscribe({
-      next: data => this.members.set(data),
-      error: err => console.error(err),
-    });
+    const y = this.year();
+    const m = this.month();
+
+    if (y || m) {
+      this.membersService.getMembersByDate(y, m, 10, 0).subscribe({
+        next: data => this.members.set(data),
+        error: err => {
+          console.error(err);
+          this.members.set([]);
+        },
+      });
+    } else {
+      this.membersService.getMembers(10, 0, search).subscribe({
+        next: data => this.members.set(data),
+        error: err => {
+          console.error(err);
+          this.members.set([]);
+        },
+      });
+    }
   }
 
   onKebabAction(action: string, member: Member) {

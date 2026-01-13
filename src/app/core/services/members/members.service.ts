@@ -49,4 +49,26 @@ export class MembersService {
       .get<{ data: Member }>(`${this.apiUrl}${id}`)
       .pipe(map(response => response.data));
   }
+  getMembersByDate(
+    year?: string,
+    month?: string,
+    limit = 10,
+    offset = 0
+  ): Observable<Member[]> {
+    const params: Record<string, string> = { limit: limit.toString(), offset: offset.toString() };
+
+    if (year) params['year'] = year;
+    if (month) params['month'] = month;
+
+    return this.http
+      .get<{ data?: Member[] }>(`${environment.apiUrl}/api/members/by_date`, { params })
+      .pipe(
+        map(response => {
+          if (response && Array.isArray(response.data)) {
+            return response.data;
+          }
+          return [];
+        })
+      );
+  }
 }
