@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { HeaderService } from '@services/header/header';
+import { HeaderService } from '@services/header';
 
 @Component({
   selector: 'app-home',

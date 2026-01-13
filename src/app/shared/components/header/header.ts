@@ -1,10 +1,11 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonHeader } from '../button-header/button-header';
 import { AuthService } from '@services/auth/auth';
 import { Router } from '@angular/router';
 import { Carrusel } from '@components/carrusel/carrusel';
-import { ICarruselItem } from '@models/carrusel/carrusel.item.types';
+import { HeaderService } from '@services/header';
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -15,16 +16,7 @@ import { ICarruselItem } from '@models/carrusel/carrusel.item.types';
 export class HeaderComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
-
-  @Input() is_logo = true;
-  @Input() header_text = '';
-  @Input() buttons_on = true;
-  @Input() is_normal = true;
-  @Input() logo = 'droplet-fill';
-
-  @Input() is_carrusel = true;
-  @Input() carrusel_items: ICarruselItem[] = [];
-  @Input() carrusel_color = 'bg-background';
+  headerService = inject(HeaderService);
 
   logout() {
     this.authService.logout().subscribe(() => {
