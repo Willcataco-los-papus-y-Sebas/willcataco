@@ -2,8 +2,20 @@
 
 <div
   class="flex flex-col h-[calc(100vh-130px)] bg-background dark:bg-background-dark font-sans transition-colors">
-  <div class="flex justify-end px-6 mt-6 mb-4 shrink-0">
-    <app-button variant="primary" (click)="openCreateModal()">Nuevo usuario</app-button>
+  <div class="flex flex-col px-6 mt-6 mb-4 gap-4 shrink-0">
+    <div class="flex justify-end">
+      <app-button variant="primary" (click)="openCreateModal()">Nuevo usuario</app-button>
+    </div>
+
+    <div class="relative">
+      <app-input placeholder="Buscar por usuario o email..." (input)="onSearch($event)"></app-input>
+
+      @if (!isLoading && searchTerm) {
+      <p class="text-[11px] text-primary dark:text-primary-dark font-medium -mt-3 ml-2 italic">
+        Encontrados: {{ filteredUsers.length }} usuarios
+      </p>
+      }
+    </div>
   </div>
 
   <div class="flex-1 overflow-y-auto px-6 pb-28">
@@ -17,7 +29,7 @@
     </div>
     } @else {
     <div class="flex flex-col gap-4">
-      @for (user of users; track user.id) {
+      @for (user of filteredUsers; track user.id) {
       <app-data-card
         [firstLine]="user.username"
         [secondLine]="user.email"
@@ -30,7 +42,8 @@
       } @empty {
       <div class="flex flex-col items-center justify-center py-20 text-center opacity-60">
         <p class="text-secondary dark:text-secondary-dark italic">
-          No se encontraron usuarios registrados.
+          {{ searchTerm ? 'No hay resultados para esta búsqueda.' : 'No se encontraron usuarios
+          registrados.' }}
         </p>
       </div>
       }
@@ -83,7 +96,7 @@
       <app-input
         label="Contraseña"
         type="password"
-        [placeholder]="modalMode === 'edit' ? 'Vacio para no cambiar' : 'Mínimo 7 caracteres'"
+        placeholder="Mínimo 7 caracteres"
         formControlName="password"></app-input>
       @if (userForm.get('password')?.invalid && userForm.get('password')?.touched) {
       <p class="text-[10px] text-error ml-2 -mt-2 font-medium italic">

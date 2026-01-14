@@ -44,6 +44,8 @@ export class Users implements OnInit {
   private cdr = inject(ChangeDetectorRef);
 
   users: User[] = [];
+  filteredUsers: User[] = [];
+  searchTerm = '';
   isLoading = false;
 
   isModalOpen = false;
@@ -70,26 +72,18 @@ export class Users implements OnInit {
     { label: 'Desactivar', action: 'delete', variant: 'danger' },
   ];
 
-  // -------------------------
-  // Lifecycle
-  // -------------------------
   ngOnInit(): void {
-    // ✅ CONFIGURACIÓN CORRECTA DEL HEADER
     this.headerService.reset();
     this.headerService.header_text.set('Gestión de usuarios');
     this.headerService.is_normal.set(true);
     this.headerService.buttons_on.set(true);
     this.headerService.is_logo.set(false);
 
-    // Carga de usuarios
     setTimeout(() => {
       this.loadUsers();
     }, 0);
   }
 
-  // -------------------------
-  // Data
-  // -------------------------
   loadUsers(): void {
     this.isLoading = true;
     this.cdr.detectChanges();
@@ -97,6 +91,7 @@ export class Users implements OnInit {
     this.usersService.getUsers().subscribe({
       next: res => {
         this.users = res.data;
+        this.applyFilter();
         this.isLoading = false;
         this.cdr.detectChanges();
       },
@@ -107,9 +102,25 @@ export class Users implements OnInit {
     });
   }
 
-  // -------------------------
-  // Modals
-  // -------------------------
+  onSearch(event: Event): void {
+    const element = event.target as HTMLInputElement;
+    this.searchTerm = element.value.toLowerCase().trim();
+    this.applyFilter();
+  }
+
+  private applyFilter(): void {
+    if (!this.searchTerm) {
+      this.filteredUsers = [...this.users];
+    } else {
+      this.filteredUsers = this.users.filter(
+        (user: User) =>
+          user.username.toLowerCase().includes(this.searchTerm) ||
+          user.email.toLowerCase().includes(this.searchTerm)
+      );
+    }
+    this.cdr.detectChanges();
+  }
+
   openCreateModal(): void {
     this.setModalState('create', 'Nuevo usuario');
     this.userForm.reset({ role: UserRole.MEMBER });
@@ -143,16 +154,6 @@ export class Users implements OnInit {
     this.isModalOpen = true;
   }
 
-  closeModal(): void {
-    this.isModalOpen = false;
-    setTimeout(() => {
-      this.modalMode = null;
-      this.selectedUser = null;
-      this.userForm.reset();
-      this.cdr.detectChanges();
-    }, 200);
-  }
-
   private setModalState(mode: ModalMode, title: string, user: User | null = null): void {
     this.modalMode = mode;
     this.modalTitle = title;
@@ -170,9 +171,16 @@ export class Users implements OnInit {
     passwordControl.updateValueAndValidity();
   }
 
-  // -------------------------
-  // Form actions
-  // -------------------------
+  closeModal(): void {
+    this.isModalOpen = false;
+    setTimeout(() => {
+      this.modalMode = null;
+      this.selectedUser = null;
+      this.userForm.reset();
+      this.cdr.detectChanges();
+    }, 200);
+  }
+
   onRoleSelected(role: string): void {
     this.userForm.get('role')?.setValue(role as UserRole);
     this.userForm.get('role')?.markAsTouched();
@@ -206,14 +214,12 @@ export class Users implements OnInit {
 
   private getChangedValues(original: User, current: CreateUserDTO): UpdateUserDTO {
     const changes: UpdateUserDTO = {};
-
     if (current.username !== original.username) changes.username = current.username;
     if (current.email !== original.email) changes.email = current.email;
     if (current.role !== original.role) changes.role = current.role;
     if (current.password && current.password.length >= 7) {
       changes.password = current.password;
     }
-
     return changes;
   }
 
@@ -222,12 +228,8 @@ export class Users implements OnInit {
     this.closeModal();
   }
 
-  // -------------------------
-  // Actions
-  // -------------------------
   confirmDelete(): void {
     if (!this.selectedUser) return;
-
     this.usersService.deleteUser(this.selectedUser.id).subscribe({
       next: () => this.handleSuccess(),
     });
@@ -239,7 +241,6 @@ export class Users implements OnInit {
       edit: u => this.openEditModal(u),
       delete: u => this.openDeleteModal(u),
     };
-
     actions[action]?.(user);
   }
 }
