@@ -48,15 +48,13 @@ export class AdminLogin implements OnInit {
   }
 
   private subscribeToQueryParams(): void {
-    this.route.queryParams
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(params => {
-        const token = params['token'];
-        if (token) {
-          this.hasToken.set(true);
-          this.processToken(token);
-        }
-      });
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
+      const token = params['token'];
+      if (token) {
+        this.hasToken.set(true);
+        this.processToken(token);
+      }
+    });
   }
 
   onRequestLogin(): void {
@@ -142,4 +140,5 @@ export class AdminLogin implements OnInit {
     } else {
       this.toastService.error('Ha ocurrido un error inesperado. Intenta nuevamente', 'Error');
     }
-  }}
+  }
+}

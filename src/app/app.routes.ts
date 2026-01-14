@@ -31,8 +31,8 @@ export const routes: Routes = [
       {
         path: '',
         component: AdminLogin,
-      }
-    ]
+      },
+    ],
   },
   {
     path: '',
@@ -55,7 +55,7 @@ export const routes: Routes = [
       {
         path: '',
         component: Dashboard,
-      }
+      },
     ],
   },
   {

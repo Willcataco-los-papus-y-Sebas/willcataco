@@ -7,37 +7,47 @@
         </h2>
 
         @if (isProcessingToken()) {
-          <div class="flex flex-col items-center gap-4">
-            <div class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
-            <p class="text-secondary dark:text-secondary-dark">Procesando tu login...</p>
-          </div>
+        <div class="flex flex-col items-center gap-4">
+          <div
+            class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
+          <p class="text-secondary dark:text-secondary-dark">Procesando tu login...</p>
+        </div>
         } @else if (!isProcessingToken() && !hasToken()) {
-          <form (ngSubmit)="onRequestLogin()" class="flex flex-col gap-4">
-            <app-input
-              name="username"
-              label="Usuario"
-              placeholder="Ingresa tu usuario"
-              [ngModel]="username()"
+        <form (ngSubmit)="onRequestLogin()" class="flex flex-col gap-4">
+          <app-input
+            name="username"
+            label="Usuario"
+            placeholder="Ingresa tu usuario"
+            [ngModel]="username()"
+            [disabled]="isLoading()"
+            (ngModelChange)="username.set($event)"></app-input>
+
+          <div class="flex flex-col items-center gap-4 mt-2">
+            <app-button
+              type="submit"
+              variant="primary"
+              size="lg"
               [disabled]="isLoading()"
-              (ngModelChange)="username.set($event)"></app-input>
+              class="md:w-auto">
+              @if (isLoading()) {
+              <span>Enviando...</span>
+              } @else {
+              <span>Solicitar Email</span>
+              }
+            </app-button>
 
-            <div class="flex flex-col items-center gap-4 mt-2">
-              <app-button type="submit" variant="primary" size="lg" [disabled]="isLoading()" class="md:w-auto">
-                @if (isLoading()) {
-                  <span>Enviando...</span>
-                } @else {
-                  <span>Solicitar Email</span>
-                }
-              </app-button>
-
-              <p class="text-sm text-secondary dark:text-secondary-dark">
-                ¿No eres admin o staff?
-                <a
-                  routerLink="/login"
-                  class="text-primary dark:text-primary-dark font-semibold hover:text-hover dark:hover:text-hover-dark transition-colors">
-                  Ir a Login
-                </a>
-              </p>
-            </div>
-          </form>
+            <p class="text-sm text-secondary dark:text-secondary-dark">
+              ¿No eres admin o staff?
+              <a
+                routerLink="/login"
+                class="text-primary dark:text-primary-dark font-semibold hover:text-hover dark:hover:text-hover-dark transition-colors">
+                Ir a Login
+              </a>
+            </p>
+          </div>
+        </form>
         }
+      </div>
+    </app-panel>
+  </section>
+</div>

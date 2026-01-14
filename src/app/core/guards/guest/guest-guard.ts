@@ -14,15 +14,15 @@ export const guestGuard: CanActivateFn = () => {
     map(() => {
       if (auth.isAuthenticated()) {
         const user = auth.user();
-        
+
         if (user?.scope === 'internal') {
           return router.createUrlTree(['/admin']);
         }
-        
+
         if (user?.scope === 'member') {
           return router.createUrlTree(['/']);
         }
-        
+
         return router.createUrlTree(['/']);
       }
       return true;

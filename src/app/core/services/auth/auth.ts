@@ -27,17 +27,16 @@ export class AuthService {
       .post<AuthResponse>(`${this._apiUrl}/login`, credentials, { withCredentials: true })
       .pipe(
         tap(() => {
-          this._http.get<AuthResponse>(`${this._apiUrl}/me`, { withCredentials: true })
-            .subscribe({
-              next: (response) => {
-                this._user.set(response.data as User);
-                this._loading.set(false);
-              },
-              error: () => {
-                this._user.set(null);
-                this._loading.set(false);
-              }
-            });
+          this._http.get<AuthResponse>(`${this._apiUrl}/me`, { withCredentials: true }).subscribe({
+            next: response => {
+              this._user.set(response.data as User);
+              this._loading.set(false);
+            },
+            error: () => {
+              this._user.set(null);
+              this._loading.set(false);
+            },
+          });
         }),
         catchError(err => {
           this._user.set(null);
@@ -57,20 +56,23 @@ export class AuthService {
   internalLogin(token: string): Observable<AuthResponse> {
     this._loading.set(true);
     return this._http
-      .post<AuthResponse>(`${this._apiUrl}/internal/login?token=${token}`, {}, { withCredentials: true })
+      .post<AuthResponse>(
+        `${this._apiUrl}/internal/login?token=${token}`,
+        {},
+        { withCredentials: true }
+      )
       .pipe(
         tap(() => {
-          this._http.get<AuthResponse>(`${this._apiUrl}/me`, { withCredentials: true })
-            .subscribe({
-              next: (response) => {
-                this._user.set(response.data as User);
-                this._loading.set(false);
-              },
-              error: () => {
-                this._user.set(null);
-                this._loading.set(false);
-              }
-            });
+          this._http.get<AuthResponse>(`${this._apiUrl}/me`, { withCredentials: true }).subscribe({
+            next: response => {
+              this._user.set(response.data as User);
+              this._loading.set(false);
+            },
+            error: () => {
+              this._user.set(null);
+              this._loading.set(false);
+            },
+          });
         }),
         catchError(err => {
           this._user.set(null);
@@ -101,16 +103,18 @@ export class AuthService {
   }
 
   getCurrentUser(): Observable<AuthResponse> {
-    return this._http.get<AuthResponse>(`${this._apiUrl}/me`, {
-      withCredentials: true,
-    }).pipe(
-      tap(response => {
-        this._user.set(response.data as User);
-      }),
-      catchError(err => {
-        return throwError(() => err);
+    return this._http
+      .get<AuthResponse>(`${this._apiUrl}/me`, {
+        withCredentials: true,
       })
-    );
+      .pipe(
+        tap(response => {
+          this._user.set(response.data as User);
+        }),
+        catchError(err => {
+          return throwError(() => err);
+        })
+      );
   }
 
   checkAuth(): void {
