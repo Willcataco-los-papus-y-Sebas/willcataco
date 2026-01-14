@@ -8,6 +8,8 @@ import { AdminLogin } from '@pages/admin/login';
 import { Home } from '@pages/home';
 import { Dashboard } from '@pages/admin/dashboard';
 import { MainLayout } from '@layouts/main-layout';
+import { ExtraPayments } from '@pages/admin/extra-payments';
+import { ExtraPaymentDetail } from '@pages/admin/extra-payments/detail';
 
 export const routes: Routes = [
   {
@@ -23,9 +25,9 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'admin/login',
+    path: 'admin',
     canActivate: [guestGuard],
-    data: { redirectTo: '/admin' },
+    data: { redirectTo: '/dashboard' },
     component: MainLayout,
     children: [
       {
@@ -47,7 +49,31 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'admin',
+    path: 'extra-payments',
+    canActivate: [authGuard, scopeGuard, roleGuard],
+    data: { scope: 'internal', roles: ['admin', 'staff'] },
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        component: ExtraPayments,
+      },
+    ],
+  },
+  {
+    path: 'extra-payments/:id',
+    canActivate: [authGuard, scopeGuard, roleGuard],
+    data: { scope: 'internal', roles: ['admin', 'staff'] },
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        component: ExtraPaymentDetail,
+      },
+    ],
+  },
+  {
+    path: 'dashboard',
     canActivate: [authGuard, scopeGuard, roleGuard],
     data: { scope: 'internal', roles: ['admin', 'staff'] },
     component: MainLayout,

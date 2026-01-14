@@ -94,7 +94,7 @@ export class AdminLogin implements OnInit {
       .subscribe({
         next: () => {
           this.toastService.success('Has iniciado sesión correctamente', 'Login exitoso');
-          this.router.navigateByUrl('/admin', { replaceUrl: true });
+          this.router.navigateByUrl('/dashboard', { replaceUrl: true });
         },
         error: error => {
           this.isProcessingToken.set(false);

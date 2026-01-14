@@ -35,7 +35,7 @@ export const scopeGuard: CanActivateFn = (route, state) => {
       }
 
       if (user.scope === 'internal' && requiredScope === 'member') {
-        return router.createUrlTree(['/admin']);
+        return router.createUrlTree(['/dashboard']);
       }
 
       return false;
