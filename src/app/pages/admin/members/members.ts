@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MemberCardComponent } from '@components/member-card/member-card';
+import { DataCardComponent } from '@components/data-card/data-card';
 import { KebabComponent } from '@components/kebab/kebab';
 import { HeaderComponent } from '@components/header/header';
 import { ButtonComponent } from '@components/button/button';
@@ -22,7 +22,7 @@ import { HeaderService } from '@services/header';
     FormsModule,
     HeaderComponent,
     ButtonComponent,
-    MemberCardComponent,
+    DataCardComponent,
     DropdownComponent,
     KebabComponent,
     ModalComponent,
@@ -43,11 +43,16 @@ export class Members implements OnInit {
   year = signal('');
   month = signal<string | undefined>(undefined);
 
+  limit = 20;
+  offset = 0;
+  isLoading = signal(false);
+  hasMore = signal(true);
+
   onYearChange(value: string) {
     const numericValue = value.replace(/[^0-9]/g, '');
     this.year.set(numericValue);
     if (numericValue.length === 4 || numericValue.length === 0) {
-      this.loadMembers();
+      this.loadMembers(true);
     }
   }
 
@@ -93,7 +98,7 @@ export class Members implements OnInit {
   onDropdownSelect(label: string) {
     const monthNum = this.monthMap[label];
     this.month.set(monthNum);
-    this.loadMembers();
+    this.loadMembers(true);
   }
 
   onSearchChange(query: string) {
@@ -101,7 +106,7 @@ export class Members implements OnInit {
     // Clear filters when searching by name
     this.year.set('');
     this.month.set(undefined);
-    this.loadMembers();
+    this.loadMembers(true);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -131,30 +136,56 @@ export class Members implements OnInit {
     this.headerService.logo.set('droplet-fill');
     this.headerService.header_text.set('Socios de Willcataco');
 
-    this.loadMembers();
+    this.loadMembers(true);
   }
 
-  loadMembers() {
+  loadMembers(reset = false) {
+    if (this.isLoading()) return;
+
+    if (reset) {
+      this.offset = 0;
+      this.hasMore.set(true);
+      this.members.set([]);
+    }
+
+    if (!this.hasMore()) return;
+
+    this.isLoading.set(true);
     const search = this.searchQuery();
     const y = this.year();
     const m = this.month();
 
-    if (y || m) {
-      this.membersService.getMembersByDate(y, m, 10, 0).subscribe({
-        next: data => this.members.set(data),
-        error: err => {
-          console.error(err);
-          this.members.set([]);
-        },
-      });
-    } else {
-      this.membersService.getMembers(10, 0, search).subscribe({
-        next: data => this.members.set(data),
-        error: err => {
-          console.error(err);
-          this.members.set([]);
-        },
-      });
+    const request = (y || m)
+      ? this.membersService.getMembersByDate(y, m, this.limit, this.offset)
+      : this.membersService.getMembers(this.limit, this.offset, search);
+
+    request.subscribe({
+      next: data => {
+        if (data.length < this.limit) {
+          this.hasMore.set(false);
+        }
+
+        if (reset) {
+          this.members.set(data);
+        } else {
+          this.members.update(current => [...current, ...data]);
+        }
+
+        this.offset += this.limit;
+        this.isLoading.set(false);
+      },
+      error: err => {
+        console.error(err);
+        this.isLoading.set(false);
+        if (reset) this.members.set([]);
+      },
+    });
+  }
+
+  onScroll(event: Event) {
+    const element = event.target as HTMLElement;
+    if (element.scrollHeight - element.scrollTop <= element.clientHeight + 50) {
+      this.loadMembers();
     }
   }
 

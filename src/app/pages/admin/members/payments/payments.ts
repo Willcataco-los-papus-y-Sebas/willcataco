@@ -81,14 +81,6 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
 
     this.isLoading.set(true);
 
-    // Fetch ALL types (undefined status) to fill both tabs, handling filtering on client side for now?
-    // Architecture decision: If we scroll, do we fetch mixed or filtered?
-    // Current service supports status. But list displays tabs.
-    // If tabs toggle visibility, we should fetch ALL.
-    // But if list is long, better to fetch per tab?
-    // The current UI loads ALL and filters locally (computed `filteredPayments`).
-    // To maintain this simply: Fetch all (mixed) and append.
-
     this.waterPaymentsService.getWaterPayments(id, undefined, this.limit, this.offset).subscribe({
       next: data => {
         if (data.length < this.limit) {

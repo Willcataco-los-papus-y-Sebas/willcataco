@@ -33,13 +33,14 @@
     <div class="h-px bg-primary w-full"></div>
   </div>
 
-  <div class="flex-1 overflow-y-auto p-4 pb-24">
+  <div class="flex-1 overflow-y-auto p-4 pb-24" (scroll)="onScroll($event)">
     <div class="flex flex-col gap-4">
       @for (member of members(); track member.id) {
-      <app-member-card [member]="member" (click)="onCardClick(member)" class="cursor-pointer">
+      <app-data-card [firstLine]="member.name + ' ' + member.last_name" [secondLine]="'Medidor: ' + member.user_id"
+        [thirdLine]="member.ci" (click)="onCardClick(member)" class="cursor-pointer block">
         <app-kebab card-action [options]="getMemberOptions(member)"
           (optionSelected)="onKebabAction($event, member)"></app-kebab>
-      </app-member-card>
+      </app-data-card>
       } @empty {
       <div class="text-center py-10 text-gray-500">No hay socios registrados.</div>
       }
