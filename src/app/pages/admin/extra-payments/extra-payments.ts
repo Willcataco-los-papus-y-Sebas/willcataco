@@ -8,7 +8,7 @@ import { InputComponent } from '@components/input/input';
 import { ModalComponent } from '@components/modal/modal';
 
 import { HeaderService } from '@services/header/header';
-import { ToastService } from '@services/toast/toast.service';
+import { ToastService } from '@services/toast';
 import { ExtraPaymentService } from '@services/extra-payment/extra-payment';
 import { ExtraPayment } from '@models/extra-payment';
 

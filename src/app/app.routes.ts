@@ -1,49 +1,88 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '@guards/auth/auth-guard';
 import { guestGuard } from '@guards/guest/guest-guard';
-import { Login } from '@pages/login/login';
-import { Home } from '@pages/home/home';
-import { Dashboard } from '@pages/admin/dashboard/dashboard';
-import { MainLayout } from '@layouts/main-layout/main-layout';
-import { ExtraPayments } from '@pages/admin/extra-payments/extra-payments';
-import { ExtraPaymentDetail } from '@pages/admin/extra-payments/detail/detail';
+import { scopeGuard } from '@guards/scope/scope-guard';
+import { roleGuard } from '@guards/role/role-guard';
+import { Login } from '@pages/login';
+import { AdminLogin } from '@pages/admin/login';
+import { Home } from '@pages/home';
+import { Dashboard } from '@pages/admin/dashboard';
+import { MainLayout } from '@layouts/main-layout';
+import { ExtraPayments } from '@pages/admin/extra-payments';
+import { ExtraPaymentDetail } from '@pages/admin/extra-payments/detail';
 
 export const routes: Routes = [
   {
     path: 'login',
     component: MainLayout,
+    canActivate: [guestGuard],
+    data: { redirectTo: '/' },
     children: [
       {
         path: '',
-        canActivate: [guestGuard],
-        data: { redirectTo: '/' },
         component: Login,
+      },
+    ],
+  },
+  {
+    path: 'admin',
+    canActivate: [guestGuard],
+    data: { redirectTo: '/dashboard' },
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        component: AdminLogin,
       },
     ],
   },
   {
     path: '',
     component: MainLayout,
-    canActivate: [authGuard],
+    canActivate: [authGuard, scopeGuard],
+    data: { scope: 'member' },
     children: [
       {
         path: '',
         component: Home,
       },
+    ],
+  },
+  {
+    path: 'extra-payments',
+    canActivate: [authGuard, scopeGuard, roleGuard],
+    data: { scope: 'internal', roles: ['admin', 'staff'] },
+    component: MainLayout,
+    children: [
       {
-        path: 'admin/extra-payments',
+        path: '',
         component: ExtraPayments,
       },
+    ],
+  },
+  {
+    path: 'extra-payments/:id',
+    canActivate: [authGuard, scopeGuard, roleGuard],
+    data: { scope: 'internal', roles: ['admin', 'staff'] },
+    component: MainLayout,
+    children: [
       {
-        path: 'admin/extra-payments/:id',
+        path: '',
         component: ExtraPaymentDetail,
       },
     ],
   },
   {
-    path: 'admin',
-    canActivate: [authGuard],
-    component: Dashboard,
+    path: 'dashboard',
+    canActivate: [authGuard, scopeGuard, roleGuard],
+    data: { scope: 'internal', roles: ['admin', 'staff'] },
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        component: Dashboard,
+      },
+    ],
   },
   {
     path: '**',

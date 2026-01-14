@@ -1,15 +1,15 @@
-<div class="min-h-screen bg-neutral-50 dark:bg-black transition-colors duration-300 pb-24 md:pb-20">
+<div class="min-h-screen bg-secondaryBackground dark:bg-background-dark transition-colors duration-300 pb-24 md:pb-20">
   <div class="relative z-[50] px-4 -mt-[25px] mb-8">
     <div
-      class="bg-background dark:bg-neutral-900 rounded-2xl shadow-xl w-full max-w-md mx-auto flex flex-col items-center justify-center p-6 transition-colors duration-300">
+      class="bg-background dark:bg-secondaryBackground-dark rounded-2xl shadow-xl w-full max-w-md mx-auto flex flex-col items-center justify-center p-6 transition-colors duration-300">
       <h2
-        class="text-gray-500 dark:text-gray-400 font-bold tracking-wider mb-2 uppercase text-sm font-sans">
+        class="text-secondary/60 dark:text-secondary-dark/60 font-bold tracking-wider mb-2 uppercase text-sm font-sans">
         Pagos Registrados
       </h2>
-      <p class="text-[40px] leading-none font-bold text-secondary dark:text-white mb-1 font-sans">
+      <p class="text-[40px] leading-none font-bold text-secondary dark:text-secondary-dark mb-1 font-sans">
         {{ totalPayments() }}
       </p>
-      <p class="text-gray-400 dark:text-gray-500 capitalize text-sm font-sans">
+      <p class="text-secondary/40 dark:text-secondary-dark/40 capitalize text-sm font-sans">
         {{ currentDate | date:'MMM yyyy' }}
       </p>
     </div>
@@ -32,9 +32,9 @@
         placeholder="Buscar por nombre"
         [ngModel]="searchTerm()"
         (ngModelChange)="searchTerm.set($event)"
-        class="w-full h-[50px] pl-4 pr-12 rounded-xl border-2 border-neutral-300 dark:border-neutral-800 text-secondary dark:text-white bg-background dark:bg-neutral-900 focus:outline-none focus:border-primary dark:focus:border-primary transition-colors font-sans placeholder-neutral-400 dark:placeholder-neutral-600" />
+        class="w-full h-[50px] pl-4 pr-12 rounded-xl border-2 border-secondary/20 dark:border-secondary-dark/20 text-secondary dark:text-secondary-dark bg-background dark:bg-secondaryBackground-dark focus:outline-none focus:border-primary dark:focus:border-primary-dark transition-colors font-sans placeholder-secondary/40 dark:placeholder-secondary-dark/40" />
       <div
-        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-neutral-400 dark:text-neutral-500 group-focus-within:text-primary dark:group-focus-within:text-primary-dark">
+        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-secondary/40 dark:text-secondary-dark/40 group-focus-within:text-primary dark:group-focus-within:text-primary-dark">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6"
@@ -57,10 +57,10 @@
   <div class="w-full max-w-md mx-auto px-4">
     @defer (when payments()) { @if (payments()!.length === 0) {
     <div class="flex flex-col items-center justify-center mt-10 opacity-50 gap-4">
-      <div class="p-4 bg-neutral-100 dark:bg-neutral-900 rounded-full">
+      <div class="p-4 bg-secondaryBackground dark:bg-secondaryBackground-dark rounded-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-12 w-12 text-neutral-400 dark:text-neutral-500"
+          class="h-12 w-12 text-secondary/40 dark:text-secondary-dark/40"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor">
@@ -71,13 +71,13 @@
             d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
       </div>
-      <p class="text-neutral-400 dark:text-neutral-500 font-sans">No hay pagos registrados</p>
+      <p class="text-secondary/40 dark:text-secondary-dark/40 font-sans">No hay pagos registrados</p>
     </div>
     } @else {
     <div class="flex flex-col gap-4">
       @for (payment of payments(); track payment.id) {
       <div
-        class="bg-background dark:bg-neutral-900 p-4 rounded-xl shadow-sm border border-neutral-100 dark:border-neutral-800 flex justify-between items-center transition-transform hover:scale-[1.01] duration-200 relative z-10">
+        class="bg-background dark:bg-secondaryBackground-dark p-4 rounded-xl shadow-sm border border-secondary/10 dark:border-secondary-dark/10 flex justify-between items-center transition-transform hover:scale-[1.01] duration-200 relative z-10">
         <div
           class="flex flex-col gap-1 cursor-pointer flex-1 outline-none focus:ring-2 focus:ring-primary/50 rounded-lg p-1 transition-all"
           (click)="goToDetail(payment.id)"
@@ -85,17 +85,17 @@
           (keydown.space)="goToDetail(payment.id)"
           tabindex="0"
           role="button">
-          <h3 class="font-bold text-lg text-secondary dark:text-white truncate font-sans">
+          <h3 class="font-bold text-lg text-secondary dark:text-secondary-dark truncate font-sans">
             {{ payment.name }}
           </h3>
           <p
-            class="text-sm text-neutral-500 dark:text-neutral-400 truncate max-w-[150px] font-sans">
+            class="text-sm text-secondary/60 dark:text-secondary-dark/60 truncate max-w-[150px] font-sans">
             {{ payment.description || 'Sin descripción' }}
           </p>
 
           <div class="flex items-center gap-2 mt-1">
             <span
-              class="text-xs font-bold bg-neutral-100 dark:bg-neutral-800 text-primary dark:text-primary-dark px-2 py-0.5 rounded-md font-sans">
+              class="text-xs font-bold bg-secondaryBackground dark:bg-background-dark text-primary dark:text-primary-dark px-2 py-0.5 rounded-md font-sans">
               {{ payment.amount | currency:'Bs ':'symbol':'1.0-0' }}
             </span>
             <span
@@ -148,11 +148,11 @@
     </div>
 
     <div
-      class="fixed bottom-0 left-0 w-full bg-background/95 dark:bg-black/95 backdrop-blur-sm border-t border-neutral-200 dark:border-neutral-800 p-3 flex justify-center items-center gap-6 z-50 md:static md:w-auto md:bg-transparent md:border-none md:p-0 md:mt-8 md:mb-10">
+      class="fixed bottom-0 left-0 w-full bg-background/95 dark:bg-background-dark/95 backdrop-blur-sm border-t border-secondary/20 dark:border-secondary-dark/20 p-3 flex justify-center items-center gap-6 z-50 md:static md:w-auto md:bg-transparent md:border-none md:p-0 md:mt-8 md:mb-10">
       <button
         (click)="prevPage()"
         [disabled]="offset === 0"
-        class="p-2 text-primary dark:text-primary-dark disabled:text-neutral-300 dark:disabled:text-neutral-700 transition-colors">
+        class="p-2 text-primary dark:text-primary-dark disabled:text-disabled dark:disabled:text-disabled-dark transition-colors">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-8 w-8"
@@ -170,7 +170,7 @@
       <button
         (click)="nextPage()"
         [disabled]="!hasMore()"
-        class="p-2 text-primary dark:text-primary-dark disabled:text-neutral-300 dark:disabled:text-neutral-700 transition-colors">
+        class="p-2 text-primary dark:text-primary-dark disabled:text-disabled dark:disabled:text-disabled-dark transition-colors">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-8 w-8"
@@ -184,7 +184,7 @@
     </div>
     } } @placeholder (minimum 500ms) {
     <div class="flex justify-center py-10">
-      <p class="text-neutral-500 dark:text-neutral-400 animate-pulse font-sans">Cargando...</p>
+      <p class="text-secondary/60 dark:text-secondary-dark/60 animate-pulse font-sans">Cargando...</p>
     </div>
     }
   </div>
@@ -197,10 +197,10 @@
   <div class="flex flex-col gap-4">
     @if (isEditing()) {
     <div class="flex flex-col gap-1 px-1 mb-2">
-      <span class="text-xs font-bold text-neutral-500 uppercase tracking-wider font-sans">
+      <span class="text-xs font-bold text-secondary/60 dark:text-secondary-dark/60 uppercase tracking-wider font-sans">
         Socio
       </span>
-      <p class="text-xl font-bold text-secondary border-b border-neutral-200 pb-2 font-sans">
+      <p class="text-xl font-bold text-secondary dark:text-secondary-dark border-b border-secondary/20 dark:border-secondary-dark/20 pb-2 font-sans">
         {{ formName() }}
       </p>
     </div>
@@ -229,7 +229,7 @@
 
 <app-modal [isOpen]="isDeleteModalOpen()" title="Eliminar Pago" (modalClose)="closeDeleteModal()">
   <div class="flex flex-col gap-6 text-center">
-    <p class="text-neutral-600 font-sans">
+    <p class="text-secondary/80 dark:text-secondary-dark/80 font-sans">
       ¿Estás seguro que deseas eliminar el pago de
       <span class="font-bold text-secondary">{{ paymentToDelete()?.name }}</span>
       ?
