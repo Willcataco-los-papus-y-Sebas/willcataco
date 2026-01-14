@@ -49,10 +49,7 @@ export const routes: Routes = [
         path: 'users',
         component: Users,
       },
-      {
-        path: 'socios',
-        loadComponent: () => import('./pages/admin/members/members').then(m => m.Members),
-      },
+      
     ],
   },
   {
