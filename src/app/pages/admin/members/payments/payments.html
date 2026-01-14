@@ -7,7 +7,7 @@
       [colorItem]="'bg-background dark:bg-background-dark'"></app-carrusel>
     <div class="flex justify-center mt-2">
       <app-status-badge
-        [status]="totalDebt() > 0 ? 'debt' : 'paid'"
+        [status]="totalDebt() > 0 ? Status.DEBT : Status.PAID"
         [label]="totalDebt() > 0 ? 'Pendiente' : 'Pagado'"></app-status-badge>
     </div>
 
@@ -45,7 +45,7 @@
         <div class="flex flex-col items-end gap-2">
           <span class="font-bold">Bs. {{ payment.amount }}</span>
           <app-status-badge
-            [status]="payment.status === 'PAID' ? 'paid' : 'debt'"
+            [status]="payment.status === 'PAID' ? Status.PAID : Status.DEBT"
             [label]="payment.status === 'PAID' ? 'Pagado' : 'Pendiente'"></app-status-badge>
         </div>
       </div>

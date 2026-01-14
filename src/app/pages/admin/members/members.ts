@@ -20,7 +20,6 @@ import { HeaderService } from '@services/header';
   imports: [
     CommonModule,
     FormsModule,
-    HeaderComponent,
     ButtonComponent,
     DataCardComponent,
     DropdownComponent,

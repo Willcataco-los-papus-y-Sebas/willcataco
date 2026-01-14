@@ -11,6 +11,7 @@ import { HeaderService } from '@services/header';
 import { ButtonComponent } from '@components/button/button';
 import { Carrusel } from '@components/carrusel/carrusel';
 import { ICarruselItem } from '@models/carrusel/carrusel.item.types';
+import { Status } from '@models/status/status.enum';
 
 @Component({
   selector: 'app-member-payments',
@@ -20,6 +21,7 @@ import { ICarruselItem } from '@models/carrusel/carrusel.item.types';
   styleUrl: './payments.css',
 })
 export class MemberPaymentsComponent implements OnInit, OnDestroy {
+  Status = Status;
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private waterPaymentsService = inject(WaterPaymentsService);

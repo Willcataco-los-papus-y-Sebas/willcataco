@@ -1,11 +1,23 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { HeaderService } from '@services/header';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard {}
+export class Dashboard implements OnInit {
+  private headerService = inject(HeaderService);
+
+  ngOnInit() {
+    this.headerService.reset();
+    this.headerService.is_logo.set(true);
+    this.headerService.buttons_on.set(true);
+    this.headerService.header_text.set('Willcataco');
+    this.headerService.is_normal.set(false);
+    this.headerService.is_carrusel.set(false);
+    this.headerService.has_wave.set(true);
+  }
+}
