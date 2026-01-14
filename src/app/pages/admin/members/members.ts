@@ -43,7 +43,7 @@ export class Members implements OnInit {
   year = signal('');
   month = signal<string | undefined>(undefined);
 
-  limit = 20;
+  limit = 10;
   offset = 0;
   isLoading = signal(false);
   hasMore = signal(true);
@@ -103,7 +103,6 @@ export class Members implements OnInit {
 
   onSearchChange(query: string) {
     this.searchQuery.set(query);
-    // Clear filters when searching by name
     this.year.set('');
     this.month.set(undefined);
     this.loadMembers(true);
