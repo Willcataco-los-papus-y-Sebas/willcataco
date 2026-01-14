@@ -42,7 +42,7 @@ export class NewMembers implements OnInit {
     this._headerService.header_text.set('Nuevo Socio');
     this._headerService.is_logo.set(false);
     this._headerService.buttons_on.set(true);
-    this._headerService.is_carrusel = signal(false);
+    this._headerService.is_carrusel.set(false);
   }
 
   validateForm(): boolean {
