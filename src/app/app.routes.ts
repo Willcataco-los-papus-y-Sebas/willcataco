@@ -10,7 +10,9 @@ import { Dashboard } from '@pages/admin/dashboard';
 import { MainLayout } from '@layouts/main-layout';
 import { ExtraPayments } from '@pages/admin/extra-payments';
 import { ExtraPaymentDetail } from '@pages/admin/extra-payments/detail';
-import { Streets } from '@pages/admin/streets/streets';
+import { Streets } from '@pages/admin/streets';
+import { Actions } from '@pages/admin/actions';
+import { ActionDetail } from '@pages/admin/actions/detail/';
 
 export const routes: Routes = [
   {
@@ -57,6 +59,22 @@ export const routes: Routes = [
       {
         path: '',
         component: Home,
+      },
+    ],
+  },
+  {
+    path: 'actions',
+    canActivate: [authGuard, scopeGuard, roleGuard],
+    data: { scope: 'internal', roles: ['admin', 'staff'] },
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        component: Actions,
+      },
+      {
+        path: ':id',
+        component: ActionDetail,
       },
     ],
   },
