@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonHeader } from '../button-header/button-header';
+import { Carrusel } from '@components/carrusel';
+
 import { AuthService } from '@services/auth/auth';
 import { Router } from '@angular/router';
-import { Carrusel } from '@components/carrusel/carrusel';
+
 import { HeaderService } from '@services/header';
 
 @Component({

@@ -17,6 +17,7 @@ import { Streets } from '@pages/admin/streets';
 import { Actions } from '@pages/admin/actions';
 import { ActionDetail } from '@pages/admin/actions/detail/';
 import { NewMembers } from '@pages/admin/new-members/new-members';
+import { Members } from '@pages/admin/members';
 
 export const routes: Routes = [
   {
@@ -55,12 +56,16 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'new-members',
+    path: 'members',
     component: MainLayout,
     canActivate: [authGuard],
     children: [
       {
         path: '',
+        component: Members,
+      },
+      {
+        path: 'new-members',
         component: NewMembers,
       },
     ],
@@ -151,6 +156,11 @@ export const routes: Routes = [
       {
         path: 'reset',
         component: Reset,
+      },
+      {
+        path: 'socios/:id/pagos',
+        loadComponent: () =>
+          import('./pages/admin/members/payments/payments').then(m => m.MemberPaymentsComponent),
       },
     ],
   },

@@ -1,0 +1,59 @@
+<app-header></app-header>
+<div
+  class="h-[calc(100vh-130px)] flex flex-col bg-background dark:bg-background-dark max-w-2xl mx-auto w-full">
+  <div class="relative z-[60] p-4 shrink-0">
+    <app-carrusel
+      [items]="carruselItems()"
+      [colorItem]="'bg-background dark:bg-background-dark'"></app-carrusel>
+    <div class="flex justify-center mt-2">
+      <app-status-badge
+        [status]="totalDebt() > 0 ? Status.DEBT : Status.PAID"
+        [label]="totalDebt() > 0 ? 'Pendiente' : 'Pagado'"></app-status-badge>
+    </div>
+
+    <div class="flex gap-2 mt-4">
+      <app-button
+        (click)="setTab('PAID')"
+        [variant]="activeTab() === 'PAID' ? 'primary' : 'secondary'"
+        class="flex-1 flex justify-center">
+        Hechas
+      </app-button>
+      <app-button
+        (click)="setTab('UNPAID')"
+        [variant]="activeTab() === 'UNPAID' ? 'primary' : 'secondary'"
+        class="flex-1 flex justify-center">
+        Deudas
+      </app-button>
+    </div>
+
+    <div class="h-px bg-primary w-full mt-6"></div>
+  </div>
+
+  <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-4" (scroll)="onScroll($event)">
+    <div class="flex flex-col gap-3">
+      @for (payment of filteredPayments(); track payment.id) {
+      <div
+        class="bg-white dark:bg-secondaryBackground-dark rounded-xl p-4 shadow-sm flex justify-between items-center border-b-[3px] border-gray-100 dark:border-gray-800">
+        <div class="flex flex-col gap-0.5">
+          <span class="font-bold text-sm">Medidor: {{ payment.meter_id }}</span>
+          <span class="text-xs text-gray-500">Lectura: ...</span>
+          <span class="text-xs text-gray-500">
+            Fecha: {{ payment.created_at | date:'dd/MM/yyyy' }}
+          </span>
+        </div>
+
+        <div class="flex flex-col items-end gap-2">
+          <span class="font-bold">Bs. {{ payment.amount }}</span>
+          <app-status-badge
+            [status]="payment.status === 'PAID' ? Status.PAID : Status.DEBT"
+            [label]="payment.status === 'PAID' ? 'Pagado' : 'Pendiente'"></app-status-badge>
+        </div>
+      </div>
+      } @empty {
+      <div class="text-center py-8 text-gray-400">
+        No hay registros {{ activeTab() === 'PAID' ? 'pagados' : 'pendientes' }}.
+      </div>
+      }
+    </div>
+  </div>
+</div>
