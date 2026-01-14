@@ -9,12 +9,18 @@ import { ModalComponent } from '@components/modal/modal';
 
 import { MemberService } from '@services/new-members/new-members';
 import { HeaderService } from '@services/header';
-import { ToastService } from 'src/app/core/services/toast/toast.service';
+import { ToastService } from '../../../core/services/toast/toast.service';
 
 @Component({
   selector: 'app-new-members',
   standalone: true,
-  imports: [CommonModule, FormsModule, InputComponent, ButtonComponent, ModalComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    InputComponent,
+    ButtonComponent,
+    ModalComponent
+  ],
   templateUrl: './new-members.html',
   styleUrl: './new-members.css',
 })
@@ -42,7 +48,9 @@ export class NewMembers implements OnInit {
     this._headerService.header_text.set('Nuevo Socio');
     this._headerService.is_logo.set(false);
     this._headerService.buttons_on.set(true);
-    this._headerService.is_carrusel.set(false);
+    if ('is_carrusel' in this._headerService) {
+      (this._headerService as any).is_carrusel.set(false);
+    }
   }
 
   validateForm(): boolean {
@@ -72,20 +80,25 @@ export class NewMembers implements OnInit {
       last_name: this.lastName(),
       ci: this.ci(),
       phone: this.phone(),
-      user_id: Number(this.userId()),
+      user_id: Number(this.userId())
     };
 
     this._memberService.create(payload).subscribe({
       next: () => {
         this._toastService.success('Socio creado exitosamente');
         this.loading.set(false);
+        this.name.set('');
+        this.lastName.set('');
+        this.ci.set('');
+        this.phone.set('');
+        this.userId.set('');
       },
-      error: err => {
+      error: (err: any) => {
         console.error(err);
-        const errorMsg = err.error?.detail || 'Error al crear socio';
+        const errorMsg = err?.error?.detail || 'Error al crear socio';
         this._toastService.error(errorMsg);
         this.loading.set(false);
-      },
+      }
     });
   }
 }
