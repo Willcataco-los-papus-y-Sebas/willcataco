@@ -86,9 +86,7 @@ export class Members implements OnInit {
   }
 
   getMemberOptions(member: Member): KebabOption[] {
-    const options: KebabOption[] = [
-      { label: 'Ver Detalle', action: 'detail' },
-    ];
+    const options: KebabOption[] = [{ label: 'Ver Detalle', action: 'detail' }];
 
     /*
     const createdAt = new Date(member.created_at).getTime();
@@ -105,7 +103,6 @@ export class Members implements OnInit {
 
     return options;
   }
-
 
   ngOnInit() {
     this.loadMembers();

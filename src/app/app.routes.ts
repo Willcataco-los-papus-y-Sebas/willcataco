@@ -51,8 +51,7 @@ export const routes: Routes = [
       },
       {
         path: 'socios',
-        loadComponent: () =>
-          import('./pages/admin/members/members').then(m => m.Members),
+        loadComponent: () => import('./pages/admin/members/members').then(m => m.Members),
       },
     ],
   },
