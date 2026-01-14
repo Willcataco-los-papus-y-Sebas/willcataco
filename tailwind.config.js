@@ -28,6 +28,7 @@ const COLORS = {
   warning: '#F9A825',
   error: '#C62828',
   pending: '#EF6C00',
+  info: '#1976D2',
 };
 
 const TYPOGRAPHY = {

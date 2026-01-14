@@ -1,4 +1,8 @@
-<button [class]="buttonClasses" [disabled]="disabled || loading" (click)="!disabled && !loading">
+<button
+  [type]="type"
+  [class]="buttonClasses"
+  [disabled]="disabled || loading"
+  (click)="!disabled && !loading">
   @if (loading) {
   <svg
     class="animate-spin h-5 w-5 text-white"
