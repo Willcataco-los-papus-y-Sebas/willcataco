@@ -100,7 +100,7 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
       error: err => {
         console.error('Error loading payments:', err);
         this.isLoading.set(false);
-      }
+      },
     });
 
     if (reset) {

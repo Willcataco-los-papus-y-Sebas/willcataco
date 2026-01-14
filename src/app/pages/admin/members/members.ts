@@ -90,9 +90,18 @@ export class Members implements OnInit {
   ];
 
   monthMap: Record<string, string> = {
-    'Enero': '1', 'Febrero': '2', 'Marzo': '3', 'Abril': '4',
-    'Mayo': '5', 'Junio': '6', 'Julio': '7', 'Agosto': '8',
-    'Septiembre': '9', 'Octubre': '10', 'Noviembre': '11', 'Diciembre': '12'
+    Enero: '1',
+    Febrero: '2',
+    Marzo: '3',
+    Abril: '4',
+    Mayo: '5',
+    Junio: '6',
+    Julio: '7',
+    Agosto: '8',
+    Septiembre: '9',
+    Octubre: '10',
+    Noviembre: '11',
+    Diciembre: '12',
   };
 
   onDropdownSelect(label: string) {
@@ -154,9 +163,10 @@ export class Members implements OnInit {
     const y = this.year();
     const m = this.month();
 
-    const request = (y || m)
-      ? this.membersService.getMembersByDate(y, m, this.limit, this.offset)
-      : this.membersService.getMembers(this.limit, this.offset, search);
+    const request =
+      y || m
+        ? this.membersService.getMembersByDate(y, m, this.limit, this.offset)
+        : this.membersService.getMembers(this.limit, this.offset, search);
 
     request.subscribe({
       next: data => {

@@ -1,18 +1,26 @@
 <app-header></app-header>
-<div class="h-[calc(100vh-130px)] flex flex-col bg-background dark:bg-background-dark max-w-2xl mx-auto w-full">
+<div
+  class="h-[calc(100vh-130px)] flex flex-col bg-background dark:bg-background-dark max-w-2xl mx-auto w-full">
   <div class="relative z-[60] p-4 shrink-0">
-    <app-carrusel [items]="carruselItems()" [colorItem]="'bg-background dark:bg-background-dark'"></app-carrusel>
+    <app-carrusel
+      [items]="carruselItems()"
+      [colorItem]="'bg-background dark:bg-background-dark'"></app-carrusel>
     <div class="flex justify-center mt-2">
-      <app-status-badge [status]="totalDebt() > 0 ? 'debt' : 'paid'"
+      <app-status-badge
+        [status]="totalDebt() > 0 ? 'debt' : 'paid'"
         [label]="totalDebt() > 0 ? 'Pendiente' : 'Pagado'"></app-status-badge>
     </div>
 
     <div class="flex gap-2 mt-4">
-      <app-button (click)="setTab('PAID')" [variant]="activeTab() === 'PAID' ? 'primary' : 'secondary'"
+      <app-button
+        (click)="setTab('PAID')"
+        [variant]="activeTab() === 'PAID' ? 'primary' : 'secondary'"
         class="flex-1 flex justify-center">
         Hechas
       </app-button>
-      <app-button (click)="setTab('UNPAID')" [variant]="activeTab() === 'UNPAID' ? 'primary' : 'secondary'"
+      <app-button
+        (click)="setTab('UNPAID')"
+        [variant]="activeTab() === 'UNPAID' ? 'primary' : 'secondary'"
         class="flex-1 flex justify-center">
         Deudas
       </app-button>
@@ -36,7 +44,8 @@
 
         <div class="flex flex-col items-end gap-2">
           <span class="font-bold">Bs. {{ payment.amount }}</span>
-          <app-status-badge [status]="payment.status === 'PAID' ? 'paid' : 'debt'"
+          <app-status-badge
+            [status]="payment.status === 'PAID' ? 'paid' : 'debt'"
             [label]="payment.status === 'PAID' ? 'Pagado' : 'Pendiente'"></app-status-badge>
         </div>
       </div>
