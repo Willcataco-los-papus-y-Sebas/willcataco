@@ -10,6 +10,7 @@ import { Dashboard } from '@pages/admin/dashboard';
 import { MainLayout } from '@layouts/main-layout';
 import { ExtraPayments } from '@pages/admin/extra-payments';
 import { ExtraPaymentDetail } from '@pages/admin/extra-payments/detail';
+import { Streets } from '@pages/admin/streets/streets';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,17 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'streets',
+    component: MainLayout,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        component: Streets,
+      },
+    ],
+  },
+  {
     path: '',
     component: MainLayout,
     canActivate: [authGuard, scopeGuard],
@@ -58,16 +70,8 @@ export const routes: Routes = [
         path: '',
         component: ExtraPayments,
       },
-    ],
-  },
-  {
-    path: 'extra-payments/:id',
-    canActivate: [authGuard, scopeGuard, roleGuard],
-    data: { scope: 'internal', roles: ['admin', 'staff'] },
-    component: MainLayout,
-    children: [
       {
-        path: '',
+        path: ':id',
         component: ExtraPaymentDetail,
       },
     ],
