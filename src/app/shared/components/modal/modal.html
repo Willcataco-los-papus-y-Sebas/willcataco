@@ -1,0 +1,37 @@
+@if (isOpen) {
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+  (click)="closeModal()"
+  (keydown.escape)="closeModal()"
+  tabindex="0"
+  role="button"
+  aria-label="Cerrar modal">
+  <div
+    class="w-full max-w-sm rounded-2xl overflow-hidden bg-background dark:bg-background-dark text-secondary dark:text-secondary-dark border border-secondary/20 dark:border-secondary-dark/20 shadow-xl font-sans transform transition-all"
+    (click)="$event.stopPropagation()"
+    (keydown)="$event.stopPropagation()"
+    tabindex="-1">
+    <div
+      class="flex items-center justify-between p-4 border-b border-secondary/10 dark:border-secondary-dark/10">
+      <h3 class="text-title text-primary dark:text-primary-dark">{{ title }}</h3>
+
+      <button
+        (click)="closeModal()"
+        class="p-1 text-secondary/40 dark:text-secondary-dark/40 hover:text-primary dark:hover:text-primary-dark transition-colors"
+        aria-label="Cerrar">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="p-6 text-body">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
+}

@@ -1,0 +1,23 @@
+<a
+  id="navigaton-component"
+  [routerLink]="route"
+  class="rounded-[7px] h-[140px] w-[175px] pt-5 flex flex-col justify-between">
+  <div
+    class="border-t border-l border-r border-primary dark:border-primary-dark rounded-t-[7px] flex-1 bg-secondaryBackground dark:bg-secondaryBackground-dark">
+    <div id="content" class="items-center gap-4 flex ml-4 mr-4 pt-5">
+      <div id="report-text" class="max-w-[100px]">
+        <p class="break-words text-center text-subtitle text-secondary dark:text-background">
+          {{report_text}}
+        </p>
+      </div>
+      <img alt="report_icon" src="assets/{{icon}}.svg" class="h-[30px] w-[30px]" />
+    </div>
+  </div>
+  <div
+    id="access_text"
+    class="border border-primary rounded-b-[7px] dark:border-primary-dark w-full h-[25px] bg-secondaryBackground dark:bg-secondaryBackground-dark">
+    <p class="text-center text-body text-secondary dark:text-background mt-0.5 block">
+      {{access_text}}
+    </p>
+  </div>
+</a>

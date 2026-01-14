@@ -1,0 +1,9 @@
+<div class="grid grid-cols-2 lg:grid-cols-3 gap-6 p-8">
+  @for (card of cards; track card.route) {
+  <app-direct-access
+    [report_text]="card.report_text"
+    [icon]="card.icon"
+    [access_text]="card.access_text"
+    [route]="card.route"></app-direct-access>
+  }
+</div>

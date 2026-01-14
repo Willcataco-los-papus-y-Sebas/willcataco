@@ -1,14 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ComponentsModule } from './global/components/components-module';
+import { AuthService } from '@services/auth';
+import { ToastComponent } from '@components/toast';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ComponentsModule],
+  imports: [RouterOutlet, ToastComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('willcataco');
+  private auth = inject(AuthService);
 }
