@@ -54,7 +54,7 @@ export class Login implements OnInit {
       .subscribe({
         next: () => {
           this.toastService.success('Has iniciado sesión correctamente', 'Login exitoso');
-          this.router.navigate(['/']);
+          this.router.navigateByUrl('/', { replaceUrl: true });
         },
         error: error => {
           if (error.status === 0) {
