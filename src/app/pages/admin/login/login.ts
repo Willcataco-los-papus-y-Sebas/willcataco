@@ -1,4 +1,4 @@
-import { Component, inject, signal, DestroyRef } from '@angular/core';
+import { Component, inject, signal, DestroyRef, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -16,7 +16,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class AdminLogin {
+export class AdminLogin implements OnInit {
   private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -30,8 +30,11 @@ export class AdminLogin {
   hasToken = signal(false);
 
   constructor() {
-    this.initializeHeader();
     this.subscribeToQueryParams();
+  }
+
+  ngOnInit() {
+    this.initializeHeader();
   }
 
   private initializeHeader(): void {
