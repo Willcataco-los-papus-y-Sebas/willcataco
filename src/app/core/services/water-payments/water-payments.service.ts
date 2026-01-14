@@ -33,7 +33,10 @@ export class WaterPaymentsService {
     return this.http.get<{ data?: WaterPayment[] }>(this.apiUrl, { params }).pipe(
       map(response => {
         if (response && Array.isArray(response.data)) {
-          return response.data;
+          return response.data.map(payment => ({
+            ...payment,
+            status: payment.status.toUpperCase() as 'PAID' | 'UNPAID',
+          }));
         }
         return [];
       })

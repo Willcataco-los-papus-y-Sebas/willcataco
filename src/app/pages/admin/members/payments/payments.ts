@@ -31,6 +31,11 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
   activeTab = signal<'PAID' | 'UNPAID'>('UNPAID');
   carruselItems = signal<ICarruselItem[]>([]);
 
+  limit = 20;
+  offset = 0;
+  isLoading = signal(false);
+  hasMore = signal(true);
+
   filteredPayments = computed(() => {
     return this.payments().filter(p => p.status === this.activeTab());
   });
@@ -53,7 +58,7 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
       if (id) {
         const numId = Number(id);
         this.memberId.set(numId);
-        this.loadData(numId);
+        this.loadData(numId, true);
       }
     });
   }
@@ -62,19 +67,66 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
     this.headerService.reset();
   }
 
-  loadData(id: number) {
-    this.waterPaymentsService.getWaterPayments(id).subscribe({
+  loadData(id: number, reset = false) {
+    if (this.isLoading()) return;
+
+    if (reset) {
+      this.offset = 0;
+      this.hasMore.set(true);
+      this.payments.set([]);
+    }
+
+    if (!this.hasMore()) return;
+
+    this.isLoading.set(true);
+
+    // Fetch ALL types (undefined status) to fill both tabs, handling filtering on client side for now?
+    // Architecture decision: If we scroll, do we fetch mixed or filtered?
+    // Current service supports status. But list displays tabs.
+    // If tabs toggle visibility, we should fetch ALL.
+    // But if list is long, better to fetch per tab?
+    // The current UI loads ALL and filters locally (computed `filteredPayments`).
+    // To maintain this simply: Fetch all (mixed) and append.
+
+    this.waterPaymentsService.getWaterPayments(id, undefined, this.limit, this.offset).subscribe({
       next: data => {
-        this.payments.set(data);
+        if (data.length < this.limit) {
+          this.hasMore.set(false);
+        }
+
+        if (reset) {
+          this.payments.set(data);
+        } else {
+          this.payments.update(p => [...p, ...data]);
+        }
+
+        this.offset += this.limit;
         this.updateHeaderCarousel();
+        this.isLoading.set(false);
       },
-      error: err => console.error('Error loading payments:', err),
+      error: err => {
+        console.error('Error loading payments:', err);
+        this.isLoading.set(false);
+      }
     });
 
-    this.membersService.getMemberById(id).subscribe(data => {
-      this.member.set(data);
-      this.headerService.header_text.set(`${data.name} ${data.last_name}`);
-    });
+    if (reset) {
+      this.membersService.getMemberById(id).subscribe(data => {
+        this.member.set(data);
+        this.headerService.header_text.set(`${data.name} ${data.last_name}`);
+      });
+    }
+  }
+
+  onScroll(event: Event) {
+    const element = event.target as HTMLElement;
+    // Buffer of 50px
+    if (element.scrollHeight - element.scrollTop <= element.clientHeight + 50) {
+      const id = this.memberId();
+      if (id) {
+        this.loadData(id);
+      }
+    }
   }
 
   updateHeaderCarousel() {
