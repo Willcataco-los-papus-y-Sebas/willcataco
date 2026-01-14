@@ -31,7 +31,7 @@ export class ButtonComponent {
         'bg-secondary text-white hover:bg-hover dark:hover:bg-hover-dark dark:bg-secondary-dark',
       warning: 'bg-warning text-white hover:bg-hover dark:hover:bg-hover-dark',
       disabled:
-        'bg-disabled text-gray-500 cursor-not-allowed dark:bg-disabled-dark dark:text-gray-400',
+        'bg-disabled text-secondary/60 cursor-not-allowed dark:bg-disabled-dark dark:text-secondary-dark/60',
     };
 
     const variantKey = this.disabled || this.loading ? 'disabled' : this.variant;

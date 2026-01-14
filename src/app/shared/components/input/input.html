@@ -12,9 +12,11 @@
     [id]="id"
     [type]="type"
     [placeholder]="placeholder"
+    [attr.maxlength]="maxLength"
+    [attr.pattern]="pattern"
     [value]="value"
     (input)="onInput($event)"
     (blur)="onBlur()"
     [disabled]="isDisabled"
-    class="w-full h-[50px] px-4 border-2 border-primary dark:border-primary-dark rounded-xl text-secondary dark:text-secondary-dark placeholder-secondary/50 dark:placeholder-secondary-dark/50 font-sans text-body focus:outline-none focus:bg-primary/5 dark:focus:bg-primary-dark/5 transition-colors disabled:bg-gray-200 dark:disabled:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-60" />
+    class="w-full h-[50px] px-4 border-2 border-primary dark:border-primary-dark rounded-xl text-secondary dark:text-secondary-dark placeholder-secondary/50 dark:placeholder-secondary-dark/50 font-sans text-body focus:outline-none focus:bg-primary/5 dark:focus:bg-primary-dark/5 transition-colors disabled:bg-disabled dark:disabled:bg-disabled-dark disabled:cursor-not-allowed disabled:opacity-60" />
 </div>

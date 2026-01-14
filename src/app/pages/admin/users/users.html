@@ -1,0 +1,157 @@
+<div
+  class="flex flex-col h-[calc(100vh-130px)] bg-background dark:bg-background-dark font-sans transition-colors">
+  <div class="flex flex-col px-6 mt-6 mb-4 gap-4 shrink-0">
+    <div class="flex justify-end">
+      <app-button variant="primary" (click)="openCreateModal()">Nuevo usuario</app-button>
+    </div>
+
+    <div class="relative">
+      <app-input placeholder="Buscar por usuario o email..." (input)="onSearch($event)"></app-input>
+
+      @if (!isLoading && searchTerm) {
+      <p class="text-[11px] text-primary dark:text-primary-dark font-medium -mt-3 ml-2 italic">
+        Encontrados: {{ filteredUsers.length }} usuarios
+      </p>
+      }
+    </div>
+  </div>
+
+  <div class="flex-1 overflow-y-auto px-6 pb-28">
+    @if (isLoading) {
+    <div class="flex flex-col justify-center items-center py-20 gap-3">
+      <div
+        class="w-8 h-8 border-4 border-primary dark:border-primary-dark border-t-transparent rounded-full animate-spin"></div>
+      <p class="text-primary dark:text-primary-dark animate-pulse font-medium italic">
+        Cargando usuarios...
+      </p>
+    </div>
+    } @else {
+    <div class="flex flex-col gap-4">
+      @for (user of filteredUsers; track user.id) {
+      <app-data-card
+        [firstLine]="user.username"
+        [secondLine]="user.email"
+        [thirdLine]="user.role | uppercase">
+        <app-kebab
+          card-action
+          [options]="kebabOptions"
+          (optionSelected)="onKebabAction($event, user)"></app-kebab>
+      </app-data-card>
+      } @empty {
+      <div class="flex flex-col items-center justify-center py-20 text-center opacity-60">
+        <p class="text-secondary dark:text-secondary-dark italic">
+          {{ searchTerm ? 'No hay resultados para esta búsqueda.' : 'No se encontraron usuarios
+          registrados.' }}
+        </p>
+      </div>
+      }
+    </div>
+    }
+  </div>
+</div>
+
+<app-modal [isOpen]="isModalOpen" [title]="modalTitle" (modalClose)="closeModal()">
+  @if (modalMode === 'create' || modalMode === 'edit' || modalMode === 'view') {
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-3">
+    <div class="flex flex-col">
+      <app-input
+        label="Usuario"
+        placeholder="Ej. juan_perez"
+        formControlName="username"></app-input>
+      @if (userForm.get('username')?.invalid && userForm.get('username')?.touched) {
+      <p class="text-[10px] text-error ml-2 -mt-2 font-medium italic">
+        El nombre de usuario es obligatorio
+      </p>
+      }
+    </div>
+
+    <div class="flex flex-col">
+      <app-input
+        label="Email"
+        type="email"
+        placeholder="correo@ejemplo.com"
+        formControlName="email"></app-input>
+      @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+      <p class="text-[10px] text-error ml-2 -mt-2 font-medium italic">
+        {{ userForm.get('email')?.errors?.['required'] ? 'El email es obligatorio' : 'Formato de
+        email inválido' }}
+      </p>
+      }
+    </div>
+
+    @if (modalMode !== 'view') {
+    <div class="mb-2">
+      <app-dropdown
+        [dropTitle]="userForm.get('role')?.value || 'Seleccionar rol'"
+        [items]="roleOptions"
+        (itemSelected)="onRoleSelected($event)"></app-dropdown>
+      @if (userForm.get('role')?.invalid && userForm.get('role')?.touched) {
+      <p class="text-[10px] text-error ml-2 mt-1 font-medium italic">Debes seleccionar un rol</p>
+      }
+    </div>
+
+    <div class="flex flex-col">
+      <app-input
+        label="Contraseña"
+        type="password"
+        placeholder="Mínimo 7 caracteres"
+        formControlName="password"></app-input>
+      @if (userForm.get('password')?.invalid && userForm.get('password')?.touched) {
+      <p class="text-[10px] text-error ml-2 -mt-2 font-medium italic">
+        La contraseña debe tener al menos 7 caracteres
+      </p>
+      }
+    </div>
+    } @else {
+    <div
+      class="p-4 bg-secondaryBackground dark:bg-secondaryBackground-dark rounded-xl border border-secondary/10 dark:border-secondary-dark/10 transition-colors">
+      <p class="text-body text-secondary dark:text-secondary-dark">
+        <span class="block text-[10px] uppercase font-bold opacity-50 mb-1">Rol asignado</span>
+        <span class="font-bold text-primary dark:text-primary-dark italic">
+          {{ userForm.value.role | uppercase }}
+        </span>
+      </p>
+    </div>
+    }
+
+    <div class="flex flex-row items-center justify-center gap-3 mt-6">
+      <app-button variant="secondary" size="sm" type="button" (click)="closeModal()" class="flex-1">
+        Cancelar
+      </app-button>
+
+      @if (modalMode !== 'view') {
+      <app-button
+        variant="primary"
+        size="sm"
+        type="submit"
+        [disabled]="userForm.invalid"
+        class="flex-1">
+        {{ modalMode === 'create' ? 'Crear' : 'Guardar' }}
+      </app-button>
+      }
+    </div>
+  </form>
+  } @if (modalMode === 'delete') {
+  <div class="flex flex-col gap-6 text-center">
+    <div class="bg-error/10 p-5 rounded-2xl border border-error/20">
+      <p class="text-body text-secondary dark:text-secondary-dark font-medium">
+        ¿Estás seguro de desactivar a
+        <span class="text-error font-bold italic">{{ selectedUser?.username }}</span>
+        ?
+      </p>
+      <p class="text-[11px] text-secondary/60 dark:text-secondary-dark/60 mt-2 italic">
+        El usuario ya no podrá ingresar al sistema de la OTB.
+      </p>
+    </div>
+
+    <div class="flex flex-row justify-center gap-3">
+      <app-button variant="secondary" size="sm" (click)="closeModal()" class="flex-1">
+        Cancelar
+      </app-button>
+      <app-button variant="warning" size="sm" (click)="confirmDelete()" class="flex-1">
+        Confirmar
+      </app-button>
+    </div>
+  </div>
+  }
+</app-modal>

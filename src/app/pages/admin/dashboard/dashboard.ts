@@ -3,6 +3,7 @@ import { HeaderService } from '@services/header';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
   imports: [],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',

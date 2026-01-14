@@ -7,6 +7,7 @@ import { Login } from '@pages/login';
 import { AdminLogin } from '@pages/admin/login';
 import { Home } from '@pages/home';
 import { Dashboard } from '@pages/admin/dashboard';
+import { Users } from '@pages/admin/users/users';
 import { MainLayout } from '@layouts/main-layout';
 import { Reset } from '@pages/reset/reset';
 import { Forget } from '@pages/forget/forget';
@@ -73,6 +74,18 @@ export const routes: Routes = [
       {
         path: '',
         component: Home,
+      },
+    ],
+  },
+  {
+    path: 'users',
+    component: MainLayout,
+    canActivate: [authGuard, scopeGuard, roleGuard],
+    data: { scope: 'internal', roles: ['admin', 'staff'] },
+    children: [
+      {
+        path: '',
+        component: Users,
       },
     ],
   },
