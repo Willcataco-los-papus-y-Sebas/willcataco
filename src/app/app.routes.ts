@@ -13,6 +13,7 @@ import { ExtraPaymentDetail } from '@pages/admin/extra-payments/detail';
 import { Streets } from '@pages/admin/streets';
 import { Actions } from '@pages/admin/actions';
 import { ActionDetail } from '@pages/admin/actions/detail/';
+import { NewMembers } from '@pages/admin/new-members/new-members';
 
 export const routes: Routes = [
   {
@@ -47,6 +48,17 @@ export const routes: Routes = [
       {
         path: '',
         component: Streets,
+      },
+    ],
+  },
+  {
+    path: 'new-members',
+    component: MainLayout,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        component: NewMembers,
       },
     ],
   },
