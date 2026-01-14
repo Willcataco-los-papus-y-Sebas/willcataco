@@ -2,16 +2,15 @@ import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, UpperCasePipe } from '@angular/common';
 
-import { HeaderComponent } from 'src/app/shared/components/header';
 import { ButtonComponent } from 'src/app/shared/components/button';
 import { KebabComponent } from 'src/app/shared/components/kebab';
 import { ModalComponent } from 'src/app/shared/components/modal';
 import { InputComponent } from 'src/app/shared/components/input';
 import { DropdownComponent } from 'src/app/shared/components/dropdown';
 import { DataCardComponent } from 'src/app/shared/components/data-card';
-
 import { KebabOption } from 'src/app/shared/components/kebab/kebab.types';
-import { User, UserRole } from '@models/user';
+import { User } from '@models/user';
+import { UserRole } from '@enums/user-role';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { CreateUserDTO, UpdateUserDTO } from 'src/app/core/services/users/user.types';
 import type { DropdownItem } from 'src/app/shared/components/dropdown/dropdown';
@@ -26,7 +25,6 @@ type ModalMode = 'create' | 'edit' | 'view' | 'delete' | null;
     ReactiveFormsModule,
     CommonModule,
     UpperCasePipe,
-    HeaderComponent,
     ButtonComponent,
     KebabComponent,
     ModalComponent,

@@ -1,6 +1,9 @@
-export interface IResponse<T> {
+export interface ApiResponse<T> {
   detail: string;
   status_code: number;
-  ok: boolean;
   data: T;
+  limit?: number;
+  offset?: number;
+  page?: number;
+  total?: number;
 }
