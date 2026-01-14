@@ -7,7 +7,7 @@ import { InputComponent } from '@components/input/input';
 import { ModalComponent } from '@components/modal/modal';
 
 import { HeaderService } from '@services/header/header';
-import { ToastService } from '@services/toast/toast.service';
+import { ToastService } from '@services/toast';
 import { ActionService } from 'src/app/core/services/actions/actions';
 import { Action } from '@models/actions';
 import { Router } from '@angular/router';

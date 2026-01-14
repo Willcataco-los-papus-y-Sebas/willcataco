@@ -1,1 +1,53 @@
-<p>login works!</p>
+<div class="px-6 py-8 md:px-12 md:py-16 max-w-4xl mx-auto flex flex-col gap-12">
+  <section>
+    <app-panel>
+      <div class="flex flex-col gap-6">
+        <h2 class="text-2xl font-bold text-secondary dark:text-secondary-dark">
+          Ingreso Administrativo
+        </h2>
+
+        @if (isProcessingToken()) {
+        <div class="flex flex-col items-center gap-4">
+          <div
+            class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
+          <p class="text-secondary dark:text-secondary-dark">Procesando tu login...</p>
+        </div>
+        } @else if (!isProcessingToken() && !hasToken()) {
+        <form (ngSubmit)="onRequestLogin()" class="flex flex-col gap-4">
+          <app-input
+            name="username"
+            label="Usuario"
+            placeholder="Ingresa tu usuario"
+            [ngModel]="username()"
+            [disabled]="isLoading()"
+            (ngModelChange)="username.set($event)"></app-input>
+
+          <div class="flex flex-col items-center gap-4 mt-2">
+            <app-button
+              type="submit"
+              variant="primary"
+              size="lg"
+              [disabled]="isLoading()"
+              class="md:w-auto">
+              @if (isLoading()) {
+              <span>Enviando...</span>
+              } @else {
+              <span>Solicitar Email</span>
+              }
+            </app-button>
+
+            <p class="text-sm text-secondary dark:text-secondary-dark">
+              ¿No eres admin o staff?
+              <a
+                routerLink="/login"
+                class="text-primary dark:text-primary-dark font-semibold hover:text-hover dark:hover:text-hover-dark transition-colors">
+                Ir a Login
+              </a>
+            </p>
+          </div>
+        </form>
+        }
+      </div>
+    </app-panel>
+  </section>
+</div>

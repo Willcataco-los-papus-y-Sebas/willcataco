@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@envs/environment';
 import { catchError, finalize, Observable, of, tap, throwError } from 'rxjs';
 import { User } from '@models/user';
-import { LoginRequest } from '@models/auth';
+import { LoginRequest, AuthResponse, InternalLoginRequest } from '@models/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -18,20 +18,67 @@ export class AuthService {
   readonly isAuthenticated = computed(() => !!this._user());
 
   constructor() {
-    this._checkSession();
+    this.checkAuth();
   }
 
-  login(credentials: LoginRequest): Observable<User> {
+  login(credentials: LoginRequest): Observable<AuthResponse> {
     this._loading.set(true);
     return this._http
-      .post<User>(`${this._apiUrl}/login`, credentials, { withCredentials: true })
+      .post<AuthResponse>(`${this._apiUrl}/login`, credentials, { withCredentials: true })
       .pipe(
-        tap(user => this._user.set(user)),
+        tap(() => {
+          this._http.get<AuthResponse>(`${this._apiUrl}/me`, { withCredentials: true }).subscribe({
+            next: response => {
+              this._user.set(response.data as User);
+              this._loading.set(false);
+            },
+            error: () => {
+              this._user.set(null);
+              this._loading.set(false);
+            },
+          });
+        }),
         catchError(err => {
           this._user.set(null);
+          this._loading.set(false);
           return throwError(() => err);
+        })
+      );
+  }
+
+  requestInternalLogin(username: string): Observable<void> {
+    const request: InternalLoginRequest = { username };
+    return this._http.post<void>(`${this._apiUrl}/internal/request`, request, {
+      withCredentials: true,
+    });
+  }
+
+  internalLogin(token: string): Observable<AuthResponse> {
+    this._loading.set(true);
+    return this._http
+      .post<AuthResponse>(
+        `${this._apiUrl}/internal/login?token=${token}`,
+        {},
+        { withCredentials: true }
+      )
+      .pipe(
+        tap(() => {
+          this._http.get<AuthResponse>(`${this._apiUrl}/me`, { withCredentials: true }).subscribe({
+            next: response => {
+              this._user.set(response.data as User);
+              this._loading.set(false);
+            },
+            error: () => {
+              this._user.set(null);
+              this._loading.set(false);
+            },
+          });
         }),
-        finalize(() => this._loading.set(false))
+        catchError(err => {
+          this._user.set(null);
+          this._loading.set(false);
+          return throwError(() => err);
+        })
       );
   }
 
@@ -46,7 +93,7 @@ export class AuthService {
     );
   }
 
-  refresh(): Observable<void> {
+  refreshToken(): Observable<void> {
     return this._http.post<void>(`${this._apiUrl}/refresh`, {}, { withCredentials: true }).pipe(
       catchError(err => {
         this._user.set(null);
@@ -55,18 +102,30 @@ export class AuthService {
     );
   }
 
-  clearAuth(): void {
-    this._user.set(null);
+  getCurrentUser(): Observable<AuthResponse> {
+    return this._http
+      .get<AuthResponse>(`${this._apiUrl}/me`, {
+        withCredentials: true,
+      })
+      .pipe(
+        tap(response => {
+          this._user.set(response.data as User);
+        }),
+        catchError(err => {
+          return throwError(() => err);
+        })
+      );
   }
 
-  private _checkSession(): void {
+  checkAuth(): void {
+    this._loading.set(true);
     this._http
-      .get<User>(`${this._apiUrl}/me`, {
+      .get<AuthResponse>(`${this._apiUrl}/me`, {
         withCredentials: true,
         headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
       })
       .pipe(
-        tap(user => this._user.set(user)),
+        tap(response => this._user.set(response.data as User)),
         catchError(() => {
           this._user.set(null);
           return of(null);
@@ -74,5 +133,9 @@ export class AuthService {
         finalize(() => this._loading.set(false))
       )
       .subscribe();
+  }
+
+  clearAuth(): void {
+    this._user.set(null);
   }
 }
