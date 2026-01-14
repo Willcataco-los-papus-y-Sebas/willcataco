@@ -1,12 +1,19 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { computed, DOCUMENT, inject, Injectable, signal } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@envs/environment';
 import { catchError, finalize, Observable, of, tap, throwError } from 'rxjs';
 import { User } from '@models/user';
-import { LoginRequest, AuthResponse, InternalLoginRequest } from '@models/auth';
+import {
+  LoginRequest,
+  AuthResponse,
+  InternalLoginRequest,
+  RecoveryRequest,
+  ResetRequest,
+} from '@models/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private readonly _document = inject(DOCUMENT);
   private readonly _http = inject(HttpClient);
   private readonly _apiUrl = `${environment.apiUrl}/api/auth`;
 
@@ -113,6 +120,37 @@ export class AuthService {
         }),
         catchError(err => {
           return throwError(() => err);
+        })
+      );
+  }
+
+  recoveryAccount(payload: RecoveryRequest): Observable<void> {
+    this._loading.set(true);
+    payload.url = this._document.location.origin;
+    return this._http.post<void>(`${this._apiUrl}/forgot`, payload, { withCredentials: true }).pipe(
+      catchError(err => {
+        return throwError(() => err);
+      }),
+      finalize(() => {
+        this._loading.set(false);
+      })
+    );
+  }
+
+  resetPassword(payload: ResetRequest, token: string): Observable<void> {
+    this._loading.set(true);
+    const params = new HttpParams().set('token', token);
+    return this._http
+      .post<void>(`${this._apiUrl}/reset`, payload, {
+        params,
+        withCredentials: true,
+      })
+      .pipe(
+        catchError(err => {
+          return throwError(() => err);
+        }),
+        finalize(() => {
+          this._loading.set(false);
         })
       );
   }

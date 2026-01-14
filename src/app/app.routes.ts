@@ -8,6 +8,8 @@ import { AdminLogin } from '@pages/admin/login';
 import { Home } from '@pages/home';
 import { Dashboard } from '@pages/admin/dashboard';
 import { MainLayout } from '@layouts/main-layout';
+import { Reset } from '@pages/reset/reset';
+import { Forget } from '@pages/forget/forget';
 import { ExtraPayments } from '@pages/admin/extra-payments';
 import { ExtraPaymentDetail } from '@pages/admin/extra-payments/detail';
 import { Streets } from '@pages/admin/streets';
@@ -115,6 +117,27 @@ export const routes: Routes = [
       {
         path: '',
         component: Dashboard,
+      },
+    ],
+  },
+  {
+    path: 'password',
+    canActivate: [guestGuard],
+    data: { redirectTo: '/' },
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: '/',
+      },
+      {
+        path: 'forget',
+        component: Forget,
+      },
+      {
+        path: 'reset',
+        component: Reset,
       },
     ],
   },
