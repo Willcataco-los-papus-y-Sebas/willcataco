@@ -22,7 +22,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         if (
           req.url.includes('/auth/login') ||
           req.url.includes('/auth/refresh') ||
-          req.url.includes('/auth/logout')
+          req.url.includes('/auth/logout') ||
+          req.url.includes('/auth/internal/request') ||
+          req.url.includes('/auth/internal/login')
         ) {
           return throwError(() => error);
         }
@@ -38,7 +40,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         isRefreshing = true;
         refreshTokenSubject.next(false);
 
-        return authService.refresh().pipe(
+        return authService.refreshToken().pipe(
           switchMap(() => {
             isRefreshing = false;
             refreshTokenSubject.next(true);
@@ -56,6 +58,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           })
         );
       }
+
       return throwError(() => error);
     })
   );
