@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-export type StatusType = 'paid' | 'debt' | 'process' | 'pending';
+import { Status } from '../../models/status/status.enum';
 
 @Component({
   selector: 'app-status-badge',
@@ -12,17 +11,17 @@ export type StatusType = 'paid' | 'debt' | 'process' | 'pending';
 })
 export class StatusBadgeComponent {
   @Input() label = '';
-  @Input() status: StatusType = 'pending';
+  @Input() status: Status = Status.PENDING;
 
   get badgeClasses(): string {
     const base =
       'px-4 py-1.5 rounded-full font-sans text-body font-bold text-white min-w-[100px] text-center transition-colors';
 
-    const variants: Record<StatusType, string> = {
-      paid: 'bg-success',
-      debt: 'bg-error',
-      process: 'bg-warning',
-      pending: 'bg-pending',
+    const variants: Record<Status, string> = {
+      [Status.PAID]: 'bg-success',
+      [Status.DEBT]: 'bg-error',
+      [Status.PROCESS]: 'bg-warning',
+      [Status.PENDING]: 'bg-pending',
     };
 
     return `${base} ${variants[this.status]}`;
