@@ -58,7 +58,7 @@ export class Streets implements OnInit {
 
   ngOnInit(): void {
     this.headerService.is_logo.set(false);
-    this.headerService.header_text.set('Gestionamiento de nuestras calles');
+    this.headerService.header_text.set('Gestion de calles');
     this.getStreets();
   }
 
