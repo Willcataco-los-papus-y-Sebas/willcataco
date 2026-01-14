@@ -8,13 +8,14 @@ import { Member } from '@models/members/member.types';
 import { HeaderComponent } from '@components/header/header';
 import { StatusBadgeComponent } from '@components/status-badge/status-badge';
 import { HeaderService } from '@services/header';
+import { ButtonComponent } from '@components/button/button';
 import { Carrusel } from '@components/carrusel/carrusel';
 import { ICarruselItem } from '@models/carrusel/carrusel.item.types';
 
 @Component({
   selector: 'app-member-payments',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, StatusBadgeComponent, Carrusel],
+  imports: [CommonModule, HeaderComponent, StatusBadgeComponent, Carrusel, ButtonComponent],
   templateUrl: './payments.html',
   styleUrl: './payments.css',
 })

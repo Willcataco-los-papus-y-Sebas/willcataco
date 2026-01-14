@@ -1,6 +1,6 @@
+<app-header></app-header>
 <div class="h-[calc(100vh-130px)] flex flex-col bg-background dark:bg-background-dark max-w-2xl mx-auto w-full">
-  <app-header></app-header>
-  <div class="relative z-[60] p-4 pb-0 shrink-0">
+  <div class="relative z-[60] p-4 shrink-0">
     <app-carrusel [items]="carruselItems()" [colorItem]="'bg-background dark:bg-background-dark'"></app-carrusel>
     <div class="flex justify-center mt-2">
       <app-status-badge [status]="totalDebt() > 0 ? 'debt' : 'paid'"
@@ -8,20 +8,14 @@
     </div>
 
     <div class="flex gap-2 mt-4">
-      <button (click)="setTab('PAID')" [class.bg-primary]="activeTab() === 'PAID'"
-        [class.text-white]="activeTab() === 'PAID'" [class.bg-white]="activeTab() !== 'PAID'"
-        [class.dark:bg-secondaryBackground-dark]="activeTab() !== 'PAID'" [class.text-primary]="activeTab() !== 'PAID'"
-        [class.dark:text-primary-dark]="activeTab() !== 'PAID'"
-        class="px-6 py-2 rounded-full font-bold shadow-sm transition-colors flex-1">
+      <app-button (click)="setTab('PAID')" [variant]="activeTab() === 'PAID' ? 'primary' : 'secondary'"
+        class="flex-1 flex justify-center">
         Hechas
-      </button>
-      <button (click)="setTab('UNPAID')" [class.bg-primary]="activeTab() === 'UNPAID'"
-        [class.text-white]="activeTab() === 'UNPAID'" [class.bg-white]="activeTab() !== 'UNPAID'"
-        [class.dark:bg-secondaryBackground-dark]="activeTab() !== 'UNPAID'"
-        [class.text-primary]="activeTab() !== 'UNPAID'" [class.dark:text-primary-dark]="activeTab() !== 'UNPAID'"
-        class="px-6 py-2 rounded-full font-bold shadow-sm transition-colors flex-1">
+      </app-button>
+      <app-button (click)="setTab('UNPAID')" [variant]="activeTab() === 'UNPAID' ? 'primary' : 'secondary'"
+        class="flex-1 flex justify-center">
         Deudas
-      </button>
+      </app-button>
     </div>
 
     <div class="h-px bg-primary w-full mt-6"></div>
