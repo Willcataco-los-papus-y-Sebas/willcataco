@@ -15,7 +15,6 @@ import { Actions } from '@pages/admin/actions';
 import { ActionDetail } from '@pages/admin/actions/detail/';
 import { NewMembers } from '@pages/admin/new-members/new-members';
 
-
 export const routes: Routes = [
   {
     path: 'login',
