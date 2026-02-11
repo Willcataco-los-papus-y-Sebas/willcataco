@@ -5,6 +5,8 @@ import { UserRole } from '@enums/user-role';
 
 const MEMBER_ITEMS: SidebarItem[] = [
   { label: 'Inicio', icon: 'home', route: '/', scope: 'member' },
+  { label: 'Pago de Agua', icon: 'water-drop', route: '/water-payment', scope: 'member' },
+  { label: 'Pagos Extras', icon: 'receipt', route: '/my-extra-payments', scope: 'member' },
 ];
 
 const STAFF_ITEMS: SidebarItem[] = [
