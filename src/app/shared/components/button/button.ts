@@ -26,10 +26,10 @@ export class ButtonComponent {
     };
 
     const variants = {
-      primary: 'bg-primary text-white hover:bg-hover dark:hover:bg-hover-dark dark:bg-primary-dark',
+      primary: 'bg-primary text-white hover:bg-hover dark:bg-primary-dark dark:hover:bg-hover-dark',
       secondary:
-        'bg-secondary text-white hover:bg-hover dark:hover:bg-hover-dark dark:bg-secondary-dark',
-      warning: 'bg-warning text-white hover:bg-hover dark:hover:bg-hover-dark',
+        'bg-secondaryBackground text-secondary border border-secondary/20 hover:bg-secondary/10 dark:bg-secondaryBackground-dark dark:text-secondary-dark dark:border-secondary-dark/20 dark:hover:bg-secondary-dark/10',
+      warning: 'bg-warning text-secondary hover:bg-warning/80',
       disabled:
         'bg-disabled text-secondary/60 cursor-not-allowed dark:bg-disabled-dark dark:text-secondary-dark/60',
     };

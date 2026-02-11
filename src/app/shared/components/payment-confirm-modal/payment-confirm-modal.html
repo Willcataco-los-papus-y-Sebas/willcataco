@@ -1,0 +1,50 @@
+<app-modal [isOpen]="isOpen()" [title]="title()" (modalClose)="onCancel()">
+  <div class="flex flex-col gap-4">
+    <div class="bg-secondaryBackground dark:bg-background-dark rounded-xl p-4">
+      @for (detail of details(); track detail.label) { @if (detail.fullWidth) {
+      <div class="mb-3">
+        <span class="text-sm text-secondary/60 dark:text-secondary-dark/60 font-sans">
+          {{ detail.label }}
+        </span>
+        <p class="text-sm text-secondary dark:text-secondary-dark font-sans mt-1">
+          {{ detail.value }}
+        </p>
+      </div>
+      } @else {
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-sm text-secondary/60 dark:text-secondary-dark/60 font-sans">
+          {{ detail.label }}
+        </span>
+        <span class="font-semibold text-secondary dark:text-secondary-dark font-sans">
+          {{ detail.value }}
+        </span>
+      </div>
+      } }
+
+      <div class="border-t border-secondary/10 dark:border-secondary-dark/10 pt-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-secondary dark:text-secondary-dark font-sans">
+            Total a pagar
+          </span>
+          <span class="text-xl font-bold text-primary dark:text-primary-dark font-sans">
+            Bs {{ totalAmount() }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <app-button variant="secondary" size="md" class="flex-1" (click)="onCancel()">
+        {{ cancelText() }}
+      </app-button>
+      <app-button
+        variant="primary"
+        size="md"
+        class="flex-1"
+        [loading]="loading()"
+        (click)="onConfirm()">
+        {{ confirmText() }}
+      </app-button>
+    </div>
+  </div>
+</app-modal>

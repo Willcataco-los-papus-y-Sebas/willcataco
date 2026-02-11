@@ -83,7 +83,7 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
 
     this.isLoading.set(true);
 
-    this.waterPaymentsService.getWaterPayments(id, undefined, this.limit, this.offset).subscribe({
+    this.waterPaymentsService.getAll(id, undefined, this.limit, this.offset).subscribe({
       next: data => {
         if (data.length < this.limit) {
           this.hasMore.set(false);
@@ -106,7 +106,7 @@ export class MemberPaymentsComponent implements OnInit, OnDestroy {
     });
 
     if (reset) {
-      this.membersService.getMemberById(id).subscribe(data => {
+      this.membersService.getById(id).subscribe(data => {
         this.member.set(data);
         this.headerService.header_text.set(`${data.name} ${data.last_name}`);
       });

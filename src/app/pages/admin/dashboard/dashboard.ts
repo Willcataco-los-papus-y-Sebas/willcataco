@@ -35,7 +35,7 @@ export class Dashboard implements OnInit {
     {
       report_text: '40 socios sin lecturar este mes',
       icon: 'edit',
-      access_text: 'Generar link lecturador',
+      access_text: 'Generar lecturador',
       route: '/actions',
     },
     {

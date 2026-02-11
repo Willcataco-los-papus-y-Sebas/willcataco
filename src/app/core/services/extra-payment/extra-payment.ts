@@ -1,13 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '@envs/environment';
 import { Observable } from 'rxjs';
+import { environment } from '@envs/environment';
 import { ApiResponse } from '@models/api-response';
 import { ExtraPayment, ExtraPaymentCreate, ExtraPaymentUpdate } from '@models/extra-payment';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class ExtraPaymentService {
   private readonly _http = inject(HttpClient);
   private readonly _apiUrl = `${environment.apiUrl}/api/extra-payments`;

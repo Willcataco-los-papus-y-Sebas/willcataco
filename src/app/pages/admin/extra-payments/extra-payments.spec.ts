@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ExtraPayments } from './extra-payments';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HeaderService } from 'src/app/core/services/header/header';
-import { ExtraPaymentService } from 'src/app/core/services/extra-payment/extra-payment';
+import { HeaderService } from '@services/header';
+import { ExtraPaymentService } from '@services/extra-payment';
 
 describe('ExtraPayments', () => {
   let component: ExtraPayments;
