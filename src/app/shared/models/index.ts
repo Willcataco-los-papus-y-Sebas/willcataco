@@ -5,3 +5,4 @@ export * from './status/status.enum';
 export * from './actions';
 export * from './extra-payment';
 export * from './users';
+export * from './members';

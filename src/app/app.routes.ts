@@ -17,6 +17,8 @@ import { Actions } from '@pages/admin/actions';
 import { ActionDetail } from '@pages/admin/actions/detail/';
 import { NewMembers } from '@pages/admin/new-members/new-members';
 import { Members } from '@pages/admin/members';
+import { MemberWaterPayment } from '@pages/member/water-payment';
+import { MemberExtraPayments } from '@pages/member/extra-payments';
 
 export const routes: Routes = [
   {
@@ -67,6 +69,30 @@ export const routes: Routes = [
       {
         path: '',
         component: Home,
+      },
+    ],
+  },
+  {
+    path: 'water-payment',
+    component: MainLayout,
+    canActivate: [authGuard, scopeGuard],
+    data: { scope: 'member' },
+    children: [
+      {
+        path: '',
+        component: MemberWaterPayment,
+      },
+    ],
+  },
+  {
+    path: 'my-extra-payments',
+    component: MainLayout,
+    canActivate: [authGuard, scopeGuard],
+    data: { scope: 'member' },
+    children: [
+      {
+        path: '',
+        component: MemberExtraPayments,
       },
     ],
   },
