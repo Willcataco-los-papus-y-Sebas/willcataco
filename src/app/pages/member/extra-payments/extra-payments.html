@@ -1,12 +1,20 @@
 <div
   class="min-h-screen bg-secondaryBackground dark:bg-background-dark transition-colors duration-300 pb-24 md:pb-20">
-
   <div class="relative z-[50] px-4 -mt-[25px] mb-8">
     <div
       class="bg-background dark:bg-secondaryBackground-dark rounded-2xl shadow-xl w-full max-w-md mx-auto flex flex-col items-center justify-center p-6 transition-colors duration-300">
       <div class="flex items-center justify-center w-14 h-14 rounded-full bg-pending/10 mb-3">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-pending" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 14.25l6-6m4.5-3.493V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185ZM9.75 9h.008v.008H9.75V9Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.125 4.5h.008v.008h-.008V13.5Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-7 w-7 text-pending"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.5">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 14.25l6-6m4.5-3.493V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185ZM9.75 9h.008v.008H9.75V9Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.125 4.5h.008v.008h-.008V13.5Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
         </svg>
       </div>
       <h2
@@ -18,7 +26,8 @@
         Bs {{ totalUnpaid() }}
       </p>
       <p class="text-secondary/40 dark:text-secondary-dark/40 text-sm font-sans">
-        {{ unpaidPayments().length }} {{ unpaidPayments().length === 1 ? 'cobro pendiente' : 'cobros pendientes' }}
+        {{ unpaidPayments().length }} {{ unpaidPayments().length === 1 ? 'cobro pendiente' : 'cobros
+        pendientes' }}
       </p>
     </div>
   </div>
@@ -37,8 +46,17 @@
     @if (unpaidPayments().length === 0) {
     <div class="flex flex-col items-center justify-center py-8 opacity-50 gap-3">
       <div class="p-3 bg-success/10 rounded-full">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-10 w-10 text-success"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       </div>
       <p class="text-secondary/40 dark:text-secondary-dark/40 font-sans text-sm">
@@ -60,7 +78,8 @@
               <h3 class="font-bold text-secondary dark:text-secondary-dark font-sans truncate">
                 {{ payment.name }}
               </h3>
-              <p class="text-xs text-secondary/50 dark:text-secondary-dark/50 font-sans mt-1 line-clamp-2">
+              <p
+                class="text-xs text-secondary/50 dark:text-secondary-dark/50 font-sans mt-1 line-clamp-2">
                 {{ payment.description }}
               </p>
             </div>
@@ -73,10 +92,20 @@
             <p class="text-xs text-secondary/50 dark:text-secondary-dark/50 font-sans">
               Vence: {{ payment.dueDate | date:'dd MMM yyyy' }}
             </p>
-            <span class="text-xs font-bold text-primary dark:text-primary-dark font-sans flex items-center gap-1">
+            <span
+              class="text-xs font-bold text-primary dark:text-primary-dark font-sans flex items-center gap-1">
               Pagar
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-3.5 w-3.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
             </span>
           </div>
@@ -114,10 +143,12 @@
         class="bg-background dark:bg-secondaryBackground-dark rounded-xl shadow-sm border border-secondary/10 dark:border-secondary-dark/10 p-4 opacity-75">
         <div class="flex items-start justify-between mb-1">
           <div class="flex-1 min-w-0 mr-3">
-            <h3 class="font-semibold text-sm text-secondary dark:text-secondary-dark font-sans truncate">
+            <h3
+              class="font-semibold text-sm text-secondary dark:text-secondary-dark font-sans truncate">
               {{ payment.name }}
             </h3>
-            <p class="text-xs text-secondary/40 dark:text-secondary-dark/40 font-sans mt-0.5 line-clamp-1">
+            <p
+              class="text-xs text-secondary/40 dark:text-secondary-dark/40 font-sans mt-0.5 line-clamp-1">
               {{ payment.description }}
             </p>
           </div>
@@ -126,7 +157,13 @@
               Bs {{ payment.amount }}
             </span>
             <span class="flex items-center justify-center w-5 h-5 rounded-full bg-success/10">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-3.5 w-3.5 text-success"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
             </span>

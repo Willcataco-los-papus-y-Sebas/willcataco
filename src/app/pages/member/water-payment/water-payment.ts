@@ -63,17 +63,11 @@ export class MemberWaterPayment implements OnInit {
 
   readonly bills = signal<WaterBill[]>(MOCK_WATER_BILLS);
 
-  readonly unpaidBills = computed(() =>
-    this.bills().filter(b => b.status === 'UNPAID')
-  );
+  readonly unpaidBills = computed(() => this.bills().filter(b => b.status === 'UNPAID'));
 
-  readonly paidBills = computed(() =>
-    this.bills().filter(b => b.status === 'PAID')
-  );
+  readonly paidBills = computed(() => this.bills().filter(b => b.status === 'PAID'));
 
-  readonly totalUnpaid = computed(() =>
-    this.unpaidBills().reduce((sum, b) => sum + b.amount, 0)
-  );
+  readonly totalUnpaid = computed(() => this.unpaidBills().reduce((sum, b) => sum + b.amount, 0));
 
   readonly modalDetails = computed<PaymentDetail[]>(() => {
     const bill = this.selectedBill();

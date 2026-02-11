@@ -58,13 +58,9 @@ export class MemberExtraPayments implements OnInit {
 
   readonly payments = signal<MemberExtraPaymentItem[]>(MOCK_EXTRA_PAYMENTS);
 
-  readonly unpaidPayments = computed(() =>
-    this.payments().filter(p => p.status === 'UNPAID')
-  );
+  readonly unpaidPayments = computed(() => this.payments().filter(p => p.status === 'UNPAID'));
 
-  readonly paidPayments = computed(() =>
-    this.payments().filter(p => p.status === 'PAID')
-  );
+  readonly paidPayments = computed(() => this.payments().filter(p => p.status === 'PAID'));
 
   readonly totalUnpaid = computed(() =>
     this.unpaidPayments().reduce((sum, p) => sum + p.amount, 0)
@@ -73,8 +69,11 @@ export class MemberExtraPayments implements OnInit {
   readonly modalDetails = computed<PaymentDetail[]>(() => {
     const payment = this.selectedPayment();
     if (!payment) return [];
-    const formattedDate = new Date(payment.dueDate + 'T00:00:00')
-      .toLocaleDateString('es-BO', { day: '2-digit', month: 'short', year: 'numeric' });
+    const formattedDate = new Date(payment.dueDate + 'T00:00:00').toLocaleDateString('es-BO', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
     return [
       { label: 'Concepto', value: payment.name },
       { label: 'Descripción', value: payment.description, fullWidth: true },
