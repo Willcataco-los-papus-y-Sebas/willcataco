@@ -1,9 +1,13 @@
-<div class="grid grid-cols-2 lg:grid-cols-3 gap-6 p-8">
-  @for (card of cards; track card.route) {
-  <app-direct-access
-    [report_text]="card.report_text"
-    [icon]="card.icon"
-    [access_text]="card.access_text"
-    [route]="card.route"></app-direct-access>
-  }
+<div class="w-full max-w-2xl mx-auto px-4 pt-6 pb-24 md:pb-20">
+  <div class="flex flex-wrap justify-center gap-4">
+    @for (card of cards; track card.route) {
+    <div class="w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.75rem)]">
+      <app-direct-access
+        [report_text]="card.report_text"
+        [icon]="card.icon"
+        [access_text]="card.access_text"
+        [route]="card.route" />
+    </div>
+    }
+  </div>
 </div>

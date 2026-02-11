@@ -1,23 +1,31 @@
 <a
-  id="navigaton-component"
   [routerLink]="route"
-  class="rounded-[7px] h-[140px] w-[175px] pt-5 flex flex-col justify-between">
+  class="group flex flex-col items-center justify-between rounded-2xl p-5 h-full min-h-[160px] transition-all duration-200
+    bg-background shadow-sm border border-secondary/10 hover:border-primary hover:shadow-md
+    dark:bg-[#1a1720] dark:border-primary-dark/30 dark:hover:border-primary-dark dark:hover:bg-[#211d28]">
+
   <div
-    class="border-t border-l border-r border-primary dark:border-primary-dark rounded-t-[7px] flex-1 bg-secondaryBackground dark:bg-secondaryBackground-dark">
-    <div id="content" class="items-center gap-4 flex ml-4 mr-4 pt-5">
-      <div id="report-text" class="max-w-[100px]">
-        <p class="break-words text-center text-subtitle text-secondary dark:text-background">
-          {{report_text}}
-        </p>
-      </div>
-      <img alt="report_icon" src="assets/{{icon}}.svg" class="h-[30px] w-[30px]" />
-    </div>
+    class="flex items-center justify-center w-12 h-12 rounded-full shrink-0 transition-colors duration-200
+      bg-primary/10 border border-primary/20 group-hover:bg-primary/20
+      dark:bg-primary-dark dark:border-transparent dark:group-hover:bg-hover-dark">
+    <span
+      class="block h-6 w-6 bg-primary dark:bg-white"
+      [style.mask-image]="'url(assets/' + icon + '.svg)'"
+      [style.-webkit-mask-image]="'url(assets/' + icon + '.svg)'"
+      style="mask-size: contain; mask-repeat: no-repeat; mask-position: center; -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;"
+      role="img"
+      aria-hidden="true"></span>
   </div>
-  <div
-    id="access_text"
-    class="border border-primary rounded-b-[7px] dark:border-primary-dark w-full h-[25px] bg-secondaryBackground dark:bg-secondaryBackground-dark">
-    <p class="text-center text-body text-secondary dark:text-background mt-0.5 block">
-      {{access_text}}
-    </p>
-  </div>
+
+  <p class="text-sm text-center font-semibold text-secondary dark:text-secondary-dark font-sans leading-snug flex-1 flex items-center mt-3 mb-2">
+    {{ report_text }}
+  </p>
+
+  <span
+    class="text-[11px] font-bold text-primary dark:text-primary-dark font-sans uppercase tracking-wider flex items-center gap-1 shrink-0">
+    {{ access_text }}
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    </svg>
+  </span>
 </a>
