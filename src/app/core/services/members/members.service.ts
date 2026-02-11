@@ -1,69 +1,43 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '@envs/environment';
+import { ApiResponse } from '@models/api-response';
 import { Member } from '@models/members/member.types';
 
-import { environment } from '../../../../environments/environment';
-
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class MembersService {
-  private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/api/members/`;
+  private readonly _http = inject(HttpClient);
+  private readonly _apiUrl = `${environment.apiUrl}/api/members`;
 
-  getMembers(limit = 10, offset = 0, search?: string): Observable<Member[]> {
-    const params: Record<string, string> = { limit: limit.toString(), offset: offset.toString() };
+  getAll(limit = 10, offset = 0, search?: string): Observable<Member[]> {
+    let params = new HttpParams().set('limit', limit).set('offset', offset);
 
     if (search) {
-      if (/^\d+$/.test(search)) {
-        params['ci'] = search;
-      } else {
-        params['full_name'] = search;
-      }
+      const key = /^\d+$/.test(search) ? 'ci' : 'full_name';
+      params = params.set(key, search);
     }
 
-    return this.http
-      .get<{ data?: Member[]; items?: Member[] } | Member[]>(this.apiUrl, {
-        params,
-      })
-      .pipe(
-        map(response => {
-          if ('data' in response && Array.isArray(response.data)) {
-            return response.data;
-          }
-          if ('items' in response && Array.isArray(response.items)) {
-            return response.items;
-          }
-          if (Array.isArray(response)) {
-            return response;
-          }
-          return [];
-        })
-      );
+    return this._http
+      .get<ApiResponse<Member[]>>(`${this._apiUrl}/`, { params })
+      .pipe(map(response => response.data ?? []));
   }
 
-  getMemberById(id: number): Observable<Member> {
-    return this.http
-      .get<{ data: Member }>(`${this.apiUrl}${id}`)
+  getById(id: number): Observable<Member> {
+    return this._http
+      .get<ApiResponse<Member>>(`${this._apiUrl}/${id}`)
       .pipe(map(response => response.data));
   }
-  getMembersByDate(year?: string, month?: string, limit = 10, offset = 0): Observable<Member[]> {
-    const params: Record<string, string> = { limit: limit.toString(), offset: offset.toString() };
 
-    if (year) params['year'] = year;
-    if (month) params['month'] = month;
+  getByDate(year?: string, month?: string, limit = 10, offset = 0): Observable<Member[]> {
+    let params = new HttpParams().set('limit', limit).set('offset', offset);
 
-    return this.http
-      .get<{ data?: Member[] }>(`${environment.apiUrl}/api/members/by_date`, { params })
-      .pipe(
-        map(response => {
-          if (response && Array.isArray(response.data)) {
-            return response.data;
-          }
-          return [];
-        })
-      );
+    if (year) params = params.set('year', year);
+    if (month) params = params.set('month', month);
+
+    return this._http
+      .get<ApiResponse<Member[]>>(`${this._apiUrl}/by_date`, { params })
+      .pipe(map(response => response.data ?? []));
   }
 }

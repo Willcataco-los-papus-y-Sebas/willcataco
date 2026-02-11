@@ -1,15 +1,9 @@
 import { computed, DOCUMENT, inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '@envs/environment';
-import { catchError, finalize, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, finalize, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { User } from '@models/user';
-import {
-  LoginRequest,
-  AuthResponse,
-  InternalLoginRequest,
-  RecoveryRequest,
-  ResetRequest,
-} from '@models/auth';
+import { LoginRequest, AuthResponse, RecoveryRequest, ResetRequest } from '@models/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -33,31 +27,20 @@ export class AuthService {
     return this._http
       .post<AuthResponse>(`${this._apiUrl}/login`, credentials, { withCredentials: true })
       .pipe(
-        tap(() => {
-          this._http.get<AuthResponse>(`${this._apiUrl}/me`, { withCredentials: true }).subscribe({
-            next: response => {
-              this._user.set(response.data as User);
-              this._loading.set(false);
-            },
-            error: () => {
-              this._user.set(null);
-              this._loading.set(false);
-            },
-          });
-        }),
+        switchMap(() => this._fetchAndSetUser()),
         catchError(err => {
-          this._user.set(null);
-          this._loading.set(false);
+          this._clearState();
           return throwError(() => err);
         })
       );
   }
 
   requestInternalLogin(username: string): Observable<void> {
-    const request: InternalLoginRequest = { username };
-    return this._http.post<void>(`${this._apiUrl}/internal/request`, request, {
-      withCredentials: true,
-    });
+    return this._http.post<void>(
+      `${this._apiUrl}/internal/request`,
+      { username },
+      { withCredentials: true }
+    );
   }
 
   internalLogin(token: string): Observable<AuthResponse> {
@@ -69,21 +52,9 @@ export class AuthService {
         { withCredentials: true }
       )
       .pipe(
-        tap(() => {
-          this._http.get<AuthResponse>(`${this._apiUrl}/me`, { withCredentials: true }).subscribe({
-            next: response => {
-              this._user.set(response.data as User);
-              this._loading.set(false);
-            },
-            error: () => {
-              this._user.set(null);
-              this._loading.set(false);
-            },
-          });
-        }),
+        switchMap(() => this._fetchAndSetUser()),
         catchError(err => {
-          this._user.set(null);
-          this._loading.set(false);
+          this._clearState();
           return throwError(() => err);
         })
       );
@@ -93,10 +64,7 @@ export class AuthService {
     this._loading.set(true);
     return this._http.post<void>(`${this._apiUrl}/logout`, {}, { withCredentials: true }).pipe(
       catchError(() => of(void 0)),
-      finalize(() => {
-        this._user.set(null);
-        this._loading.set(false);
-      })
+      finalize(() => this._clearState())
     );
   }
 
@@ -111,48 +79,24 @@ export class AuthService {
 
   getCurrentUser(): Observable<AuthResponse> {
     return this._http
-      .get<AuthResponse>(`${this._apiUrl}/me`, {
-        withCredentials: true,
-      })
-      .pipe(
-        tap(response => {
-          this._user.set(response.data as User);
-        }),
-        catchError(err => {
-          return throwError(() => err);
-        })
-      );
+      .get<AuthResponse>(`${this._apiUrl}/me`, { withCredentials: true })
+      .pipe(tap(response => this._user.set(response.data as User)));
   }
 
   recoveryAccount(payload: RecoveryRequest): Observable<void> {
     this._loading.set(true);
     payload.url = this._document.location.origin;
-    return this._http.post<void>(`${this._apiUrl}/forgot`, payload, { withCredentials: true }).pipe(
-      catchError(err => {
-        return throwError(() => err);
-      }),
-      finalize(() => {
-        this._loading.set(false);
-      })
-    );
+    return this._http
+      .post<void>(`${this._apiUrl}/forgot`, payload, { withCredentials: true })
+      .pipe(finalize(() => this._loading.set(false)));
   }
 
   resetPassword(payload: ResetRequest, token: string): Observable<void> {
     this._loading.set(true);
     const params = new HttpParams().set('token', token);
     return this._http
-      .post<void>(`${this._apiUrl}/reset`, payload, {
-        params,
-        withCredentials: true,
-      })
-      .pipe(
-        catchError(err => {
-          return throwError(() => err);
-        }),
-        finalize(() => {
-          this._loading.set(false);
-        })
-      );
+      .post<void>(`${this._apiUrl}/reset`, payload, { params, withCredentials: true })
+      .pipe(finalize(() => this._loading.set(false)));
   }
 
   checkAuth(): void {
@@ -175,5 +119,18 @@ export class AuthService {
 
   clearAuth(): void {
     this._user.set(null);
+  }
+
+  /** Fetch current user from /me and update state */
+  private _fetchAndSetUser(): Observable<AuthResponse> {
+    return this._http.get<AuthResponse>(`${this._apiUrl}/me`, { withCredentials: true }).pipe(
+      tap(response => this._user.set(response.data as User)),
+      finalize(() => this._loading.set(false))
+    );
+  }
+
+  private _clearState(): void {
+    this._user.set(null);
+    this._loading.set(false);
   }
 }
