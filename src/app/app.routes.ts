@@ -13,7 +13,6 @@ import { Reset } from '@pages/reset/reset';
 import { Forget } from '@pages/forget/forget';
 import { ExtraPayments } from '@pages/admin/extra-payments';
 import { ExtraPaymentDetail } from '@pages/admin/extra-payments/detail';
-import { Streets } from '@pages/admin/streets';
 import { Actions } from '@pages/admin/actions';
 import { ActionDetail } from '@pages/admin/actions/detail/';
 import { NewMembers } from '@pages/admin/new-members/new-members';
@@ -41,17 +40,6 @@ export const routes: Routes = [
       {
         path: '',
         component: AdminLogin,
-      },
-    ],
-  },
-  {
-    path: 'streets',
-    component: MainLayout,
-    canActivate: [authGuard],
-    children: [
-      {
-        path: '',
-        component: Streets,
       },
     ],
   },
