@@ -6,7 +6,7 @@
         }">
   <div class="h-full flex justify-between items-center px-6 ml-2">
     @if(headerService.buttons_on()){
-    <app-button-header></app-button-header>
+    <app-button-header (click)="toggleSidebar()"></app-button-header>
     }@else{
     <div class="h-[32px] w-[32px]"></div>
     } @if(headerService.is_logo()){
