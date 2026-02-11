@@ -17,9 +17,7 @@ export class WaterPaymentsService {
     limit = 100,
     offset = 0
   ): Observable<WaterPayment[]> {
-    let params = new HttpParams()
-      .set('limit', limit)
-      .set('offset', offset);
+    let params = new HttpParams().set('limit', limit).set('offset', offset);
 
     if (memberId) params = params.set('member_id', memberId);
     if (status) params = params.set('status', status);

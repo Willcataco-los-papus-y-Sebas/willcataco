@@ -123,12 +123,10 @@ export class AuthService {
 
   /** Fetch current user from /me and update state */
   private _fetchAndSetUser(): Observable<AuthResponse> {
-    return this._http
-      .get<AuthResponse>(`${this._apiUrl}/me`, { withCredentials: true })
-      .pipe(
-        tap(response => this._user.set(response.data as User)),
-        finalize(() => this._loading.set(false))
-      );
+    return this._http.get<AuthResponse>(`${this._apiUrl}/me`, { withCredentials: true }).pipe(
+      tap(response => this._user.set(response.data as User)),
+      finalize(() => this._loading.set(false))
+    );
   }
 
   private _clearState(): void {

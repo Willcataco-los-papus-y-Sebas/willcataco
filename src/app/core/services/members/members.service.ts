@@ -12,9 +12,7 @@ export class MembersService {
   private readonly _apiUrl = `${environment.apiUrl}/api/members`;
 
   getAll(limit = 10, offset = 0, search?: string): Observable<Member[]> {
-    let params = new HttpParams()
-      .set('limit', limit)
-      .set('offset', offset);
+    let params = new HttpParams().set('limit', limit).set('offset', offset);
 
     if (search) {
       const key = /^\d+$/.test(search) ? 'ci' : 'full_name';
@@ -33,9 +31,7 @@ export class MembersService {
   }
 
   getByDate(year?: string, month?: string, limit = 10, offset = 0): Observable<Member[]> {
-    let params = new HttpParams()
-      .set('limit', limit)
-      .set('offset', offset);
+    let params = new HttpParams().set('limit', limit).set('offset', offset);
 
     if (year) params = params.set('year', year);
     if (month) params = params.set('month', month);

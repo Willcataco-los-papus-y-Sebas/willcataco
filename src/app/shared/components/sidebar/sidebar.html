@@ -5,21 +5,25 @@
   tabindex="0"
   aria-label="Cerrar menú"
   (click)="sidebarService.close()"
-  (keydown.escape)="sidebarService.close()">
-</div>
+  (keydown.escape)="sidebarService.close()"></div>
 }
 
 <aside
-  class="fixed top-0 left-0 h-full w-full sm:w-[280px] bg-background dark:bg-background-dark z-[70] shadow-2xl
-         transform transition-transform duration-300 ease-in-out flex flex-col"
+  class="fixed top-0 left-0 h-full w-full sm:w-[280px] bg-background dark:bg-background-dark z-[70] shadow-2xl transform transition-transform duration-300 ease-in-out flex flex-col"
   [class.translate-x-0]="sidebarService.isOpen()"
   [class.-translate-x-full]="!sidebarService.isOpen()">
-
-  <div class="h-[130px] bg-primary dark:bg-primary-dark flex flex-col items-center justify-center gap-2 px-4 relative">
+  <div
+    class="h-[130px] bg-primary dark:bg-primary-dark flex flex-col items-center justify-center gap-2 px-4 relative">
     <button
       class="absolute top-4 right-4 text-white hover:text-white/70 transition-colors"
       (click)="sidebarService.close()">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
@@ -30,9 +34,7 @@
       alt="logo_willcataco" />
 
     @if (user()) {
-    <p class="text-white text-body font-sans truncate max-w-[200px]">
-      {{ user()!.username }}
-    </p>
+    <p class="text-white text-body font-sans truncate max-w-[200px]">{{ user()!.username }}</p>
     <span class="text-white/70 text-xs font-sans uppercase tracking-wider">
       {{ displayRole() }}
     </span>
@@ -44,18 +46,22 @@
       @for (item of sidebarService.items(); track item.route) {
       <li>
         <button
-          class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-secondary dark:text-secondary-dark
-                 hover:bg-primary/10 dark:hover:bg-primary-dark/20 transition-colors text-body font-sans text-left"
+          class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-secondary dark:text-secondary-dark hover:bg-primary/10 dark:hover:bg-primary-dark/20 transition-colors text-body font-sans text-left"
           (click)="navigateTo(item.route)">
           <div
             class="h-5 w-5 shrink-0 bg-current"
             [style.mask-image]="'url(assets/' + item.icon + '.svg)'"
-            style="mask-size: contain; mask-repeat: no-repeat; mask-position: center;
-                   -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;"
+            style="
+              mask-size: contain;
+              mask-repeat: no-repeat;
+              mask-position: center;
+              -webkit-mask-size: contain;
+              -webkit-mask-repeat: no-repeat;
+              -webkit-mask-position: center;
+            "
             [style.-webkit-mask-image]="'url(assets/' + item.icon + '.svg)'"
             role="img"
-            [attr.aria-label]="item.label">
-          </div>
+            [attr.aria-label]="item.label"></div>
           <span>{{ item.label }}</span>
         </button>
       </li>
@@ -65,16 +71,22 @@
 
   <div class="border-t border-disabled dark:border-disabled-dark p-4">
     <button
-      class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-error
-             hover:bg-error/10 transition-colors text-body font-sans"
+      class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-error hover:bg-error/10 transition-colors text-body font-sans"
       (click)="logout()">
       <div
         class="h-5 w-5 bg-current"
-        style="mask-image: url(assets/arrow-right-on-rectangle.svg); mask-size: contain; mask-repeat: no-repeat; mask-position: center;
-               -webkit-mask-image: url(assets/arrow-right-on-rectangle.svg); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;"
+        style="
+          mask-image: url(assets/arrow-right-on-rectangle.svg);
+          mask-size: contain;
+          mask-repeat: no-repeat;
+          mask-position: center;
+          -webkit-mask-image: url(assets/arrow-right-on-rectangle.svg);
+          -webkit-mask-size: contain;
+          -webkit-mask-repeat: no-repeat;
+          -webkit-mask-position: center;
+        "
         role="img"
-        aria-label="Cerrar sesión">
-      </div>
+        aria-label="Cerrar sesión"></div>
       <span>Cerrar sesión</span>
     </button>
   </div>

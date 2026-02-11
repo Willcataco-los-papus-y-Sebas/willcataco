@@ -8,10 +8,34 @@ const MEMBER_ITEMS: SidebarItem[] = [
 ];
 
 const STAFF_ITEMS: SidebarItem[] = [
-  { label: 'Dashboard', icon: 'chart-bar', route: '/dashboard', scope: 'internal', roles: ['staff', 'admin'] },
-  { label: 'Socios', icon: 'users', route: '/members', scope: 'internal', roles: ['staff', 'admin'] },
-  { label: 'Cobros extras', icon: 'currency-dollar', route: '/extra-payments', scope: 'internal', roles: ['staff', 'admin'] },
-  { label: 'Acciones', icon: 'clipboard-list', route: '/actions', scope: 'internal', roles: ['staff', 'admin'] },
+  {
+    label: 'Dashboard',
+    icon: 'chart-bar',
+    route: '/dashboard',
+    scope: 'internal',
+    roles: ['staff', 'admin'],
+  },
+  {
+    label: 'Socios',
+    icon: 'users',
+    route: '/members',
+    scope: 'internal',
+    roles: ['staff', 'admin'],
+  },
+  {
+    label: 'Cobros extras',
+    icon: 'currency-dollar',
+    route: '/extra-payments',
+    scope: 'internal',
+    roles: ['staff', 'admin'],
+  },
+  {
+    label: 'Acciones',
+    icon: 'clipboard-list',
+    route: '/actions',
+    scope: 'internal',
+    roles: ['staff', 'admin'],
+  },
 ];
 
 const ADMIN_ONLY_ITEMS: SidebarItem[] = [
