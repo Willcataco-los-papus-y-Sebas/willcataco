@@ -163,8 +163,8 @@ export class Members implements OnInit {
 
     const request =
       y || m
-        ? this.membersService.getMembersByDate(y, m, this.limit, this.offset)
-        : this.membersService.getMembers(this.limit, this.offset, search);
+        ? this.membersService.getByDate(y, m, this.limit, this.offset)
+        : this.membersService.getAll(this.limit, this.offset, search);
 
     request.subscribe({
       next: data => {

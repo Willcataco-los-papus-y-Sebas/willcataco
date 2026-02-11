@@ -11,8 +11,8 @@ import { DataCardComponent } from 'src/app/shared/components/data-card';
 import { KebabOption } from 'src/app/shared/components/kebab/kebab.types';
 import { User } from '@models/user';
 import { UserRole } from '@enums/user-role';
-import { UsersService } from 'src/app/core/services/users/users.service';
-import { CreateUserDTO, UpdateUserDTO } from 'src/app/core/services/users/user.types';
+import { UsersService } from '@services/users';
+import { CreateUserDTO, UpdateUserDTO } from '@models/users';
 import type { DropdownItem } from 'src/app/shared/components/dropdown/dropdown';
 import { HeaderService } from '@services/header';
 
@@ -86,7 +86,7 @@ export class Users implements OnInit {
     this.isLoading = true;
     this.cdr.detectChanges();
 
-    this.usersService.getUsers().subscribe({
+    this.usersService.getAll().subscribe({
       next: res => {
         this.users = res.data;
         this.applyFilter();
@@ -193,7 +193,7 @@ export class Users implements OnInit {
     const formValue = this.userForm.getRawValue() as CreateUserDTO;
 
     if (this.modalMode === 'create') {
-      this.usersService.createUser(formValue).subscribe({
+      this.usersService.create(formValue).subscribe({
         next: () => this.handleSuccess(),
       });
     }
@@ -201,7 +201,7 @@ export class Users implements OnInit {
     if (this.modalMode === 'edit' && this.selectedUser) {
       const payload = this.getChangedValues(this.selectedUser, formValue);
       if (Object.keys(payload).length > 0) {
-        this.usersService.updateUser(this.selectedUser.id, payload).subscribe({
+        this.usersService.update(this.selectedUser.id, payload).subscribe({
           next: () => this.handleSuccess(),
         });
       } else {
@@ -228,7 +228,7 @@ export class Users implements OnInit {
 
   confirmDelete(): void {
     if (!this.selectedUser) return;
-    this.usersService.deleteUser(this.selectedUser.id).subscribe({
+    this.usersService.delete(this.selectedUser.id).subscribe({
       next: () => this.handleSuccess(),
     });
   }

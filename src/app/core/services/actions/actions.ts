@@ -1,13 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '@envs/environment';
 import { Observable } from 'rxjs';
+import { environment } from '@envs/environment';
 import { ApiResponse } from '@models/api-response';
 import { Action, ActionCreate, ActionPatch } from '@models/actions';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class ActionService {
   private readonly _http = inject(HttpClient);
   private readonly _apiUrl = `${environment.apiUrl}/api/actions`;
