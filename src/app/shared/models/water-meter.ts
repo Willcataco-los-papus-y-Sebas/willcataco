@@ -1,4 +1,4 @@
 export interface WaterMeter {
-  id: number,
-  reading: number
+  id: number;
+  reading: number;
 }

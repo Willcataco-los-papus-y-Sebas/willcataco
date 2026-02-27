@@ -10,7 +10,7 @@ import { WaterMeter } from '@models/water-meter';
 const MOCK_WATER_METERS: WaterMeter[] = [
   {
     id: 1,
-    reading: 1268
+    reading: 1268,
   },
   /**
   {
@@ -92,27 +92,26 @@ export class Home implements OnInit {
   }
 
   navigateTo(route: string): void {
-    if(route === '/water-payment'){
+    if (route === '/water-payment') {
       this.handleRoutesWater();
     }
     this.router.navigate([route]);
   }
 
-  private handleRoutesWater(){
+  private handleRoutesWater() {
     const meters = this.waterMeters();
 
     if (meters.length === 0) {
-      this.toast.show("warning", 'Usted no tiene medidores registrados');
+      this.toast.show('warning', 'Usted no tiene medidores registrados');
       return;
     }
 
     if (meters.length === 1) {
       this.router.navigate(['/water-payment'], {
-        queryParams: { meterId: meters[0].id }
+        queryParams: { meterId: meters[0].id },
       });
     } else {
       this.router.navigate(['/water-meters']);
     }
   }
-  
 }

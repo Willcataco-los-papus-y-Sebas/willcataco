@@ -77,13 +77,13 @@ export const routes: Routes = [
     path: 'water-meters',
     component: MainLayout,
     canActivate: [authGuard, scopeGuard],
-    data: { scope: 'member'},
+    data: { scope: 'member' },
     children: [
       {
         path: '',
         component: MemberWaterMeters,
-      }
-    ]
+      },
+    ],
   },
   {
     path: 'water-payment',

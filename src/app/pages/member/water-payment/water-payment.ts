@@ -150,8 +150,6 @@ export class MemberWaterPayment implements OnInit {
     });
   }
 
-  
-
   selectBill(bill: WaterBill): void {
     if (bill.status === 'UNPAID') {
       this.selectedBill.set(bill);
