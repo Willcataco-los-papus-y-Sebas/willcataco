@@ -19,6 +19,7 @@ import { NewMembers } from '@pages/admin/new-members/new-members';
 import { Members } from '@pages/admin/members';
 import { MemberWaterPayment } from '@pages/member/water-payment';
 import { MemberExtraPayments } from '@pages/member/extra-payments';
+import { MemberWaterMeters } from '@pages/member/water-meters/water-meters';
 
 export const routes: Routes = [
   {
@@ -69,6 +70,18 @@ export const routes: Routes = [
       {
         path: '',
         component: Home,
+      },
+    ],
+  },
+  {
+    path: 'water-meters',
+    component: MainLayout,
+    canActivate: [authGuard, scopeGuard],
+    data: { scope: 'member' },
+    children: [
+      {
+        path: '',
+        component: MemberWaterMeters,
       },
     ],
   },
