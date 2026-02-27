@@ -13,6 +13,7 @@ export interface PendingPayment {
   amount: number;
   dueDate: string;
   type: PaymentType;
+  waterMeterId?: number;
 }
 
 export interface WaterBill {
@@ -24,6 +25,7 @@ export interface WaterBill {
   consumption: number;
   status: PaymentStatus;
   dueDate: string;
+  waterMeterBill?: number;
 }
 
 export interface MemberExtraPaymentItem {
