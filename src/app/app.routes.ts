@@ -19,6 +19,7 @@ import { NewMembers } from '@pages/admin/new-members/new-members';
 import { Members } from '@pages/admin/members';
 import { MemberWaterPayment } from '@pages/member/water-payment';
 import { MemberExtraPayments } from '@pages/member/extra-payments';
+import { SettingsComponent } from '@pages/admin/settings';
 
 export const routes: Routes = [
   {
@@ -108,6 +109,20 @@ export const routes: Routes = [
       },
     ],
   },
+
+  {
+    path: 'ajustes',
+    component: MainLayout,
+    canActivate: [authGuard, scopeGuard, roleGuard],
+    data: { scope: 'internal', roles: ['admin'] },
+    children: [
+      {
+        path: '',
+        component: SettingsComponent,
+      },
+    ],
+  },
+
   {
     path: 'actions',
     canActivate: [authGuard, scopeGuard, roleGuard],
