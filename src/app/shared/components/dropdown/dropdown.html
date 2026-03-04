@@ -44,9 +44,9 @@
   </ng-template>
 
   @if (isMobile()) { @if (isActive) {
-    <app-modal [isOpen]="true" title="Seleccionar un mes" (modalClose)="toggle()">
-      <ng-container *ngTemplateOutlet="itemsList"></ng-container>
-    </app-modal>
+  <app-modal [isOpen]="true" title="Seleccionar un mes" (modalClose)="toggle()">
+    <ng-container *ngTemplateOutlet="itemsList"></ng-container>
+  </app-modal>
   } } @else { @if (isActive) {
   <div
     class="absolute bg-background dark:bg-secondaryBackground-dark border-x border-b border-primary dark:border-primary-dark rounded-b-xl overflow-hidden shadow-lg w-full z-10">
