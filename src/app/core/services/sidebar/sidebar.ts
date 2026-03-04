@@ -42,6 +42,7 @@ const STAFF_ITEMS: SidebarItem[] = [
 
 const ADMIN_ONLY_ITEMS: SidebarItem[] = [
   { label: 'Usuarios', icon: 'key', route: '/users', scope: 'internal', roles: ['admin'] },
+  { label: 'Ajustes', icon: 'cog', route: '/ajustes', scope: 'internal', roles: ['admin'] }
 ];
 
 @Injectable({ providedIn: 'root' })
