@@ -1,21 +1,23 @@
 <div class="dropdown relative">
-  @if(isActive) {
   <header
-    class="flex justify-between items-center bg-primary dark:bg-primary-dark text-background dark:text-background p-3 rounded-t-xl cursor-pointer relative"
+    class="flex justify-between items-center bg-primary dark:bg-primary-dark text-background dark:text-background p-3 rounded-t-xl cursor-pointer"
+    [class.rounded-xl]="!isActive"
     role="button"
     tabindex="0"
     (click)="toggle()"
     (keydown.enter)="toggle()">
     <h1 class="text-subtitle">{{dropTitle}}</h1>
-    <svg class="h-[32px] w-[32px]" viewBox="0 0 16 16" fill="currentColor">
+
+    @if (!isMobile()) {
+    <svg class="h-[20px] w-[20px]" viewBox="0 0 16 16" fill="currentColor">
       <path
         fill-rule="evenodd"
-        d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z" />
+        [attr.d]="isActive ? 'M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z' : 'M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708'" />
     </svg>
+    }
   </header>
 
-  <div
-    class="absolute bg-background dark:bg-secondaryBackground-dark border-x border-b border-primary dark:border-primary-dark rounded-b-xl overflow-hidden shadow-lg w-full">
+  <ng-template #itemsList>
     @for (item of items; track $index; let i = $index) {
     <div
       class="relative flex items-center w-full py-[16px] px-[12px] cursor-pointer"
@@ -39,20 +41,16 @@
       </span>
     </div>
     }
+  </ng-template>
+
+  @if (isMobile()) { @if (isActive) {
+  <app-modal [isOpen]="true" title="Seleccionar un mes" (modalClose)="toggle()">
+    <ng-container *ngTemplateOutlet="itemsList"></ng-container>
+  </app-modal>
+  } } @else { @if (isActive) {
+  <div
+    class="absolute bg-background dark:bg-secondaryBackground-dark border-x border-b border-primary dark:border-primary-dark rounded-b-xl overflow-hidden shadow-lg w-full z-10">
+    <ng-container *ngTemplateOutlet="itemsList"></ng-container>
   </div>
-  } @else {
-  <header
-    class="flex justify-between items-center bg-primary dark:bg-primary-dark text-background dark:text-background p-3 rounded-t-xl cursor-pointer"
-    role="button"
-    tabindex="0"
-    (click)="toggle()"
-    (keydown.enter)="toggle()">
-    <h1 class="text-subtitle">{{dropTitle}}</h1>
-    <svg class="h-[32px] w-[32px]" viewBox="0 0 16 16" fill="currentColor">
-      <path
-        fill-rule="evenodd"
-        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-    </svg>
-  </header>
-  }
+  } }
 </div>
