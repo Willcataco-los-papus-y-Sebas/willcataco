@@ -1,7 +1,7 @@
 <div class="dropdown relative">
   @if(isActive) {
   <header
-    class="flex justify-between items-center bg-primary dark:bg-primary-dark text-background dark:text-background p-3 rounded-t-xl cursor-pointer relative"
+    class="flex justify-between items-center p-3 rounded-t-xl cursor-pointer relative border border-primary dark:border-primary-dark border-b-transparent bg-background dark:bg-secondaryBackground-dark text-primary dark:text-primary-dark"
     role="button"
     tabindex="0"
     (click)="toggle()"
@@ -42,7 +42,7 @@
   </div>
   } @else {
   <header
-    class="flex justify-between items-center bg-primary dark:bg-primary-dark text-background dark:text-background p-3 rounded-t-xl cursor-pointer"
+    class="flex justify-between items-center p-3 rounded-xl cursor-pointer border border-primary dark:border-primary-dark bg-background dark:bg-background-dark text-primary dark:text-primary-dark"
     role="button"
     tabindex="0"
     (click)="toggle()"
