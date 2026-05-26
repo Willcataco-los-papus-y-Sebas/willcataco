@@ -2,12 +2,27 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
 
+## Install dependencies
+
+If you don't have pnpm yet, enable it via Corepack:
+
+```bash
+corepack enable
+corepack prepare pnpm@11.0.0 --activate
+```
+
+Install dependencies with pnpm:
+
+```bash
+pnpm install
+```
+
 ## Development server
 
 To start a local development server, run:
 
 ```bash
-ng serve
+pnpm start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
@@ -17,13 +32,13 @@ Once the server is running, open your browser and navigate to `http://localhost:
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
 ```bash
-ng generate component component-name
+pnpm ng generate component component-name
 ```
 
 For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
 ```bash
-ng generate --help
+pnpm ng generate --help
 ```
 
 ## Building
@@ -31,7 +46,7 @@ ng generate --help
 To build the project run:
 
 ```bash
-ng build
+pnpm build
 ```
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
@@ -41,7 +56,7 @@ This will compile your project and store the build artifacts in the `dist/` dire
 To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
 
 ```bash
-ng test
+pnpm test
 ```
 
 ## Linting and formatting
@@ -49,13 +64,13 @@ ng test
 Run ESLint to check code quality:
 
 ```bash
-npm run lint
+pnpm lint
 ```
 
 Format the codebase with Prettier:
 
 ```bash
-npm run format
+pnpm format
 ```
 
 ## Environment configuration
@@ -69,7 +84,7 @@ Environment files live under [src/environments](src/environments). The Angular b
 Example for a local dev run:
 
 ```bash
-ng serve --configuration dev
+pnpm ng serve --configuration dev
 ```
 
 ### .env files
@@ -108,7 +123,7 @@ Rebuild if you change `NG_ENV` or dependencies.
 For end-to-end (e2e) testing, run:
 
 ```bash
-ng e2e
+pnpm ng e2e
 ```
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
