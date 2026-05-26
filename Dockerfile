@@ -5,12 +5,14 @@ ARG NG_ENV=production
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci
+RUN npm install -g pnpm
+
+COPY pnpm-*.yaml ./
+RUN pnpm ci
 
 COPY . .
 
-RUN npm run build -- --configuration=$NG_ENV
+RUN pnpm build --configuration=$NG_ENV
 
 # Stage 2: Nginx
 FROM nginx:alpine
